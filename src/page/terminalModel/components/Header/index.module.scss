@@ -1,0 +1,270 @@
+.header_all_div {
+    width: 100vw;
+    height: 40px;
+    background-color: #1c1d1e;
+    padding: 0 8px;
+    display: flex;
+    align-items: center;
+    .header_left_div {
+        flex: 1;
+        display: flex;
+        text-align: left;
+        min-height: 25;
+        .menu-close {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #f96057;
+            cursor: pointer;
+        }
+        .menu-min {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #f8ce52;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+        .menu-big {
+            width: 15px;
+            margin-left: 8px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #5ccf65;
+            cursor: pointer;
+        }
+    }
+    .header_center_div {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        .center_left_btn_div {
+            width: 20%;
+        }
+        .center_center_title_div {
+            flex: 1;
+            font-size: 16px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .center_right_btn_div {
+            width: 20px;
+        }
+    }
+    .right_move_div {
+        flex: 1;
+        background-color: #ccc;
+        margin-right: 20px;
+        opacity: 0.5;
+        cursor: all-scroll;
+        -webkit-app-region: drag;
+        min-width: 100px;
+        height: 24px;
+    }
+    .header_right_div {
+        flex: 1;
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .basics_card_div {
+        width: 40px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #282a2e;
+        margin: 0 4px;
+        transition: all .5s;
+        cursor: pointer;
+        &:hover {
+            transition: all .5s;
+            background-color: #2b5b9d;
+        }
+        svg {
+            path {
+                fill: #fff;
+            }
+        }
+    }
+    .selected_card_div {
+        transition: all .5s;
+        background-color: #2b5b9d;
+    }
+}
+
+:global {
+    .react-grid-layout {
+        position: relative;
+        transition: height 200ms ease;
+    }
+    .react-grid-item {
+        transition: all 200ms ease;
+        transition-property: left, top;
+    }
+    .react-grid-item img {
+        pointer-events: none;
+        user-select: none;
+    }
+    .react-grid-item.cssTransforms {
+        transition-property: transform;
+    }
+    .react-grid-item.resizing {
+        z-index: 1;
+        will-change: width, height;
+    }
+    .react-grid-item.react-draggable-dragging {
+        transition: none;
+        z-index: 3;
+        will-change: transform;
+    }
+    .react-grid-item.dropping {
+        visibility: hidden;
+    }
+    .react-grid-item.react-grid-placeholder {
+        background: red;
+        opacity: 0.2;
+        transition-duration: 100ms;
+        z-index: 2;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+    }
+    .react-grid-item>.react-resizable-handle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+    }
+    .react-grid-item>.react-resizable-handle::after {
+        content: "";
+        position: absolute;
+        right: 3px;
+        bottom: 3px;
+        width: 10px;
+        height: 10px;
+        z-index: 120;
+        border-right: 2px solid rgba(255, 255, 255, 0.4);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    }
+    .react-resizable-hide>.react-resizable-handle {
+        display: none;
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-sw {
+        bottom: 0;
+        left: 0;
+        cursor: sw-resize;
+        transform: rotate(90deg);
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-se {
+        bottom: 0;
+        right: 0;
+        cursor: se-resize;
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-nw {
+        top: 0;
+        left: 0;
+        cursor: nw-resize;
+        transform: rotate(180deg);
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-ne {
+        top: 0;
+        right: 0;
+        cursor: ne-resize;
+        transform: rotate(270deg);
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-w,
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-e {
+        top: 50%;
+        margin-top: -10px;
+        cursor: ew-resize;
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-w {
+        left: 0;
+        transform: rotate(135deg);
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-e {
+        right: 0;
+        transform: rotate(315deg);
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-n,
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-s {
+        left: 50%;
+        margin-left: -10px;
+        cursor: ns-resize;
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-n {
+        top: 0;
+        transform: rotate(225deg);
+    }
+    .react-grid-item>.react-resizable-handle.react-resizable-handle-s {
+        bottom: 0;
+        transform: rotate(45deg);
+    }
+    .react-resizable {
+        position: relative;
+    }
+    .react-resizable-handle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        background-origin: content-box;
+        box-sizing: border-box;
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDYiIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiNmZmZmZmYwMCIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iNnB4Ij48ZyBvcGFjaXR5PSIwLjMwMiI+PHBhdGggZD0iTSA2IDYgTCAwIDYgTCAwIDQuMiBMIDQgNC4yIEwgNC4yIDQuMiBMIDQuMiAwIEwgNiAwIEwgNiA2IEwgNiA2IFoiIGZpbGw9IiMwMDAwMDAiLz48L2c+PC9zdmc+');
+        background-position: bottom right;
+        padding: 0 3px 3px 0;
+    }
+    .react-resizable-handle-sw {
+        bottom: 0;
+        left: 0;
+        cursor: sw-resize;
+        transform: rotate(90deg);
+    }
+    .react-resizable-handle-se {
+        bottom: 0;
+        right: 0;
+        cursor: se-resize;
+    }
+    .react-resizable-handle-nw {
+        top: 0;
+        left: 0;
+        cursor: nw-resize;
+        transform: rotate(180deg);
+    }
+    .react-resizable-handle-ne {
+        top: 0;
+        right: 0;
+        cursor: ne-resize;
+        transform: rotate(270deg);
+    }
+    .react-resizable-handle-w,
+    .react-resizable-handle-e {
+        top: 50%;
+        margin-top: -10px;
+        cursor: ew-resize;
+    }
+    .react-resizable-handle-w {
+        left: 0;
+        transform: rotate(135deg);
+    }
+    .react-resizable-handle-e {
+        right: 0;
+        transform: rotate(315deg);
+    }
+    .react-resizable-handle-n,
+    .react-resizable-handle-s {
+        left: 50%;
+        margin-left: -10px;
+        cursor: ns-resize;
+    }
+    .react-resizable-handle-n {
+        top: 0;
+        transform: rotate(225deg);
+    }
+    .react-resizable-handle-s {
+        bottom: 0;
+        transform: rotate(45deg);
+    }
+}

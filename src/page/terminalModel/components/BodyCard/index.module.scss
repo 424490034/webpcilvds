@@ -1,0 +1,41 @@
+@import '../../index.module.scss';
+.body_div {
+    width: 100%;
+    height: 100%;
+    background: url('../../../../assets/dynamic_bgc.png') repeat;
+    padding: 12px;
+    overflow: hidden;
+    overflow-y: auto;
+    padding-bottom: 50px;
+    .row_div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+        margin: 0 !important;
+    }
+    .sys_body_div {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            width: 8px;
+            /*高宽分别对应横竖滚动条的尺寸*/
+            height: 1px;
+        }
+        &::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius: 10px;
+            background-color: $color-C5D;
+            background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+        }
+        &::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            background: $color-F28;
+            border-radius: 10px;
+        }
+    }
+}

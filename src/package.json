@@ -1,0 +1,13 @@
+{
+    "name": "web-pci-lvds",
+    "productName": "web-pci-lvds",
+    "version": "0.0.1",
+    "description": "electron-react项目搭建模板",
+    "main": "./main.prod.js",
+    "scripts": {
+        "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
+        "postinstall": "yarn electron-rebuild"
+    },
+    "license": "MIT",
+    "dependencies": {}
+}
