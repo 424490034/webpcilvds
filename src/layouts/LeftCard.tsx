@@ -22,7 +22,7 @@ export default function LeftCard(props: any) {
           <span className={styles.img_span}>
             <img src={Icon} />
           </span>
-          <span className={styles.title_span}>前端项目可视化平台</span>
+          <span className={styles.title_span}>前端可视化平台</span>
         </div>
         <div className={styles.config_div}>
           <span className={styles.close_span}>
