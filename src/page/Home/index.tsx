@@ -1,13 +1,12 @@
 import React from 'react';
-import icon from '../../../assets/icon.svg';
 import { openDesktop } from '../../config/ipc';
 const Hello = () => {
+  console.log('>>>>>>>>>>>>>');
+
   return (
     <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react</h1>
+      <div className="Hello"></div>
+      <h1>electron-react23</h1>
     </div>
   );
 };
