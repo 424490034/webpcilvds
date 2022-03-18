@@ -1,5 +1,5 @@
 import { Menu, Tray, BrowserWindow, dialog, app } from 'electron';
-import { showTerminalWindow, showFormDesignerWindow } from '../window/index';
+import { showTerminalWindow } from '../window/index';
 import path from 'path';
 
 let tray = null;
@@ -98,12 +98,6 @@ export const setTray = (mainWindow: any) => {
           label: '唤醒指令执行窗口',
           click: () => {
             showTerminalWindow();
-          },
-        },
-        {
-          label: '唤醒表单设计窗口',
-          click: () => {
-            showFormDesignerWindow();
           },
         },
       ],

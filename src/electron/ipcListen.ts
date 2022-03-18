@@ -5,18 +5,6 @@ const ipcMain = require('electron').ipcMain;
 const ipcRenderer = require('electron').ipcRenderer;
 // 需要用到的逻辑
 import {
-  create_desktop_window,
-  create_live2d_window,
-  create_live3d_window,
-  closeLive2dWindow,
-  closeLive3dWindow,
-  closeDesktopWindow,
-  sendToDesktopWindow,
-  sendTolive2dWindow,
-  sendTolive3dWindow,
-  create_form_designer_window,
-  closeFormDesignerWindow,
-  sendToFormDesignerWindow,
   create_terminal_window,
   closeTerminalWindow,
   sendToTerminalWindow,
@@ -58,54 +46,6 @@ export function initIpcListen(mainWindow: any) {
   ipcMainHandle('synchronous-message', function (event: any, arg: any) {
     console.log(arg); // prints "ping"
     event.returnValue = 'pong';
-  });
-  // 监听是否需要创建桌面窗口
-  ipcMainHandle('desktop-window', function (event: any) {
-    create_desktop_window(mainWindow);
-  });
-  // 监听是否需要关闭桌面窗口
-  ipcMainHandle('close-desktop', () => {
-    closeDesktopWindow();
-  });
-  // 监听是否需要创建live2d窗口
-  ipcMainHandle('live2d-window', (event: any, src, config?: any) => {
-    create_live2d_window(mainWindow, src, config);
-  });
-  // 监听是否需要删除桌面窗口
-  ipcMainHandle('close-live2d', () => {
-    closeLive2dWindow();
-  });
-  // 监听是否需要创建live3d窗口
-  ipcMainHandle('live3d-window', (event: any, src, config?: any) => {
-    create_live3d_window(mainWindow, src, config);
-  });
-  // 监听是否需要删除桌面窗口
-  ipcMainHandle('close-live3d', () => {
-    closeLive3dWindow();
-  });
-  // 监听是否需要给桌面窗口发送信息
-  ipcMainHandle('send-desktop', (event: any, arg: any) => {
-    sendToDesktopWindow(arg);
-  });
-  // 监听是否需要给live2d窗口发送信息
-  ipcMainHandle('send-live2d', (event: any, arg: any) => {
-    sendTolive2dWindow(arg);
-  });
-  // 监听是否需要给live3d窗口发送信息
-  ipcMainHandle('send-live3d', (event: any, arg: any) => {
-    sendTolive3dWindow(arg);
-  });
-  // 监听是否需要创建表单设计器窗口
-  ipcMainHandle('form-designer-window', (event: any, src, config?: any) => {
-    create_form_designer_window(mainWindow, src, config);
-  });
-  // 监听是否需要销毁表单设计器窗口
-  ipcMainHandle('close-form-designer', () => {
-    closeFormDesignerWindow();
-  });
-  // 监听是否需要给表单设计器发送信息
-  ipcMainHandle('send-form-designer', (event: any, arg: any) => {
-    sendToFormDesignerWindow(arg);
   });
   // 监听是否需要给主窗口指定频段发送信息
   ipcMainHandle('send-tempalte-form', (event: any, arg: any) => {

@@ -240,4 +240,3 @@ export const orderOptions = {
   SetOrderList, // 设置指令数据
 };
 export let Model = _Model;
-export const router = History;

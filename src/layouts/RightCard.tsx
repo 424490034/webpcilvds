@@ -11,7 +11,6 @@ export default function RightCard(props: any) {
     location: { pathname },
     history,
   } = props;
-  console.log(location);
   function toRouter(path: string) {
     router.push(path);
   }
@@ -38,7 +37,7 @@ export default function RightCard(props: any) {
               );
             })}
         </div>
-        <div>{props.children}</div>
+        <div className={styles.content_div}>{props.children}</div>
       </div>
       <div className={styles.bgc_div}>
         <div className={styles.circle_div}></div>

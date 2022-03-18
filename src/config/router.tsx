@@ -18,7 +18,7 @@ export const btnMenus = [
   },
   {
     path: '/menu/web-qt',
-    name: '其他项目',
+    name: '前端工具',
   },
 ];
 export default [

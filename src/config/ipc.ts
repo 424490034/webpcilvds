@@ -28,3 +28,8 @@ export const ipcListener = (
  */
 export const openDesktop = (item: any): Promise<boolean> =>
   ipcRendererInvoke<boolean>('desktop-window', item);
+/**
+ * @function 给主窗口的指定终端窗口频段发送信息
+ */
+ export const sendTerminalMessage = (item: any): Promise<boolean> =>
+ ipcRendererInvoke<boolean>('send-terminal-message', item);

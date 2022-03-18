@@ -129,15 +129,6 @@
      let displays = require('electron').screen.getAllDisplays();
      store.set('displays', displays); // 缓存获得的所有参数
      if (Array.isArray(displays) && displays.length > 0) {
-       // 存在窗口参数时 ,默认选中第一个
-       let l2 = store.get('live2dWindow');
-       if (!l2) {
-         store.set('live2dWindow', displays[0]);
-       }
-       let l2v3 = store.get('live2dv3Window');
-       if (l2v3) {
-         store.set('live2dv3Window', displays[0]);
-       }
        // 窗口创建成功 开启服务器
        // 开启后台服务端程序
        openServe(mainWindow);

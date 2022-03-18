@@ -11,7 +11,7 @@ const main = {
   webPreferences: {
     webSecurity: false,
     enableRemoteModule: true, //打开remote模块
-    devTools: true,
+    // devTools: true,
     nodeIntegration: true,
     nodeIntegrationInWorker: true,
     contextIsolation: false,

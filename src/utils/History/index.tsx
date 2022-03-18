@@ -1,4 +1,5 @@
-function bindError() {
+function bindError(str: any) {
+  console.log(str);
   console.warn('主应用路由绑定错误,请排查!');
 }
 

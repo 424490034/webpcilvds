@@ -4,21 +4,22 @@
  */
 
 html {
-    border-radius: 60px;
-    -webkit-border-radius: 60px;
-    -moz-border-radius: 60px;
-    -ms-border-radius: 60px;
-    -o-border-radius: 60px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+    background-color: #f2f1f600;
 }
 
+html,
 body {
     position: relative;
     color: white;
     height: 100vh;
     font-family: sans-serif;
     overflow-y: hidden;
-    background-color: #f2f1f6;
-    border: 1px solid #e5e5ed;
+    background-color: #f2f1f600;
     border-radius: 40px;
     -webkit-border-radius: 40px;
     -moz-border-radius: 40px;
@@ -27,7 +28,46 @@ body {
 }
 
 #root {
+    border: 1px solid #e5e5ed;
+    background-color: #f2f1f6;
     width: 100%;
     height: 100%;
     padding: 20px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    -ms-border-radius: 40px;
+    -o-border-radius: 40px;
+}
+
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+
+div::-webkit-scrollbar {
+    width: 5px;
+    /*滚动条宽度*/
+    height: 5px;
+    /*滚动条高度*/
+}
+
+
+/*定义滚动条轨道 内阴影+圆角*/
+
+div::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    /*滚动条的背景区域的圆角*/
+    background-color: #fff;
+    /*滚动条的背景颜色*/
+}
+
+
+/*定义滑块 内阴影+圆角*/
+
+div::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    /*滚动条的圆角*/
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: #ccc;
+    /*滚动条的背景颜色*/
 }

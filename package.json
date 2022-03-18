@@ -1,6 +1,6 @@
 {
     "name": "web-pci-lvds",
-    "productName": "ElectronReact",
+    "productName": "WEBPCILVDS",
     "description": "electron-react项目搭建模板",
     "config": {
         "arch": "ia32"
@@ -11,7 +11,7 @@
         "build:renderer": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.renderer.prod.babel.js",
         "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
         "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
-        "package:win": "cd src && dir dist && cd .. &&yarn build && electron-builder build --publish never",
+        "package:win": "cd ./src && dir dist && cd .. &&yarn build && electron-builder build --publish never",
         "package:moc": "rm -rf src/dist && yarn build && electron-builder build --publish never",
         "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
         "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && yarn start:renderer",
@@ -35,8 +35,8 @@
         ]
     },
     "build": {
-        "productName": "ElectronReact",
-        "appId": "org.erb.ElectronReact",
+        "productName": "WEBPCILVDS",
+        "appId": "org.erb.WEBPCILVDS",
         "files": [
             "dist/",
             "node_modules/",
@@ -299,5 +299,10 @@
         "hooks": {
             "pre-commit": "lint-staged"
         }
+    },
+    "author": {
+        "name": "徐立",
+        "email": "424490034@qq.com",
+        "url": ""
     }
 }
