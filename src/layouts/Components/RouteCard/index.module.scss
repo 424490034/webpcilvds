@@ -1,0 +1,179 @@
+.route_div {
+    width: 100%;
+    height: 100%;
+    // overflow: auto;
+    padding-top: 2px;
+}
+
+.checked_div {
+    // transform: scaleY(1);
+    background: #e6f7ff;
+    // transition: all .5s;
+    // -webkit-transition: all .5s;
+    // -moz-transition: all .5s;
+    // -ms-transition: all .5s;
+    // -o-transition: all .5s;
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-right: 3px solid #1890ff;
+        transition: transform .15s cubic-bezier(.215, .61, .355, 1), opacity .15s cubic-bezier(.215, .61, .355, 1);
+        content: "";
+        transform: scaleY(1) !important;
+        opacity: 1;
+        -webkit-transform: scaleY(1) !important;
+        -moz-transform: scaleY(1) !important;
+        -ms-transform: scaleY(1) !important;
+        -o-transform: scaleY(1) !important;
+    }
+    &:hover {
+        &::after {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+    }
+    .subTitle_div {
+        color: #1890ff;
+        transition: color .5s;
+        -webkit-transition: color .5s;
+        -moz-transition: color .5s;
+        -ms-transition: color .5s;
+        -o-transition: color .5s;
+    }
+    .subTitle_icon_div {
+        color: #1890ff;
+        transition: color .5s;
+        -webkit-transition: color .5s;
+        -moz-transition: color .5s;
+        -ms-transition: color .5s;
+        -o-transition: color .5s;
+    }
+}
+
+.basics_div {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    margin-right: 15px;
+    //border: 1px solid #e5e5e5;
+    animation-duration: .2s;
+    display: flex;
+    align-items: center;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -ms-transition: all .5s;
+    -o-transition: all .5s;
+    position: relative;
+    &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        border-right: 3px solid #1890ff;
+        transform: scaleY(.0001);
+        opacity: 1;
+        transition: transform .15s cubic-bezier(.215, .61, .355, 1), opacity .15s cubic-bezier(.215, .61, .355, 1);
+        content: "";
+    }
+    &:hover {
+        &::after {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        transform: scaleY(1);
+        background: #e6f7ff;
+        transition: all .5s;
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        -ms-transition: all .5s;
+        -o-transition: all .5s;
+        .subTitle_div {
+            color: #1890ff;
+            transition: color .5s;
+            -webkit-transition: color .5s;
+            -moz-transition: color .5s;
+            -ms-transition: color .5s;
+            -o-transition: color .5s;
+        }
+        .subTitle_icon_div {
+            color: #1890ff;
+            transition: color .5s;
+            -webkit-transition: color .5s;
+            -moz-transition: color .5s;
+            -ms-transition: color .5s;
+            -o-transition: color .5s;
+        }
+    }
+    .subTitle_div {
+        width: 100%;
+        height: 100%;
+        color: #333333;
+        font-size: 14px;
+        padding-right: 40px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
+        text-align: left;
+        transition: color .5s;
+        -webkit-transition: color .5s;
+        -moz-transition: color .5s;
+        -ms-transition: color .5s;
+        -o-transition: color .5s;
+        display: flex;
+        align-items: center;
+        .subTitle_span {
+            font-size: 32px;
+            margin-right: 8px;
+        }
+    }
+    .subTitle_ani {
+        animation-name: title_show;
+        animation-duration: 1s;
+    }
+    .subTitle_icon_div {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        padding-right: 20px;
+        transition: color .5s;
+        -webkit-transition: color .5s;
+        -moz-transition: color .5s;
+        -ms-transition: color .5s;
+        -o-transition: color .5s;
+    }
+    .subIcon_ani {
+        animation-name: icon_ani;
+        animation-duration: 1s;
+    }
+}
+
+@keyframes title_show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes icon_ani {
+    0% {
+        opacity: 0;
+        position: absolute;
+        right: 205px;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        position: absolute;
+        right: 0px;
+        opacity: 1;
+    }
+}

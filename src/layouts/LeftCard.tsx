@@ -1,20 +1,28 @@
 /**
  * @file 左侧路由卡片
  */
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import styles from './index.module.scss';
 import Icon from 'assets/icon.png';
 import { FormOutlined } from '@ant-design/icons';
+import { routePaths } from 'config/router';
+import RouteCard from './Components/RouteCard';
+import SearchInput from './Components/SearchRoute';
 let win = window.require('electron')?.remote?.getCurrentWindow();
 let app = window.require('electron')?.remote?.app;
 export default function LeftCard(props: any) {
+  const [routesData, setRoutesData] = useState<any[]>(routePaths);
   function minWindow() {
     win.minimize();
   }
   function closeWindow() {
     app.quit();
   }
-
+  let routerProps = useMemo(() => {
+    return {
+      data: routesData,
+    };
+  }, [routesData]);
   return (
     <div className={styles.left_div}>
       <div className={styles.left_header_div}>
@@ -39,9 +47,8 @@ export default function LeftCard(props: any) {
           </span>
         </div>
       </div>
-      <div className={styles.route_div}>
-        {/* <div className={styles.subTitle_div}>快捷路由</div> */}
-      </div>
+      <SearchInput InputChange={setRoutesData} />
+      <RouteCard {...routerProps} />
       <div className={styles.tool_div}>
         <div className={styles.subTitle_div}>
           前端工具库

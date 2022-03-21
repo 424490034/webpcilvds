@@ -30,6 +30,7 @@ function CusRouter(props: IProps) {
                               key={inx}
                               path={data.route}
                               component={data.component}
+                              exact
                             />
                           );
                         });
@@ -39,6 +40,7 @@ function CusRouter(props: IProps) {
                             key={num}
                             path={app.route}
                             component={app.component}
+                            exact
                           />
                         );
                       }
@@ -48,13 +50,19 @@ function CusRouter(props: IProps) {
                         key={item.route}
                         path={item.route}
                         component={item.component}
+                        exact
                       />
                     )}
               </Layouts>
             );
           } else {
             return (
-              <Route key={index} path={item.route} component={item.component} />
+              <Route
+                exact
+                key={index}
+                path={item.route}
+                component={item.component}
+              />
             );
           }
         })}

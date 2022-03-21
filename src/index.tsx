@@ -1,6 +1,7 @@
 import 'antd/dist/antd.css';
 import dva from 'dva';
 import './App.global.css';
+import './assets/css/animate.css';
 const createHistory = require('history').createHashHistory;
 const App = dva({
   history: createHistory(),
