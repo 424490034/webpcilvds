@@ -3,6 +3,10 @@
     height: 100%;
     display: flex;
     .left_div {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
         width: 300px;
         min-width: 300px;
         margin-right: 51px;
@@ -122,31 +126,6 @@
                     color: #3975c6;
                     font-size: 12px;
                     cursor: pointer;
-                }
-            }
-            .tool_list_div {
-                width: 100%;
-                max-height: 115px;
-                overflow: auto;
-                display: flex;
-                flex-wrap: wrap;
-                align-items: flex-start;
-                justify-content: flex-start;
-                .card_div {
-                    width: 30%;
-                    height: 50px;
-                    background-color: #fff;
-                    border-radius: 5px;
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
-                    -ms-border-radius: 5px;
-                    -o-border-radius: 5px;
-                    margin-right: 4%;
-                    margin-bottom: 6px;
-                    cursor: pointer;
-                    &:nth-child(3n) {
-                        margin-right: 0;
-                    }
                 }
             }
         }

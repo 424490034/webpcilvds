@@ -8,6 +8,7 @@ import { FormOutlined } from '@ant-design/icons';
 import { routePaths } from 'config/router';
 import RouteCard from './Components/RouteCard';
 import SearchInput from './Components/SearchRoute';
+import ToolsCard from './Components/ToolsCard';
 let win = window.require('electron')?.remote?.getCurrentWindow();
 let app = window.require('electron')?.remote?.app;
 export default function LeftCard(props: any) {
@@ -56,15 +57,7 @@ export default function LeftCard(props: any) {
             <FormOutlined />
           </span>
         </div>
-        <div className={styles.tool_list_div}>
-          <div className={styles.card_div}></div>
-          <div className={styles.card_div}></div>
-          <div className={styles.card_div}></div>
-          <div className={styles.card_div}></div>
-          <div className={styles.card_div}></div>
-          <div className={styles.card_div}></div>
-          <div className={styles.card_div}></div>
-        </div>
+        <ToolsCard />
       </div>
     </div>
   );
