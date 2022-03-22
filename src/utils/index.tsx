@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { remote } from 'electron';
 import Store from 'electron-store';
 import fs from 'fs';
@@ -255,4 +256,5 @@ export function copyText(text: string) {
   document.getElementById('input_for_copyText').select();
   document.execCommand('copy');
   document.getElementById('input_for_copyText').remove();
+  message.success('复制成功!');
 }
