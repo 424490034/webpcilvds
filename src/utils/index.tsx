@@ -3,6 +3,8 @@ import Store from 'electron-store';
 import fs from 'fs';
 import path from 'path';
 import _Model from './model';
+import getSysInfo from './System';
+export const sysInfo = getSysInfo();
 const _store = new Store();
 export const store = _store;
 /**
@@ -240,3 +242,17 @@ export const orderOptions = {
   SetOrderList, // 设置指令数据
 };
 export let Model = _Model;
+/**
+ * @file 复制到粘贴板
+ */
+export function copyText(text: string) {
+  var input = document.createElement('input');
+
+  input.setAttribute('id', 'input_for_copyText');
+  input.value = text;
+
+  document.getElementsByTagName('body')[0].appendChild(input);
+  document.getElementById('input_for_copyText').select();
+  document.execCommand('copy');
+  document.getElementById('input_for_copyText').remove();
+}

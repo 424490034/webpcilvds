@@ -32,10 +32,10 @@ class ScrollView extends React.Component<any, any> {
     this.state = {
       /* 初始化 Data */ list: [],
     };
-    // this.handerScrolltolower = debounce(
-    //   this.handerScrolltolower,
-    //   200
-    // ); /* 防抖处理 */
+    this.handerScrolltolower = debounce(
+      this.handerScrolltolower,
+      200
+    ); /* 防抖处理 */
   }
   /* 接收props, 合并到state */
   static getDerivedStateFromProps(newProps: any) {
@@ -65,6 +65,7 @@ class ScrollView extends React.Component<any, any> {
   }
   /* 绑定事件监听器 - 监听scorll事件 */
   componentDidMount() {
+    this.node.removeEventListener('scroll', this.handerScroll);
     this.node.addEventListener('scroll', this.handerScroll);
   }
   /* 解绑事件监听器 */

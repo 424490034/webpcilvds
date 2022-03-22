@@ -1,6 +1,6 @@
 .tool_list_div {
     width: 100%;
-    max-height: 250px;
+    max-height: 200px;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
@@ -23,6 +23,7 @@
         display: flex;
         align-items: center;
         flex-direction: column;
+        background: var(--gradient);
         &:nth-child(3n) {
             margin-right: 0;
         }
@@ -31,10 +32,6 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            -o-border-radius: 50%;
             background-image: linear-gradient(135deg, rgb(214, 255, 127), rgb(0, 179, 204));
             color: #fff;
             font-size: 26px;
@@ -42,11 +39,13 @@
             text-align: center;
         }
         &:hover {
+            transition: all 0.5s;
             transform: scale(1.1);
             -webkit-transform: scale(1.1);
             -moz-transform: scale(1.1);
             -ms-transform: scale(1.1);
             -o-transform: scale(1.1);
+            box-shadow: -0.75em -0.75em 2.25em hsl(0, 0%, 100%), 0.75em 0.75em 2.25em hsl(var(--hue), 5%, 65%);
         }
         &:nth-child(5n) {
             .text_bgc_div {

@@ -1,0 +1,275 @@
+.cpu_load_div {
+    margin-top: 40px;
+    width: 100%;
+    min-height: 140px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    .app__gradients {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+    }
+}
+
+.basics_card {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 50;
+    width: 22%;
+    margin-right: 3%;
+    margin-top: 12px;
+    height: 140px;
+    --cpu-hue: 184;
+    --cpu-bg: hsl(var(--hue), 10%, 90%);
+    --cpu-fg: hsl(var(--hue), 66%, 24%);
+    --cpu-primary: hsl(var(--hue), 66%, 44%);
+    --cpu-gradient: linear-gradient(145deg, hsl(var(--hue), 10%, 85%), hsl(var(--hue), 10%, 100%));
+    .main__stat-block {
+        aspect-ratio: 1 / 1;
+        background: var(--cpu-gradient);
+        border-radius: 1.5em;
+        box-shadow: -0.75em -0.75em 2.25em hsl(0, 0%, 100%), 0.75em 0.75em 2.25em hsl(var(--cpu-hue), 5%, 65%);
+        padding: 0.75em;
+        text-align: center;
+        width: 100%;
+    }
+    .main__stat-block--lg {
+        aspect-ratio: 2 / 1;
+        grid-column: 1 / 4;
+        padding: 1.5em;
+    }
+    .main__stat-block--lg .main__stat-graph {
+        margin: auto;
+        width: 11.25em;
+        height: 11.25em;
+    }
+    .main__stat-block--lg .icon {
+        margin: 0 auto;
+        width: 2.25em;
+        height: 2.25em;
+    }
+    .main__stat-block--lg .main__stat-value {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .main__stat-graph--filled,
+    .main__stat-graph--filled .ring-fill {
+        animation-duration: 0.3s;
+        animation-delay: 1s;
+        animation-fill-mode: forwards;
+    }
+    .main__stat-graph--filled {
+        animation-name: statFill;
+        animation-timing-function: linear;
+    }
+    .main__stat-graph--filled .ring-fill {
+        animation-name: ringFill;
+        animation-timing-function: ease-in;
+    }
+    .main__stat-graph {
+        display: flex;
+    }
+    .main__stat-graph {
+        margin: 0 auto 0.75em auto;
+        position: relative;
+        width: 3.75em;
+        height: 3.75em;
+    }
+    .main__stat-graph .main__stat-detail {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        inset: 0;
+    }
+    .main__stat-block--lg .main__stat-graph {
+        margin: auto;
+        width: 11.25em;
+        height: 11.25em;
+    }
+    .main__stat-row .main__stat-graph {
+        background: var(--cpu-gradient);
+        border-radius: 1em;
+        box-shadow: -0.75em -0.75em 2.25em hsl(0, 0%, 100%), 0.75em 0.75em 2.25em hsl(var(--cpu-hue), 5%, 65%);
+        margin: 0 1.5em 0 0;
+    }
+    .ring {
+        display: block;
+        inset: 0;
+        width: 100%;
+        height: auto;
+    }
+    .ring {
+        position: absolute;
+    }
+    .ring-track {
+        stroke: hsl(var(--cpu-hue), 10%, 80%);
+    }
+    .ring-stroke {
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+        stroke: url("#ring");
+    }
+    .ring-stroke--steps {
+        animation-name: stepCount;
+    }
+    .ring-stroke--cals {
+        animation-name: cals;
+    }
+    .ring-stroke--miles {
+        animation-name: miles;
+    }
+    .ring-stroke--mins {
+        animation-name: mins;
+    }
+    .ring-stroke--stepHrs {
+        animation-name: stepHrs;
+    }
+    .icon {
+        fill: var(--cpu-primary);
+    }
+    .icon {
+        display: block;
+        margin: auto;
+        width: 1.5em;
+        height: 1.5em;
+    }
+    .icon circle,
+    .icon path {
+        fill: currentColor;
+        transition: fill 0.15s linear;
+    }
+    .icon ellipse,
+    .icon polygon {
+        stroke: currentColor;
+        transition: stroke 0.15s linear;
+    }
+    .icon .no-fill {
+        fill: none;
+        stroke: currentColor;
+    }
+    .icon--red path {
+        fill: hsl(3, 90%, 55%);
+    }
+    .icon--pulse {
+        animation: bpm 1s linear, pulse 0.75s 1s linear infinite;
+    }
+    .no-fill {
+        fill: none;
+        stroke: currentColor;
+    }
+    .main__stat-value,
+    .main__stat-unit {
+        display: block;
+    }
+    .main__stat-value {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+    .main__stat-block--lg .main__stat-value {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+}
+
+@keyframes statFill {
+    from {
+        color: var(--fg);
+    }
+    to {
+        color: hsl(var(--hue), 66%, 94%);
+    }
+}
+
+@keyframes ringFill {
+    from {
+        r: 82px;
+        stroke-width: 16;
+    }
+    to {
+        r: 45px;
+        stroke-width: 90;
+    }
+}
+
+@keyframes stepCount {
+    from {
+        stroke-dashoffset: 515.22;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes cals {
+    from {
+        stroke-dashoffset: 163.36;
+    }
+    to {
+        stroke-dashoffset: 12.25;
+    }
+}
+
+@keyframes miles {
+    from {
+        stroke-dashoffset: 163.36;
+    }
+    to {
+        stroke-dashoffset: 35.39;
+    }
+}
+
+@keyframes mins {
+    from {
+        stroke-dashoffset: 163.36;
+    }
+    to {
+        stroke-dashoffset: 65.34;
+    }
+}
+
+@keyframes bpm {
+    from {
+        transform: scale(0);
+    }
+    37.5% {
+        transform: scale(1.2);
+    }
+    75%,
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes stepHrs {
+    from {
+        stroke-dashoffset: 131.95;
+    }
+    to {
+        stroke-dashoffset: 52.78;
+    }
+}
+
+@keyframes pulse {
+    from,
+    75%,
+    to {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(0.9);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}

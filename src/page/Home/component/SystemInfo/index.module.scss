@@ -1,0 +1,23 @@
+.name_title_div {
+    min-height: 24px;
+    line-height: 24px;
+    .title_span {
+        color: #e5e5e5;
+        font-size: 14px;
+        font-weight: bold;
+        &::after {
+            content: ":";
+            position: relative;
+            top: -0.5px;
+            margin: 0 8px 0 2px;
+        }
+    }
+    .body_span {
+        color: #fff;
+        font-size: 16px;
+        .sub_body_span {
+            color: #e5e5e5;
+            font-size: 12px;
+        }
+    }
+}

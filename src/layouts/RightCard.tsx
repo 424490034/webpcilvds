@@ -37,7 +37,7 @@ export default function RightCard(props: any) {
               );
             })}
         </div>
-        <div className={styles.content_div}>{props.children}</div>
+        <div className={'content_body'}>{props.children}</div>
       </div>
       <div className={styles.bgc_div}>
         <div className={styles.circle_div}></div>

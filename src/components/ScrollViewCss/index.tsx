@@ -18,7 +18,7 @@ interface IProps {
 /**
  * @file 左侧快捷路由卡片
  */
-class ScrollView extends React.Component<IProps, any> {
+class ScrollViewCss extends React.Component<IProps, any> {
   /* -----自定义事件---- */
   /* 控制滚动条滚动 */
   handerScroll = (e: any) => {
@@ -125,4 +125,4 @@ class ScrollView extends React.Component<IProps, any> {
   }
 }
 
-export default ScrollView;
+export default ScrollViewCss;

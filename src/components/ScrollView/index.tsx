@@ -12,7 +12,10 @@ interface IState {
 /**
  * @file 虚拟列表
  */
-export default class ScrollView extends React.Component<IProps, IState> {
+export default class ScrollViewComponent extends React.Component<
+  IProps,
+  IState
+> {
   /* -----自定义事件---- */
   /* 控制滚动条滚动 */
   handerScroll = (e: any) => {

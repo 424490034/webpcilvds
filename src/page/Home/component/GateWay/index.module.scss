@@ -1,0 +1,61 @@
+.name_title_div {
+    min-height: 24px;
+    line-height: 24px;
+    .title_span {
+        color: #e5e5e5;
+        font-size: 14px;
+        font-weight: bold;
+        &::after {
+            content: ":";
+            position: relative;
+            top: -0.5px;
+            margin: 0 8px 0 2px;
+        }
+    }
+    .body_span {
+        color: #fff;
+        font-size: 16px;
+        .sub_body_span {
+            color: #e5e5e5;
+            font-size: 12px;
+        }
+    }
+}
+
+.gateWay_card_div {
+    .auto_scroll_div {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    margin-top: 30px;
+    z-index: 50;
+    width: 100%;
+    height: 220px;
+    border-radius: 15px;
+    background: linear-gradient(180deg, #ff84a2, #fca2a4);
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    position: relative;
+    margin-bottom: 12px;
+    animation-duration: .5s;
+    padding: 12px 10% 12px 12px;
+    &::before {
+        // border-top-right-radius: 15px;
+        // border-bottom-right-radius: 15px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        content: "网关信息";
+        color: #fff;
+        width: 10%;
+        height: 100%;
+        font-size: 24px;
+        padding-left: 12px;
+        background: linear-gradient(180deg, #402a36, #6b4f5e);
+    }
+}
