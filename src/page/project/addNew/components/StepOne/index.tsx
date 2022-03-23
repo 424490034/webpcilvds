@@ -1,7 +1,12 @@
 /**
  * @file 仓库地址获取和拉取
  */
-import React, { useImperativeHandle, forwardRef, useState } from 'react';
+import React, {
+  useImperativeHandle,
+  forwardRef,
+  useState,
+  useEffect,
+} from 'react';
 import BodyBgc from '../bodyBgc';
 import styles from '../index.module.scss';
 import { Button, Input, message } from 'antd';
@@ -10,8 +15,19 @@ import { SeletePath } from 'components';
 import iconImg from 'assets/kl.ico';
 import { globalMessage } from 'utils';
 import { executeOrder } from 'utils/xlOrder';
+import OutPutOrder from 'utils/orderOutPut';
+let outputOrder: any = undefined;
 function index(props: any, ref: any) {
   const { setCurrent } = props;
+  useEffect(() => {
+    outputOrder = new OutPutOrder({
+      selete: '#gitResult',
+      callback: orderCallback,
+    });
+    return () => {
+      outputOrder = undefined;
+    };
+  }, []);
   useImperativeHandle(ref, () => ({
     register,
   }));
@@ -19,6 +35,11 @@ function index(props: any, ref: any) {
   const [status, setStatus] = useState('init');
   const [gitValue, setGitValue] = useState(undefined);
   const [pathValue, setPathValue] = useState(undefined);
+  function orderCallback(isError: boolean) {
+    if (!isError) {
+      setCurrent(1);
+    }
+  }
   function cloneGit() {
     if (gitValue && pathValue) {
       setStatus('load');
@@ -31,7 +52,7 @@ function index(props: any, ref: any) {
     setStatus('init');
     setPathValue(undefined);
     setGitValue(undefined);
-    clearOut();
+    outputOrder?.clearOut();
   }
   function inputChange(e: any) {
     setGitValue(e.target.value);
@@ -44,82 +65,14 @@ function index(props: any, ref: any) {
    * @function 运行配置指令
    */
   function runOrder() {
-    executeOrder('仓库拉取', `git clone ${gitValue}`, outputStr, pathValue);
+    executeOrder(
+      '仓库拉取',
+      `git clone ${gitValue}`,
+      outputOrder.outputStr,
+      pathValue
+    );
   }
-  function toMessage(code: string) {
-    if (code) {
-      if (code.indexOf('子进程退出') !== -1) {
-        if (code.indexOf('运行成功')) {
-          globalMessage('仓库拉取执行成功', code, iconImg, () => {});
-          setCurrent(1);
-        } else {
-          globalMessage('仓库拉取执行失败', code, iconImg, () => {});
-        }
-      }
-    }
-  }
-  /**
-   * @function 指令执行回调
-   * @param data 指令执行时每次的回调数据
-   * @param child
-   */
-  function outputStr(data: any, child: any, isClose: boolean = false) {
-    if (isClose) {
-      addStr(data);
-      toMessage(data);
-    } else {
-      // 默认更新
-      addStr('\n' + data);
-    }
-  }
-  function addStr(dataStr: string) {
-    if (dataStr.toLocaleUpperCase().indexOf('WARNING') !== -1) {
-      updateOut({
-        isWarning: true,
-        isError: false,
-        str: dataStr,
-      });
-    } else if (dataStr.toLocaleUpperCase().indexOf('ERROR') !== -1) {
-      updateOut({
-        isWarning: false,
-        isError: true,
-        str: dataStr,
-      });
-    } else {
-      updateOut({
-        isWarning: false,
-        isError: false,
-        str: dataStr,
-      });
-    }
-  }
-  function clearOut() {
-    let divDom: any = document.querySelector(`#gitResult`);
-    divDom.innerHTML = undefined;
-  }
-  function updateOut(data: any) {
-    let divDom: any = document.querySelector(`#gitResult`);
-    if (!divDom) {
-      return;
-    }
-    const { isWarning, isError, str } = data;
-    let bodyClass = 'terminal_right_body';
-    if (isWarning) {
-      bodyClass = 'terminal_right_body_warring';
-    } else if (isError) {
-      bodyClass = 'terminal_right_body_error';
-    }
-    let spanDom = `
-          <div class="${bodyClass}"><pre>${str}</pre></div>
-          </div>
-        `;
-    // 基础div拼装
-    var div = document.createElement('div');
-    div.innerHTML = spanDom;
-    div.className = 'terminal_basics_div';
-    divDom?.appendChild(div);
-    divDom.scrollTop = divDom?.scrollHeight;
-  }
+
   return (
     <BodyBgc width={'80%'}>
       <div className={styles.steps_one_div}>
