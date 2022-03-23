@@ -11,6 +11,7 @@ import iconImg from 'assets/kl.ico';
 import { globalMessage } from 'utils';
 import { executeOrder } from 'utils/xlOrder';
 function index(props: any, ref: any) {
+  const { setCurrent } = props;
   useImperativeHandle(ref, () => ({
     register,
   }));
@@ -50,6 +51,7 @@ function index(props: any, ref: any) {
       if (code.indexOf('子进程退出') !== -1) {
         if (code.indexOf('运行成功')) {
           globalMessage('仓库拉取执行成功', code, iconImg, () => {});
+          setCurrent(1);
         } else {
           globalMessage('仓库拉取执行失败', code, iconImg, () => {});
         }
@@ -63,8 +65,8 @@ function index(props: any, ref: any) {
    */
   function outputStr(data: any, child: any, isClose: boolean = false) {
     if (isClose) {
-      toMessage(data);
       addStr(data);
+      toMessage(data);
     } else {
       // 默认更新
       addStr('\n' + data);
@@ -97,6 +99,9 @@ function index(props: any, ref: any) {
   }
   function updateOut(data: any) {
     let divDom: any = document.querySelector(`#gitResult`);
+    if (!divDom) {
+      return;
+    }
     const { isWarning, isError, str } = data;
     let bodyClass = 'terminal_right_body';
     if (isWarning) {
@@ -112,8 +117,8 @@ function index(props: any, ref: any) {
     var div = document.createElement('div');
     div.innerHTML = spanDom;
     div.className = 'terminal_basics_div';
-    divDom.appendChild(div);
-    divDom.scrollTop = divDom.scrollHeight;
+    divDom?.appendChild(div);
+    divDom.scrollTop = divDom?.scrollHeight;
   }
   return (
     <BodyBgc width={'80%'}>

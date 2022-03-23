@@ -4,8 +4,6 @@ import Store from 'electron-store';
 import fs from 'fs';
 import path from 'path';
 import _Model from './model';
-import getSysInfo from './System';
-export const sysInfo = getSysInfo();
 const _store = new Store();
 export const store = _store;
 /**

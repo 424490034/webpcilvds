@@ -40,7 +40,7 @@ function index(props: any) {
               current={current}
               setCurrent={setCurrent}
             />
-            {current == 0 && <StepOne ref={stepsOne} />}
+            {current == 0 && <StepOne setCurrent={setCurrent} ref={stepsOne} />}
           </div>
         </HeaderCard>
       </FloatCard>

@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import moment from 'moment'
-import { Model, sysInfo } from 'utils'
+import { Model } from 'utils'
 import getSysInfo from 'utils/System';
 import pageConfig from '../config/pageConfig';
 const {namespace,listenRouter,} = pageConfig
 const initState = {
-    sysInfo
+    sysInfo:getSysInfo()
 }
 
 export default Model.extend({

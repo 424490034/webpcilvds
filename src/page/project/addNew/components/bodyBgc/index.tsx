@@ -11,7 +11,7 @@ export default function index(props: any) {
   let floatProps = useMemo(() => {
     return {
       isVisualShow: false,
-      aniOutCss: 'animate__bounce',
+      aniOutCss: 'animate__zoomIn',
       style: {
         width,
         margin: '0 auto',
@@ -24,7 +24,7 @@ export default function index(props: any) {
         className={classNames(
           styles.bodyBgc_div,
           'animate__animated',
-          'animate__bounce'
+          'animate__zoomIn'
         )}
       >
         {children}
