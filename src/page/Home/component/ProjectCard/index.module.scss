@@ -1,0 +1,55 @@
+.project_div {
+    position: relative;
+    z-index: 50;
+    width: 100%;
+    min-height: 200px;
+    background-color: rgba(255, 255, 255, 0.233);
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    margin-top: 50px;
+    padding: 12px;
+    --project-gradient: linear-gradient(145deg, hsl(var(--hue), 10%, 85%), hsl(var(--hue), 10%, 100%));
+    .header_title {
+        height: 50px;
+        border-bottom: 1px solid #e7e7e9;
+        color: #271629;
+        font-weight: bold;
+        font-size: 26px;
+    }
+    .body_card_div {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.basics_div {
+    cursor: pointer;
+    width: 22%;
+    height: 150px;
+    margin-right: 3%;
+    aspect-ratio: 1 / 1;
+    background: var(--project-gradient);
+    border-radius: 1.5em;
+    box-shadow: -5px -5px 10px hsl(0, 0%, 100%), 5px 5px 10px hsl(184, 5%, 65%);
+    text-align: center;
+    .basics_body_div {
+        margin: auto;
+        width: 100%;
+        height: 100%;
+        .add_icon_div {
+            width: 100%;
+            // height: 50px;
+            font-size: 65px;
+            color: rgb(52, 152, 219);
+        }
+        .text_div {
+            font-size: 16px;
+            color: #333333;
+            font-weight: bold;
+        }
+    }
+}

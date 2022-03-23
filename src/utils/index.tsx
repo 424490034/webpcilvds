@@ -258,3 +258,39 @@ export function copyText(text: string) {
   document.getElementById('input_for_copyText').remove();
   message.success('复制成功!');
 }
+/**
+ * @function 全局消息通知
+ * @param title 全局消息标题
+ * @param body 全局消息内容
+ * @param icon 图标
+ * @param callback 回调函数
+ * @param href 跳转地址
+ */
+export function globalMessage(
+  title: string,
+  body: string,
+  icon: string,
+  callback?: any,
+  href?: string
+) {
+  let option = {
+    title, // 通知标题
+    body, // 内容
+    icon, // 图标
+    href, // 地址
+  };
+
+  // 创建通知并保存
+  let hhwNotication = new window.Notification(option.title, option);
+
+  // 当通知被点击时
+  hhwNotication.onclick = function () {
+    // TODO something...
+    if (callback) {
+      callback();
+    } else {
+      const win = remote.getCurrentWindow();
+      win?.show();
+    }
+  };
+}

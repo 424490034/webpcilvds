@@ -1,0 +1,132 @@
+.steps_one_div {
+    width: 100%;
+    margin: 0 auto;
+    height: 500px;
+    .address_div {
+        position: relative;
+        top: 100px;
+        width: 80%;
+        left: 10%;
+        height: 200px;
+        // background-color: rgba(255, 255, 255, 0.5);
+        padding: 12px;
+        transition: all .5s;
+        .git_result_div {
+            width: 100%;
+            transition: all .5s;
+            height: 0px;
+            opacity: 0;
+            border-radius: 15px;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            -ms-border-radius: 15px;
+            -o-border-radius: 15px;
+            padding: 12px;
+        }
+        .title_div {
+            color: #fff;
+            font-size: 12px;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+        .input_div {
+            width: 100%;
+            height: 50px;
+            margin: 8px 0;
+        }
+        .btn_div {
+            width: 100%;
+            height: 30px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .address_load_div {
+        position: relative;
+        top: 0px;
+        width: 80%;
+        left: 10%;
+        height: 500px;
+        // background-color: rgba(255, 255, 255, 0.5);
+        padding: 12px;
+        transition: all .5s;
+        .git_result_div {
+            background: url('../../../../assets/dynamic_bgc.png') repeat;
+            width: 100%;
+            transition: all .5s;
+            height: 260px;
+            opacity: 1;
+            border-radius: 15px;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            -ms-border-radius: 15px;
+            -o-border-radius: 15px;
+            padding: 12px;
+            .result_title_div {
+                color: #fff;
+                font-size: 18px;
+                height: 28px;
+                &::after {
+                    content: ":";
+                    position: relative;
+                    top: -0.5px;
+                    margin: 0 8px 0 2px;
+                }
+            }
+            .result_body_div {
+                overflow-x: hidden;
+                overflow-y: auto;
+                height: 208px;
+            }
+        }
+        .title_div {
+            color: #fff;
+            font-size: 12px;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+        .input_div {
+            width: 100%;
+            height: 50px;
+            margin: 8px 0;
+        }
+        .btn_div {
+            width: 100%;
+            height: 30px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.bodyBgc_div {
+    position: relative;
+    border-radius: 15px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=") #28282d;
+    &::after {
+        background: url('../../../../assets/terminal/2.png');
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        z-index: 15;
+        top: 0;
+        right: -2px;
+        width: 100%;
+        height: calc(100% - 40px);
+        background-position: 100% 100%;
+        background-repeat: no-repeat;
+        opacity: 1;
+    }
+}

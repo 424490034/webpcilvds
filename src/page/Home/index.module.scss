@@ -56,6 +56,7 @@
             height: 360px;
             position: relative;
             .web_pc_div {
+                z-index: 50;
                 width: 180px;
                 height: 180px;
                 border-radius: 205px;
@@ -109,6 +110,7 @@
                 }
             }
             .mobile_pc_div {
+                z-index: 50;
                 width: 150px;
                 height: 150px;
                 border-radius: 205px;
@@ -162,6 +164,7 @@
                 }
             }
             .serve_pc_div {
+                z-index: 50;
                 width: 165px;
                 height: 165px;
                 border-radius: 205px;
@@ -216,6 +219,7 @@
             }
             .more_pc_div {
                 width: 80px;
+                z-index: 50;
                 height: 80px;
                 border-radius: 205px;
                 background: linear-gradient(145deg, #34bcc6, #23949d);

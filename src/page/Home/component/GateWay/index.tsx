@@ -25,8 +25,8 @@ export default function index(props: any) {
           ? gateKeys.map((item: string, index: number) => {
               let data = sysInfo.networks[item];
               return (
-                <>
-                  <div key={index} className={styles.name_title_div}>
+                <div key={index}>
+                  <div className={styles.name_title_div}>
                     <span className={styles.title_span} title="网关名">
                       网关名
                     </span>
@@ -112,7 +112,7 @@ export default function index(props: any) {
                         );
                       })}
                   </div>
-                </>
+                </div>
               );
             })
           : null}

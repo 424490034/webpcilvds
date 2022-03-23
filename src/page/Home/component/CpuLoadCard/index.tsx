@@ -23,8 +23,8 @@ export default function index(props: IProps) {
       <svg className={styles['app__gradients']}>
         <defs>
           <linearGradient id="ring" x1="1" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="hsl(184,66%,54%)" />
-            <stop offset="100%" stop-color="hsl(184,66%,34%)" />
+            <stop offset="0%" stopColor="hsl(184,66%,54%)" />
+            <stop offset="100%" stopColor="hsl(184,66%,34%)" />
           </linearGradient>
         </defs>
       </svg>

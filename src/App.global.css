@@ -122,11 +122,16 @@ div::-webkit-scrollbar-thumb {
 }
 
 .card_shadox {
-    position: relative;
     margin: 0 10px;
     border-radius: 50px;
+    position: relative;
     /* box-shadow: 10px 10px 40px #626466, -10px -10px 15px #ffffff; */
-    background: linear-gradient(180deg, #dde2e6, #ffffff);
+    /* background: linear-gradient(180deg, #dde2e6, #ffffff); */
+}
+
+.card_shadox>div {
+    position: relative;
+    z-index: 50;
 }
 
 .card_shadox::before {
@@ -172,4 +177,50 @@ div::-webkit-scrollbar-thumb {
     to {
         box-shadow: 0 0 0 1rem #0000
     }
+}
+
+.terminal_basics_div {
+    font-size: 16px;
+    padding: 2.5px 5px;
+    width: 100%;
+}
+
+.terminal_left_title {
+    color: #00b97d;
+}
+
+.terminal_right_body {
+    color: #fff;
+}
+
+.terminal_right_body_warring {
+    color: rgb(249, 241, 165);
+}
+
+.terminal_right_body_error {
+    color: rgb(197, 15, 31);
+}
+
+.terminal_time_span {
+    float: right;
+    background: linear-gradient( 135deg, #2c82ad, #2e83ac 9.99%, #3386a9 19.07%, #398ba5 27.44%, #41909f 35.26%, #489699 42.72%, #4f9c91 50%, #56a28a 57.28%, #5ba782 64.74%, #60ab7b 72.56%, #64af75 80.93%, #66b171 90.01%, #67b26f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.terminal_row {
+    width: 100%;
+}
+
+pre {
+    white-space: pre-wrap;
+    /*css-3*/
+    white-space: -moz-pre-wrap;
+    /*Mozilla,since1999*/
+    white-space: -pre-wrap;
+    /*Opera4-6*/
+    white-space: -o-pre-wrap;
+    /*Opera7*/
+    word-wrap: break-word;
+    /*InternetExplorer5.5+*/
 }

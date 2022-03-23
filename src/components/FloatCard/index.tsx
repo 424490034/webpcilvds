@@ -12,6 +12,7 @@ interface IProps {
   aniOutCss?: string; // 定制淡出样式
   scrollTop?: number; // 滚动距离
   parentClient?: number; // 父级可视区域高度
+  style?: any; // 自定义样式
   [name: string]: any;
 }
 export default function index(props: IProps) {
@@ -31,6 +32,7 @@ export default function index(props: IProps) {
     aniOutCss = 'animate__fadeOut',
     scrollTop = 0,
     parentClient = 0,
+    style = {},
   } = props;
   const [toTop, setToTop] = useState<number>(0);
   // 用于判断是否已经进入展示范围
@@ -80,9 +82,10 @@ export default function index(props: IProps) {
       }
       style={{
         animationDuration: isShow ? '.5s' : '.25s',
+        ...style,
       }}
     >
-      {children}
+      {children && React.cloneElement(children, { isShow })}
     </div>
   );
 }

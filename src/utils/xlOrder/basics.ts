@@ -78,6 +78,9 @@ async function executeOrder(
         child?.stdout?.on('data', (data: any) => {
           outputStr(data && data.toString(), child);
         });
+        child?.stdout?.on('message', (data: any) => {
+          console.log(data);
+        });
         child?.stderr?.on('data', (data: any) => {
           outputStr(data && data.toString(), child);
         });
@@ -88,6 +91,16 @@ async function executeOrder(
             child,
             true
           );
+        });
+        // 子进程关闭事件 保存信息 更新状态
+        child.on('message', (code: any) => {
+          console.log(code);
+          
+          // outputStr(
+          //   `子进程退出，退出码 ${code}, 运行${code === 0 ? '成功' : '失败'}`,
+          //   child,
+          //   true
+          // );
         });
       }
     } else {

@@ -37,6 +37,10 @@ function index(props: IProps, ref: any) {
         codeRun();
       } else if (terData.initOrderKey === 'orderOpenExplorer') {
         openPath();
+      } else if (terData.initOrderKey === 'orderOpenCmd') {
+        codeCmd();
+      } else if (terData.initOrderKey === 'orderOpenPowerShell') {
+        codePowerShell();
       } else if (!runKey) {
         stopOrder();
         run(terData.initOrderKey);
@@ -91,6 +95,12 @@ function index(props: IProps, ref: any) {
   }
   function codeRun() {
     runPackageOrder(`code .`, true);
+  }
+  function codeCmd() {
+    runPackageOrder(`start cmd`, true);
+  }
+  function codePowerShell() {
+    runPackageOrder(`start PowerShell`, true);
   }
   return (
     <div

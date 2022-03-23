@@ -7,6 +7,7 @@ import PrejectBoard from './component/ProjectBoard';
 import SystemInfo from './component/SystemInfo';
 import CpuLoadCard from './component/CpuLoadCard';
 import GateWayCard from './component/GateWay';
+import ProjectCard from './component/ProjectCard';
 import { connect } from 'dva';
 import pageConfig from './config/pageConfig';
 import { SyncOutlined } from '@ant-design/icons';
@@ -77,6 +78,9 @@ const Overview = function (props: any) {
       </div>
       <div className={styles.right_stat_div}>
         <PrejectBoard />
+        <FloatCard {...floatProps}>
+          <ProjectCard />
+        </FloatCard>
       </div>
     </div>
   );

@@ -39,9 +39,11 @@ export default function RightCard(props: any) {
         </div>
         <div className={'content_body'}>{props.children}</div>
       </div>
-      <div className={styles.bgc_div}>
-        <div className={styles.circle_div}></div>
-      </div>
+      {pathname.indexOf('/menu/home') !== -1 && (
+        <div className={styles.bgc_div}>
+          <div className={styles.circle_div}></div>
+        </div>
+      )}
     </div>
   );
 }

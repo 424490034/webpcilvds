@@ -25,7 +25,7 @@ export default function BasicsCard(props: any) {
               r="26"
               fill="none"
               stroke="#7f7f7f"
-              stroke-width="8"
+              strokeWidth="8"
             />
             <circle
               className={classNames(
@@ -37,10 +37,10 @@ export default function BasicsCard(props: any) {
               r="26"
               fill="none"
               stroke="#000"
-              stroke-linecap="round"
-              stroke-width="8"
-              stroke-dasharray="200 200"
-              stroke-dashoffset="8"
+              strokeLinecap="round"
+              strokeWidth="8"
+              strokeDasharray="200 200"
+              strokeDashoffset="8"
               transform="rotate(-90,30,30)"
             />
           </svg>
@@ -57,7 +57,7 @@ export default function BasicsCard(props: any) {
               className={styles['no-fill']}
               fill="none"
               stroke="#000"
-              stroke-width="2"
+              strokeWidth="2"
               d="M 14.505 1 C 11.546 1.356 10.354 12.419 10.272 12.478 C 10.189 12.538 6.773 6.184 6.773 6.184 C 6.773 6.184 3.855 8.381 4 14 C 4.2 18 5.868 23.067 12.177 22.999 C 18.488 22.932 20.1 18 20 14 C 19.9 10 17.533 10.05 15.964 6.738 C 14.638 3.939 14.505 1 14.505 1 Z"
             />
           </svg>
