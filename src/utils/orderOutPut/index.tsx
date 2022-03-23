@@ -12,7 +12,7 @@ class OutPutOrder {
   toMessage = (code: string) => {
     if (code) {
       if (code.indexOf('子进程退出') !== -1) {
-        if (code.indexOf('运行成功')) {
+        if (code.indexOf('运行成功') !== -1) {
           globalMessage('仓库拉取执行成功', code, iconImg, () => {});
           if (this.callback) {
             this.callback(false);

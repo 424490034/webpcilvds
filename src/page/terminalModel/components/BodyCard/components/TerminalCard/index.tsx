@@ -153,7 +153,7 @@ export default function index(props: IProps) {
   function toMessage(code: string) {
     if (code) {
       if (code.indexOf('子进程退出') !== -1) {
-        if (code.indexOf('运行成功')) {
+        if (code.indexOf('运行成功') !== -1) {
           globalMessage(
             terData.name || terData.webName + '执行成功',
             code,
