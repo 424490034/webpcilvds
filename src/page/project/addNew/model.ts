@@ -2,9 +2,12 @@ import _ from 'lodash';
 import { STEPSENUM } from './config/config';
 import { Model } from 'utils'
 import pageConfig from './config/pageConfig';
+// 项目配置表单
+import { formConditions,formNames } from './config/formFields';
 const {namespace,listenRouter,} = pageConfig
 const initState = {
   stepsEnum: STEPSENUM,
+  formConditions,formNames
 }
 
 export default Model.extend({

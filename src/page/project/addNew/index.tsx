@@ -8,17 +8,20 @@ import styles from './index.module.scss';
 import { FloatCard, HeaderCard } from 'components';
 import StepsCom from './components/Steps';
 import StepOne from './components/StepOne';
+import StepTwo from './components/StepTwo';
 const { namespace, pageName } = pageConfig;
 
 function index(props: any) {
   const stepsOne: any = useRef();
+  const stepsTwo: any = useRef();
   useEffect(() => {
     resetAll();
   }, []);
   function resetAll() {
-    stepsOne.current.register();
+    stepsOne?.current?.register();
+    stepsTwo?.current?.register();
   }
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
   let floatProps = useMemo(() => {
     return {
       isVisualShow: false,
@@ -41,6 +44,13 @@ function index(props: any) {
               setCurrent={setCurrent}
             />
             {current == 0 && <StepOne setCurrent={setCurrent} ref={stepsOne} />}
+            {current == 1 && (
+              <StepTwo
+                models={props[namespace]}
+                setCurrent={setCurrent}
+                ref={stepsTwo}
+              />
+            )}
           </div>
         </HeaderCard>
       </FloatCard>

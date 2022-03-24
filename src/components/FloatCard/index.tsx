@@ -85,7 +85,7 @@ export default function index(props: IProps) {
         ...style,
       }}
     >
-      {children && React.cloneElement(children, { isShow })}
+      {children && React.cloneElement(children, { show: `${isShow}` })}
     </div>
   );
 }

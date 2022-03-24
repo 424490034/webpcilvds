@@ -2387,10 +2387,10 @@ ansi-styles@^4.0.0, ansi-styles@^4.1.0:
   dependencies:
     color-convert "^2.0.1"
 
-antd@^4.16.5:
-  version "4.19.2"
-  resolved "https://registry.npmjs.org/antd/-/antd-4.19.2.tgz#5438478aedf61bf670784611cba077387ff0f1b3"
-  integrity sha512-qXM6d6hFsT5rZJB4TRTHl32dixu1IHmPD0QLzG5YuUpzecv6QoTr1ZMp2/I1MMCb1+n99yQ5gFx7U677AbL5hw==
+antd@^4.16.12, antd@^4.16.5:
+  version "4.19.3"
+  resolved "https://registry.npmjs.org/antd/-/antd-4.19.3.tgz#2b6bb938bda9850c797db59c8923f3c8a14a6693"
+  integrity sha512-q4oT2lIM0Fb60MfcdtjH6LFQcmo5MuM27PN3nJMsRG1FeiQ9n+OPFlkQSdtb0ZWFIFjTH3p0W02T6SbB2U7ChQ==
   dependencies:
     "@ant-design/colors" "^6.0.0"
     "@ant-design/icons" "^4.7.0"
@@ -13348,6 +13348,14 @@ xdg-basedir@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
+
+xl-study-com@^0.1.4-2:
+  version "0.1.4-2"
+  resolved "https://registry.npmjs.org/xl-study-com/-/xl-study-com-0.1.4-2.tgz#e37dde39c0c080ab7e496b931782e7576fd50b90"
+  integrity sha512-5aeXAt64fCAZnBAZsJ0VRZRHspcGkNpm7asxT6DIcnwW7LsRI4WrXBZgpzUxdkjQmm4rtI+d6h9KKCrFK1Yu/Q==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    antd "^4.16.12"
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

@@ -21,3 +21,4 @@ declare module 'ezuikit';
 declare module '*.js';
 
 declare module 'swiper';
+declare module 'xl-study-com';
