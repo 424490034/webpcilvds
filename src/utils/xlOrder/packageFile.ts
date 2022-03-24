@@ -30,11 +30,23 @@ function formatScript(str: string) {
     let num2 = str2.indexOf(':') + 1;
     let str3 = str2.slice(num2, str2.length);
     if (str3.indexOf('},') === -1) {
-      return {};
+      // 这里可能存在script为结尾的情况
+      // 需要额外判断
+      // 获取最后结尾的}位置
+      let end1 = str3.lastIndexOf('}');
+      let end2 = str3.slice(0, end1).lastIndexOf('}');
+      // 判断后续字段中是否存在数字或英文 如果存在则代表还有数据
+      // 直接抛出异常 否则正常返回
+      let result = /^[A-Za-z0-9]+$/.test(str3.slice(end2+1, end1));
+      if (result) {
+        return {};
+      } else {
+        let str4 = str3.slice(0, end2+1);
+        return eval(`window.customPackageScript = ${str4}`);
+      }
     }
     let num3 = str2.indexOf('},');
     let str4 = str3.slice(0, num3);
-
     return eval(`window.customPackageScript = ${str4}`);
   } catch (e) {
     console.log(e);

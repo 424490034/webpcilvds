@@ -2,6 +2,7 @@ import {
   HomeOutlined,
   LaptopOutlined,
   FormatPainterOutlined,
+  CheckCircleOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 export const STEPSENUM = [
@@ -16,5 +17,9 @@ export const STEPSENUM = [
   {
     title: '项目定制化配置',
     icon: <FormatPainterOutlined />,
+  },
+  {
+    title: '完成',
+    icon: <CheckCircleOutlined />,
   },
 ];

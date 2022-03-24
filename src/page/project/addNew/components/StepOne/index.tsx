@@ -30,6 +30,7 @@ function index(props: any, ref: any) {
   }, []);
   useImperativeHandle(ref, () => ({
     register,
+    getData,
   }));
   // 拉取前 init 拉取中 load 拉取后 成功 success 失败 error
   const [status, setStatus] = useState('init');
@@ -37,8 +38,14 @@ function index(props: any, ref: any) {
   const [pathValue, setPathValue] = useState(undefined);
   function orderCallback(isError: boolean) {
     if (!isError) {
-      setCurrent(1);
+      setCurrent();
     }
+  }
+  function getData() {
+    return {
+      gitValue,
+      pathValue,
+    };
   }
   function cloneGit() {
     if (gitValue && pathValue) {

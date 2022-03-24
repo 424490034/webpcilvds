@@ -1,36 +1,79 @@
 /**
  * @file 项目配置
  */
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, { useImperativeHandle, forwardRef, useState } from 'react';
 import BodyBgc from '../bodyBgc';
 import styles from '../index.module.scss';
-import { Form } from 'antd';
-import { ItemType } from 'xl-study-com';
+import { Button } from 'antd';
+import { FormBasics } from 'xl-study-com';
+import { cloneDeep } from 'lodash';
+import { ItemUtils } from 'xl-study-com';
+
 function index(props: any, ref: any) {
   const {
-    setCurrent,
-    models: { formConditions },
+    oneData,
+    models: { initShowConfig },
+    form,
+    formFields,
+    formInit,
+    formPick,
+    twoDataChange,
+    setFormPick,
   } = props;
-  console.log(formConditions);
-
-  const [form] = Form.useForm();
+  const [loading, setLoading] = useState<boolean>(false);
+  // 进行form表单配置
+  const queryCondition: any = ItemUtils.getItemType(cloneDeep(formFields))
+    .pick(formPick)
+    .values();
   useImperativeHandle(ref, () => ({
     register,
   }));
   function register() {
     form.resetFields();
+    form.setFieldsValue(formInit);
+    setFormPick(initShowConfig);
   }
   let ItemProps = {
-    queryCondition: formConditions,
-    form,
+    form: form,
+    queryCondition: queryCondition,
   };
+  let fromProps = {
+    form: form,
+    name: 'test',
+  };
+  function sumbitData() {
+    setLoading(true);
+    form.validateFields().then((values: any) => {
+      setTimeout(() => {
+        setLoading(false);
+        twoDataChange(values);
+      }, 2000);
+    });
+  }
   return (
     <BodyBgc width={'80%'}>
       <div className={styles.steps_two_div}>
         <div className={styles.body_div}>
-          <Form form={form}>
-            <ItemType {...ItemProps} />
-          </Form>
+          <div className={styles.title_div}>项目基础配置</div>
+          <div className={styles.from_div}>
+            <FormBasics fromProps={fromProps} itemProps={ItemProps} />
+          </div>
+          <div className={styles.btn_div}>
+            <Button loading={loading} onClick={sumbitData} type="primary">
+              确定
+            </Button>
+            <Button
+              onClick={register}
+              disabled={loading}
+              danger
+              style={{
+                marginLeft: 12,
+              }}
+              type="primary"
+            >
+              重置
+            </Button>
+          </div>
         </div>
       </div>
     </BodyBgc>

@@ -1,4 +1,3 @@
-import 'antd/dist/antd.css';
 import dva from 'dva';
 import './App.global.css';
 import './assets/css/animate.css';
