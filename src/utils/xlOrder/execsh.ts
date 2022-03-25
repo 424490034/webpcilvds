@@ -12,7 +12,7 @@ function execSh(
   command: string,
   errlog: string,
   callBack: any,
-  isShowOut: any = { stdio: 'pipe' }
+  isShowOut: any = { stdio: ['pipe', 'pipe', 'pipe'] }
 ) {
   // 执行指定命令并隐藏命令输出，若存在指定回调，则执行回调函数；反之则执行默认操作
   return execsh(command, isShowOut, (err: any) => {
@@ -32,7 +32,7 @@ function execSh(
 async function execPromise(
   commands: any[],
   callBack: any,
-  isShowOut: any = { stdio: 'pipe' },
+  isShowOut: any = { stdio: ['pipe', 'pipe', 'pipe'] },
   outputStr: any
 ) {
   if (Array.isArray(commands)) {
@@ -106,7 +106,7 @@ function execPathSh(
   command: string,
   errlog: string,
   pathStr: string,
-  isShowOut: any = { stdio: 'pipe' },
+  isShowOut: any = { stdio: 'pipe',silent:true },
   callBack?: any
 ) {
   // 执行指定命令并隐藏命令输出，若存在指定回调，则执行回调函数；反之则执行默认操作

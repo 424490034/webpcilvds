@@ -123,9 +123,29 @@ export function getNowGitBranch(projectPath: string, callback: any) {
           return [];
         }
       } else {
-        callback(data);
+        callback(data && data.slice(0, data.length - 1));
       }
     },
     projectPath
   );
+}
+
+export function getNowGitBranchPromise(projectPath: string) {
+  return new Promise((resolve, reject) => {
+    executeOrder(
+      `git分支获取`,
+      'git rev-parse --abbrev-ref HEAD',
+      (data: any) => {
+        if (data.indexOf('子进程') !== -1) {
+          if (data.indexOf('运行失败') !== -1) {
+            message.error('git分支情况获取失败请排查');
+            reject('');
+          }
+        } else {
+          resolve(data && data.slice(0, data.length - 1));
+        }
+      },
+      projectPath
+    );
+  });
 }

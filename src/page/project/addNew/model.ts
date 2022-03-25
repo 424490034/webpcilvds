@@ -6,13 +6,25 @@ import pageConfig from './config/pageConfig';
 import {
   formConditions, formNames,
   initShowConfig,allShowConfig
-  
 } from './config/formFields';
+// 定制化指令表单
+import {
+  threeFormNames,
+  threeFormConditions
+} from './config/threeFormFields';
+// 定制化额外配置表单
+import customFormFields from './config/CustomConfig'
+// 第三步表格表头
+import { tableList } from './config/threetablefields';
 const {namespace,listenRouter,} = pageConfig
 const initState = {
   stepsEnum: STEPSENUM,
   formConditions,formNames,
-  initShowConfig,allShowConfig
+  initShowConfig, allShowConfig,
+  threeFormNames,
+  threeFormConditions,
+  customFormFields,
+  tableList
 }
 
 export default Model.extend({

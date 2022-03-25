@@ -12,13 +12,11 @@ import styles from '../index.module.scss';
 import { Button, Input, message } from 'antd';
 import classNames from 'classnames';
 import { SeletePath } from 'components';
-import iconImg from 'assets/kl.ico';
-import { globalMessage } from 'utils';
 import { executeOrder } from 'utils/xlOrder';
 import OutPutOrder from 'utils/orderOutPut';
 let outputOrder: any = undefined;
 function index(props: any, ref: any) {
-  const { setCurrent } = props;
+  const { setCurrent, oneData } = props;
   useEffect(() => {
     outputOrder = new OutPutOrder({
       selete: '#gitResult',
@@ -34,8 +32,8 @@ function index(props: any, ref: any) {
   }));
   // 拉取前 init 拉取中 load 拉取后 成功 success 失败 error
   const [status, setStatus] = useState('init');
-  const [gitValue, setGitValue] = useState(undefined);
-  const [pathValue, setPathValue] = useState(undefined);
+  const [gitValue, setGitValue] = useState(oneData.gitValue || undefined);
+  const [pathValue, setPathValue] = useState(oneData.pathValue || undefined);
   function orderCallback(isError: boolean) {
     if (!isError) {
       setCurrent();

@@ -2,6 +2,7 @@ import { cmdMap } from './config';
 import semver from 'semver';
 import { message } from 'antd';
 import { execSh, execPromise, execPathSh, execPromisePathStr } from './execsh';
+const kill = require('tree-kill');
 /**
  * @file 基础
  */
@@ -75,7 +76,9 @@ async function executeOrder(
         });
       }
       if (child) {
+        let isEnd:any = false
         child?.stdout?.on('data', (data: any) => {
+          isEnd= isOkEnd(child,data && data.toString());
           outputStr(data && data.toString(), child);
         });
         child?.stdout?.on('message', (data: any) => {
@@ -86,6 +89,14 @@ async function executeOrder(
         });
         // 子进程关闭事件 保存信息 更新状态
         child.on('close', (code: any) => {
+          if (isEnd) {
+            outputStr(
+              `子进程退出，退出码 0, 运行成功`,
+              child,
+              true
+            );
+            return
+          }
           outputStr(
             `子进程退出，退出码 ${code}, 运行${code === 0 ? '成功' : '失败'}`,
             child,
@@ -135,5 +146,22 @@ async function executeOrder(
   }
   return child;
 }
-
+// 额外判断 
+function isOkEnd(child: any, data: string) {
+  if (data.indexOf('success Saved lockfile.')!==-1) {
+    // 5s后杀死进程
+    setTimeout(() => {
+      kill(child.pid, 'SIGKILL');
+    }, 5000);
+    return true
+  } else if (data.indexOf('npm audit fix') !== -1 && data.indexOf('npm audit') !== -1 && data.indexOf('for details') !== -1) {
+        // 5s后杀死进程
+        setTimeout(() => {
+          kill(child.pid, 'SIGKILL');
+        }, 5000);
+    return true
+  } else {
+    return false
+  }
+}
 export { xlorderRun, executeOrder };

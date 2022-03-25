@@ -9,6 +9,8 @@ import { FloatCard, HeaderCard } from 'components';
 import StepsCom from './components/Steps';
 import StepOne from './components/StepOne';
 import StepTwo from './components/StepTwo';
+import StepThree from './components/StepThree';
+import OrderDrawer from './components/OrderDrawer';
 import {
   getNowGitBranch,
   getGitBranch,
@@ -25,22 +27,29 @@ function index(props: any) {
   } = props;
   const stepsOne: any = useRef();
   const stepsTwo: any = useRef();
+  const drawerRef: any = useRef();
+  const stepsThree: any = useRef();
   const [current, setCurrent] = useState(1);
   const [oneData, setOneData] = useState({
     // 模拟数据 后续清除
     gitValue: 'http://git.sjnc.com/feed-cattle/cattle-trade.git',
     pathValue: 'D:\\test\\testProject',
   });
-  const [twoData, setTwoData] = useState({});
+  const [twoData, setTwoData] = useState({
+    path: 'D:\\test\\testProject',
+  });
   // 表单的动态数据
   const [formFields, setFormFields] = useState<any[]>(formConditions);
   // 表单的默认数据
   const [formInit, setFormInit] = useState<any>({});
   // 表单展示控制
   const [formPick, setFormPick] = useState<string[]>(initShowConfig);
+  // 当前项目的script枚举
+  const [scriptEnum, setScriptEnum] = useState<any>([]);
   const [formTwo] = Form.useForm();
   useEffect(() => {
     resetAll();
+    // 该执行为测试执行 正式生效时清除
     getGitData(oneData);
   }, []);
   function resetAll() {
@@ -56,8 +65,18 @@ function index(props: any) {
     getGitData(data);
     setCurrent(1);
   }
+  /**
+   * @function 第二步完成配置时调用
+   * @param values 配置数据
+   */
   function twoDataChange(values: any) {
     setTwoData(values);
+    drawerRef?.current?.showDrawer(values);
+  }
+  /**
+   * @function 执行执行完成后调用 前往下一步
+   */
+  function drawerOk() {
     setCurrent(2);
   }
   /**
@@ -88,7 +107,7 @@ function index(props: any) {
       }
       return {
         label: item,
-        value: packageData[item],
+        value: item,
       };
     });
 
@@ -98,7 +117,6 @@ function index(props: any) {
       if (Array.isArray(code) && code.length > 0) {
         gitsEnum = code.map((item: any) => {
           const nameIndex = item.indexOf('remotes/origin/');
-          console.log(nameIndex);
           return {
             label:
               nameIndex !== -1
@@ -145,12 +163,13 @@ function index(props: any) {
         ])
         .values();
       setFormFields(queryCondition);
+      setScriptEnum(scriptEnum);
     });
     // 获取当前项目的当前分支-新拉取的一般为master但不排除主分支非master
     getNowGitBranch(projectPath, (code: any) => {
       // 设置分支选择的默认值
       formTwo.setFieldsValue({
-        [formNames.seleteGit]: code && code.slice(0, code.length - 1),
+        [formNames.seleteGit]: code,
         [formNames.gitName]: gitName,
         [formNames.path]: projectPath,
         [formNames.startCode]: startKey,
@@ -164,6 +183,8 @@ function index(props: any) {
         [formNames.startCode]: startKey,
         [formNames.buildCode]: buildKey,
       });
+      // 测试用
+      drawerOk();
     });
   }
   let floatProps = useMemo(() => {
@@ -188,7 +209,11 @@ function index(props: any) {
               setCurrent={setCurrent}
             />
             {current == 0 && (
-              <StepOne setCurrent={oneDataChange} ref={stepsOne} />
+              <StepOne
+                oneData={oneData}
+                setCurrent={oneDataChange}
+                ref={stepsOne}
+              />
             )}
             {current == 1 && (
               <StepTwo
@@ -201,11 +226,22 @@ function index(props: any) {
                 twoDataChange={twoDataChange}
                 formPick={formPick}
                 setFormPick={setFormPick}
+                setCurrent={setCurrent}
+              />
+            )}
+            {current == 2 && (
+              <StepThree
+                scriptEnum={scriptEnum}
+                twoData={twoData}
+                models={props[namespace]}
+                ref={stepsThree}
+                setCurrent={setCurrent}
               />
             )}
           </div>
         </HeaderCard>
       </FloatCard>
+      <OrderDrawer drawerOk={drawerOk} ref={drawerRef} />
     </div>
   );
 }

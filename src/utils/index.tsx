@@ -292,3 +292,21 @@ export function globalMessage(
     }
   };
 }
+/**
+ * @function 获取安装所用指令名称
+ * @todo 判断用户选择然后返回对应名称 支持 yarn npm cnpm
+ */
+export function getInstallName() {
+  // 默认使用npm
+  return 'yarn';
+}
+/**
+ * @function 唯一值id获取
+ * @param length 指定的id长度
+ * @returns 生成的id
+ */
+export function genID(length: number) {
+  return Number(
+    Math.random().toString().substr(3, length) + Date.now()
+  ).toString(36);
+}

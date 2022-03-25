@@ -19,6 +19,7 @@ function index(props: any, ref: any) {
     formPick,
     twoDataChange,
     setFormPick,
+    setCurrent,
   } = props;
   const [loading, setLoading] = useState<boolean>(false);
   // 进行form表单配置
@@ -43,12 +44,18 @@ function index(props: any, ref: any) {
   };
   function sumbitData() {
     setLoading(true);
-    form.validateFields().then((values: any) => {
-      setTimeout(() => {
+    form
+      .validateFields()
+      .then((values: any) => {
         setLoading(false);
         twoDataChange(values);
-      }, 2000);
-    });
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }
+  function toLeft() {
+    setCurrent(0);
   }
   return (
     <BodyBgc width={'80%'}>
@@ -59,7 +66,17 @@ function index(props: any, ref: any) {
             <FormBasics fromProps={fromProps} itemProps={ItemProps} />
           </div>
           <div className={styles.btn_div}>
-            <Button loading={loading} onClick={sumbitData} type="primary">
+            <Button disabled={loading} type="primary" onClick={toLeft}>
+              上一步
+            </Button>
+            <Button
+              style={{
+                marginLeft: 12,
+              }}
+              loading={loading}
+              onClick={sumbitData}
+              type="primary"
+            >
               确定
             </Button>
             <Button
