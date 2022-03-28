@@ -12,27 +12,24 @@ import { ItemUtils } from 'xl-study-com';
 function index(props: any, ref: any) {
   const {
     oneData,
-    models: { initShowConfig },
+    models: {},
     form,
     formFields,
     formInit,
-    formPick,
     twoDataChange,
-    setFormPick,
     setCurrent,
   } = props;
   const [loading, setLoading] = useState<boolean>(false);
   // 进行form表单配置
-  const queryCondition: any = ItemUtils.getItemType(cloneDeep(formFields))
-    .pick(formPick)
-    .values();
+  const queryCondition: any = ItemUtils.getItemType(
+    cloneDeep(formFields)
+  ).values();
   useImperativeHandle(ref, () => ({
     register,
   }));
   function register() {
     form.resetFields();
     form.setFieldsValue(formInit);
-    setFormPick(initShowConfig);
   }
   let ItemProps = {
     form: form,

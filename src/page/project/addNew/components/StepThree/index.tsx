@@ -12,9 +12,11 @@ import BodyBgc from '../bodyBgc';
 import styles from '../index.module.scss';
 import CustomDrawer from './customDrawer';
 import { Table, TableUtils } from 'xl-study-com';
+import { addProject, genID } from 'utils';
 const { getColumns } = TableUtils;
 function index(props: any, ref: any) {
   const {
+    oneData,
     twoData,
     scriptEnum,
     setCurrent,
@@ -85,6 +87,54 @@ function index(props: any, ref: any) {
     },
     pagination: false,
   };
+  /**
+   * @function 保存数据-并前往完成页
+   */
+  function saveData() {
+    let customOrder: any = {};
+    cusList.map((item: any) => {
+      // 数据存在且不是数组
+      if (
+        customOrder[item.seleteOrder] &&
+        !Array.isArray(customOrder[item.seleteOrder])
+      ) {
+        customOrder[item.seleteOrder] = [customOrder[item.seleteOrder], item];
+      } else if (
+        customOrder[item.seleteOrder] &&
+        Array.isArray(customOrder[item.seleteOrder])
+      ) {
+        // 数据存在且是数组
+        customOrder[item.seleteOrder] = [
+          ...customOrder[item.seleteOrder],
+          item,
+        ];
+      }
+      {
+        // 数据不存在
+        customOrder[item.seleteOrder] = item;
+      }
+    });
+    let saveData = {
+      id: genID(10) + '',
+      pathData: oneData,
+      projectData: twoData,
+      customData: customOrder,
+    };
+    setCurrent(3);
+    addProject(saveData);
+  }
+  /**
+   * @function 保存之前数据-并前往完成页
+   */
+  function toOk() {
+    let saveData = {
+      id: genID(10) + '',
+      pathData: oneData,
+      projectData: twoData,
+    };
+    setCurrent(3);
+    addProject(saveData);
+  }
   return (
     <BodyBgc width={'80%'}>
       <div className={styles.step_three_div}>
@@ -107,6 +157,8 @@ function index(props: any, ref: any) {
               style={{
                 marginLeft: 12,
               }}
+              onClick={saveData}
+              disabled={cusList.length === 0}
             >
               确定
             </Button>
@@ -116,6 +168,7 @@ function index(props: any, ref: any) {
                 marginLeft: 12,
               }}
               type="primary"
+              onClick={toOk}
             >
               无需定制
             </Button>

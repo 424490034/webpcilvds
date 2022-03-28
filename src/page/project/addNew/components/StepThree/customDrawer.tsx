@@ -19,10 +19,11 @@ function customDrawer(props: any, ref: any) {
       threeFormConditions,
       customFormFields,
       formNames,
+      extraEnum, // 定向操作可选枚举
     },
   } = props;
-  console.log(twoData);
   const [extraAry, setExtraAry] = useState<any>();
+  const [extraFilterEnum, setExtraFilterEnum] = useState<any[]>([]);
   const [form] = Form.useForm();
   // 进行form表单配置
   const queryCondition: any = ItemUtils.getItemType(
@@ -34,8 +35,34 @@ function customDrawer(props: any, ref: any) {
         selectCondition: scriptEnum,
       },
       {
-        title: threeFormNames.extra,
+        title: threeFormNames.timing,
         componentsConfig: {
+          onChange: (value: any) => {
+            form.setFieldsValue({
+              [threeFormNames.extra]: undefined,
+            });
+            setExtraAry([]);
+            if (value === '1') {
+              // 筛选执行指令之前的枚举
+              let data = extraEnum.filter(
+                (item: any) => item.type === '1' || item.type === '3'
+              );
+              setExtraFilterEnum(data);
+            } else if (value === '2') {
+              // 筛选执行指令之后的枚举
+              let data = extraEnum.filter(
+                (item: any) => item.type === '2' || item.type === '3'
+              );
+              setExtraFilterEnum(data);
+            }
+          },
+        },
+      },
+      {
+        title: threeFormNames.extra,
+        selectCondition: extraFilterEnum,
+        componentsConfig: {
+          disabled: extraFilterEnum.length == 0,
           onChange: (value: any) => {
             let data = customData(value);
             if (Array.isArray(data) && data.length > 0) {

@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import _, { cloneDeep } from 'lodash';
-import { Model, GetOrderList } from 'utils';
+import {Model} from 'xl-study-com'
+import {  GetOrderList } from 'utils';
 import pageConfig from './config/pageConfig';
 import { windowHave } from './unit/ipc';
 const { namespace, listenRouter } = pageConfig;

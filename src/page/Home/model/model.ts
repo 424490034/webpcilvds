@@ -1,13 +1,14 @@
 import _ from 'lodash';
 import moment from 'moment'
-import { Model } from 'utils'
+import { getTypeProjectNum } from 'utils'
 import getSysInfo from 'utils/System';
 import pageConfig from '../config/pageConfig';
+import {Model} from 'xl-study-com'
 const {namespace,listenRouter,} = pageConfig
 const initState = {
-    sysInfo:getSysInfo()
+  sysInfo: {},
+  projectNums:{}
 }
-
 export default Model.extend({
   namespace: namespace,
   state: _.cloneDeep(initState),
@@ -21,11 +22,17 @@ export default Model.extend({
             ..._.cloneDeep(initState),
           }
         })
-        // dispatch({type:''})
+        dispatch({type:'init'})
       });
     }
   },
-    effects: {
+  effects: {
+      *init({ payload }: any, { update, call, put, select }: any): any { 
+        yield update({
+          sysInfo:getSysInfo(),
+          projectNums: getTypeProjectNum()
+        })
+      },
       *reloadSystem({ payload }: any, { update, call, put, select }: any): any { 
         yield update({
           sysInfo:getSysInfo()

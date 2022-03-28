@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { STEPSENUM } from './config/config';
-import { Model } from 'utils'
+import {Model} from 'xl-study-com'
 import pageConfig from './config/pageConfig';
 // 项目配置表单
 import {
@@ -10,7 +10,8 @@ import {
 // 定制化指令表单
 import {
   threeFormNames,
-  threeFormConditions
+  threeFormConditions,
+  extraEnum
 } from './config/threeFormFields';
 // 定制化额外配置表单
 import customFormFields from './config/CustomConfig'
@@ -24,7 +25,8 @@ const initState = {
   threeFormNames,
   threeFormConditions,
   customFormFields,
-  tableList
+  tableList,
+  extraEnum
 }
 
 export default Model.extend({

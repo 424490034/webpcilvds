@@ -3,7 +3,6 @@ import { remote } from 'electron';
 import Store from 'electron-store';
 import fs from 'fs';
 import path from 'path';
-import _Model from './model';
 const _store = new Store();
 export const store = _store;
 /**
@@ -17,6 +16,93 @@ export function getTerminalTransFer() {
 }
 export function delTerminalTransFer() {
   return store.delete('terminalTransfer');
+}
+/**
+ * @function 获取到对应项目的总数
+ */
+export function getTypeProjectNum() {
+  let data: any = getProjectData();
+  console.log(data);
+  let nums = {
+    pc: 0,
+    mobile: 0,
+    serve: 0,
+    rest: 0,
+  };
+  if (data && Array.isArray(data)) {
+    data.map((item: any) => {
+      let type = item?.projectData?.type || item.type;
+      switch (type) {
+        case '1': //PC端
+          nums.pc += 1;
+          break;
+        case '2': // 移动端
+          nums.mobile += 1;
+          break;
+        case '3': // 服务端
+          nums.serve += 1;
+          break;
+        case '4': // 其他
+          nums.rest += 1;
+          break;
+        case '5': // 属于自定义指令
+          nums.rest += 1;
+          break;
+        default:
+          break;
+      }
+    });
+  }
+  return nums;
+}
+/**
+ * @function 项目管理数据保存函数
+ * @param data 对应数据
+ */
+export function setProjectData(data: any) {
+  store.set('projectData', data);
+}
+/**
+ * @function 项目管理数据修改函数
+ * @param id 对应id
+ * @param data 修改后的数据
+ */
+export function updateProject(id: string, data: any) {
+  let oldData: any = getProjectData();
+  let newData = oldData.map((item: any) => {
+    if (item.id === id) {
+      return {
+        ...data,
+        updateTime: +new Date(),
+      };
+    }
+    return item;
+  });
+  setProjectData(newData);
+}
+/**
+ * @function 项目管理数据新增函数
+ * @param data
+ */
+export function addProject(data: any) {
+  let oldData: any = getProjectData();
+  setProjectData([
+    ...oldData,
+    {
+      ...data,
+      createTime: +new Date(),
+    },
+  ]);
+}
+/**
+ * @function 项目管理数据获取函数
+ * @param data 对应数据
+ */
+export function getProjectData() {
+  return store.get('projectData') || [];
+}
+export function delProjectData() {
+  return store.delete('projectData');
 }
 /**
  * @function 获取本地已保存指令集
@@ -240,7 +326,6 @@ export const orderOptions = {
   GetOrderList, // 获取指令数据
   SetOrderList, // 设置指令数据
 };
-export let Model = _Model;
 /**
  * @file 复制到粘贴板
  */

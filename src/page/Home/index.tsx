@@ -77,7 +77,7 @@ const Overview = function (props: any) {
         </FloatCard>
       </div>
       <div className={styles.right_stat_div}>
-        <PrejectBoard />
+        <PrejectBoard models={props[namespace]} />
         <FloatCard {...floatProps}>
           <ProjectCard />
         </FloatCard>

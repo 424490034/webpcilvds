@@ -13,6 +13,8 @@ import WebPc from 'page/web/pc';
 import WebMobile from 'page/web/mobile';
 // web-serve
 import WebServe from 'page/web/serve';
+// web-resr
+import WebRest from 'page/web/rest';
 // Toots-工具栏
 import WebTools from 'page/web/Tools';
 // 新增项目页
@@ -68,6 +70,12 @@ const routes = [
         icon: <SnippetsOutlined />,
         route: '/menu/web-serve',
         component: WebServe,
+      },
+      {
+        name: 'web-其他',
+        icon: <SnippetsOutlined />,
+        route: '/menu/web-rest',
+        component: WebRest,
       },
       {
         name: '工具库',

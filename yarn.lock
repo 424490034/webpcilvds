@@ -13374,10 +13374,10 @@ xdg-basedir@^4.0.0:
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-4.0.0.tgz#4bc8d9984403696225ef83a1573cbbcb4e79db13"
   integrity sha512-PSNhEJDejZYV7h50BohL09Er9VaIefr2LMAf3OEmpCkjOi34eYyQYAXUTjEQtZJTKcF0E2UKTh+osDLsgNim9Q==
 
-xl-study-com@^0.2.1-0:
-  version "0.2.1-0"
-  resolved "https://registry.npmjs.org/xl-study-com/-/xl-study-com-0.2.1-0.tgz#85b2e0759cb49eaffe55e23bfc249564f5839fa7"
-  integrity sha512-dhhOgyJhO2GLuPPqfGc1yCiJ68xmsw9imNcEZF3KIv/XqgPzuU4kpQAlRsdJxpIj13xw/tbh0ThA7PmTxH/2oA==
+xl-study-com@^0.2.1-4:
+  version "0.2.1-4"
+  resolved "https://registry.npmjs.org/xl-study-com/-/xl-study-com-0.2.1-4.tgz#ddab126ff6bbfa0f23d89c92fd0fde308b2b5cc9"
+  integrity sha512-8oBresjHnrio3gwxra3t31xLqDsmED/CVZu/1W4bvtNuT2ITiJ2Mh7hub+AAKfCk/DUaA0Wrov4DbO73AvtlzQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     antd "4.19.0"

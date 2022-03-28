@@ -10,6 +10,7 @@ import StepsCom from './components/Steps';
 import StepOne from './components/StepOne';
 import StepTwo from './components/StepTwo';
 import StepThree from './components/StepThree';
+import StepFour from './components/StepFour';
 import OrderDrawer from './components/OrderDrawer';
 import {
   getNowGitBranch,
@@ -17,7 +18,7 @@ import {
   getGitName,
   getPackage,
 } from 'utils/GitUtils';
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import { ItemUtils } from 'xl-study-com';
 import { cloneDeep } from 'lodash';
 const { namespace, pageName } = pageConfig;
@@ -29,15 +30,9 @@ function index(props: any) {
   const stepsTwo: any = useRef();
   const drawerRef: any = useRef();
   const stepsThree: any = useRef();
-  const [current, setCurrent] = useState(1);
-  const [oneData, setOneData] = useState({
-    // 模拟数据 后续清除
-    gitValue: 'http://git.sjnc.com/feed-cattle/cattle-trade.git',
-    pathValue: 'D:\\test\\testProject',
-  });
-  const [twoData, setTwoData] = useState({
-    path: 'D:\\test\\testProject',
-  });
+  const [current, setCurrent] = useState(0);
+  const [oneData, setOneData] = useState();
+  const [twoData, setTwoData] = useState();
   // 表单的动态数据
   const [formFields, setFormFields] = useState<any[]>(formConditions);
   // 表单的默认数据
@@ -49,8 +44,6 @@ function index(props: any) {
   const [formTwo] = Form.useForm();
   useEffect(() => {
     resetAll();
-    // 该执行为测试执行 正式生效时清除
-    getGitData(oneData);
   }, []);
   function resetAll() {
     stepsOne?.current?.register();
@@ -99,11 +92,11 @@ function index(props: any) {
     const scriptEnum = Object.keys(packageData).map((item: any) => {
       // 如果存在start  则视为默认启动指令
       if (item === 'start') {
-        startKey = packageData[item];
+        startKey = item;
       }
       // 如果存在build  则视为默认打包指令
       if (item === 'build') {
-        buildKey = packageData[item];
+        buildKey = item;
       }
       return {
         label: item,
@@ -116,11 +109,25 @@ function index(props: any) {
       let gitsEnum: any = [];
       if (Array.isArray(code) && code.length > 0) {
         gitsEnum = code.map((item: any) => {
-          const nameIndex = item.indexOf('remotes/origin/');
+          const nameIndex = item.indexOf('remotes');
+          let name, depotName;
+          if (nameIndex !== -1) {
+            let names = item
+              .slice(nameIndex + 'remotes'.length)
+              .slice(1)
+              .split('/');
+            if (names.length == 2) {
+              name = names[1];
+              depotName = names[0];
+            } else {
+              name = item.slice(nameIndex + 'remotes'.length);
+              message.error('分支节点解析异常');
+            }
+          }
           return {
             label:
               nameIndex !== -1
-                ? `远程分支-${item.slice(nameIndex + 'remotes/origin/'.length)}`
+                ? `远程分支-仓库名:${depotName}-分支名:${name}`
                 : item,
             value: item,
           };
@@ -183,8 +190,6 @@ function index(props: any) {
         [formNames.startCode]: startKey,
         [formNames.buildCode]: buildKey,
       });
-      // 测试用
-      drawerOk();
     });
   }
   let floatProps = useMemo(() => {
@@ -232,12 +237,14 @@ function index(props: any) {
             {current == 2 && (
               <StepThree
                 scriptEnum={scriptEnum}
+                oneData={oneData}
                 twoData={twoData}
                 models={props[namespace]}
                 ref={stepsThree}
                 setCurrent={setCurrent}
               />
             )}
+            {current === 3 && <StepFour twoData={twoData} />}
           </div>
         </HeaderCard>
       </FloatCard>

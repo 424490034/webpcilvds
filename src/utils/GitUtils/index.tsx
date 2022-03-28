@@ -129,7 +129,11 @@ export function getNowGitBranch(projectPath: string, callback: any) {
     projectPath
   );
 }
-
+/**
+ * @function 获取指定路径的git当前分支名
+ * @param projectPath 指定路径
+ * @returns
+ */
 export function getNowGitBranchPromise(projectPath: string) {
   return new Promise((resolve, reject) => {
     executeOrder(
@@ -143,6 +147,43 @@ export function getNowGitBranchPromise(projectPath: string) {
           }
         } else {
           resolve(data && data.slice(0, data.length - 1));
+        }
+      },
+      projectPath
+    );
+  });
+}
+/**
+ * @function 获取对应地址的git仓库
+ * @param projectPath 项目本地地址
+ */
+export function getGitPath(projectPath: string) {
+  return new Promise((resolve, reject) => {
+    executeOrder(
+      `git仓库获取`,
+      'git remote -v',
+      (data: any) => {
+        if (data.indexOf('子进程') !== -1) {
+          if (data.indexOf('运行失败') !== -1) {
+            message.error('git分支情况获取失败请排查');
+            reject('');
+          }
+        } else {
+          let urls = data.lastIndexOf('http');
+          let urils2 = data.lastIndexOf('git@');
+          let results = undefined;
+          if (urls !== 0) {
+            let end = data.lastIndexOf(' (');
+            results = data.slice(urls, end);
+          } else if (urils2 !== 0) {
+            let end = data.lastIndexOf(' (');
+            results = data.slice(urils2, end);
+          } else {
+            message.error('git远程仓库获取异常');
+            results = '';
+          }
+
+          resolve(results);
         }
       },
       projectPath

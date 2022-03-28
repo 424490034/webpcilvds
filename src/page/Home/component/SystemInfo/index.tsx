@@ -14,7 +14,7 @@ enum winOS {
 const { namespace } = pageConfig;
 export default function index(props: any) {
   const {
-    [namespace]: { sysInfo },
+    [namespace]: { sysInfo = {} },
   } = props;
   return (
     <div className={allStyles.left_card_div}>
@@ -32,7 +32,14 @@ export default function index(props: any) {
         </span>
         <span className={styles.body_span}>
           {winOS[sysInfo.os]}
-          <span className={styles.sub_body_span}>{sysInfo.release}</span>
+          <span
+            className={styles.sub_body_span}
+            style={{
+              marginLeft: 8,
+            }}
+          >
+            版本号:{sysInfo.release}
+          </span>
         </span>
       </div>
       {/* cpu架构 */}
@@ -41,7 +48,7 @@ export default function index(props: any) {
           cpu架构
         </span>
         <span className={styles.body_span}>
-          {sysInfo.cpuDetail.model}-{sysInfo.arch}处理器
+          {sysInfo?.cpuDetail?.model}-{sysInfo.arch}处理器
         </span>
       </div>
       {/* cpu信息 */}
@@ -51,7 +58,7 @@ export default function index(props: any) {
         </span>
         <span className={styles.body_span}>
           <span className={styles.sub_body_span}> 频率: </span>
-          {sysInfo.cpuDetail.mhz}
+          {sysInfo?.cpuDetail?.mhz}
           <span className={styles.sub_body_span}> 频率-运行时间: </span>
           {sysInfo.upTime}
         </span>
@@ -70,7 +77,7 @@ export default function index(props: any) {
           >
             总内存:
           </span>
-          {sysInfo.ram.totalMem}
+          {sysInfo?.ram?.totalMem}
           <span
             className={styles.sub_body_span}
             style={{
@@ -79,7 +86,7 @@ export default function index(props: any) {
           >
             空闲内存:
           </span>
-          {sysInfo.ram.freeMem}
+          {sysInfo?.ram?.freeMem}
           <span
             className={styles.sub_body_span}
             style={{
@@ -88,7 +95,7 @@ export default function index(props: any) {
           >
             已使用:
           </span>
-          {sysInfo.ram.useMem}
+          {sysInfo?.ram?.useMem}
         </span>
       </div>
       {/* node信息 */}
@@ -105,7 +112,7 @@ export default function index(props: any) {
           >
             node版本:
           </span>
-          {sysInfo.nodeVer.node}
+          {sysInfo?.nodeVer?.node}
           <span
             className={styles.sub_body_span}
             style={{
@@ -114,7 +121,7 @@ export default function index(props: any) {
           >
             electron版本:
           </span>
-          {sysInfo.nodeVer.electron}
+          {sysInfo?.nodeVer?.electron}
         </span>
       </div>
       {/* 系统负载 */}

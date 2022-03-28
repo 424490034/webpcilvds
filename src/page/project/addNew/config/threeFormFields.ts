@@ -2,15 +2,18 @@
 export const  extraEnum = [
 	{
 		label:'拉取最新代码',
-		value:'1',
+		value: '1',
+		type: '1', // 属于执行指令之前
 	},
 	{
 		label:'定向打包',
-		value:'2',
+		value: '2',
+		type: '2', // 属于执行指令之后
 	},
 	{
 		label:'自定义指令执行',
-		value:'3',
+		value: '3',
+		type:'3', // 属于前后皆可以
 	},
 ]
 export const ColConfig = {
