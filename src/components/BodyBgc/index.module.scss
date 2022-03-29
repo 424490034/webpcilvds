@@ -1,0 +1,19 @@
+.bodyBgc_div {
+    position: relative;
+    border-radius: 15px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=") #28282d;
+    &::after {
+        background: url('../../assets/terminal/2.png');
+        content: '';
+        pointer-events: none;
+        position: absolute;
+        z-index: 15;
+        top: 0;
+        right: -2px;
+        width: 100%;
+        height: calc(100% - 40px);
+        background-position: 100% 100%;
+        background-repeat: no-repeat;
+        opacity: 1;
+    }
+}

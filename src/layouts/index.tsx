@@ -8,6 +8,7 @@ export default function index(props: any) {
   useEffect(() => {
     // 注册路由
     router.setHistory(history);
+    history.push('/menu/home');
   }, []);
   return (
     <div className={styles.theme_div}>

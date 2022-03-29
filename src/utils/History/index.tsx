@@ -4,6 +4,7 @@ function bindError(str: any) {
 }
 
 class Actions {
+  push = bindError;
   block = bindError;
   createHref = bindError;
   go = bindError;
@@ -14,18 +15,7 @@ class Actions {
     this.go = data.go;
     this.block = data.block;
     this.createHref = data.createHref;
-    this.history = data;
-  }
-  push(name: any) {
-    if (typeof name === 'string') {
-      this.history.push({
-        pathname: name,
-      });
-    } else {
-      this.history.push({
-        ...name,
-      });
-    }
+    this.push = data.push;
   }
 }
 

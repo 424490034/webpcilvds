@@ -1,0 +1,56 @@
+.basics_project_div {
+    width: 300px;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    margin-right: 3%;
+    aspect-ratio: 1 / 1;
+    background: var(--project-gradient);
+    border-radius: 1.5em;
+    box-shadow: -5px -5px 10px hsl(0, 0%, 100%), 5px 5px 10px hsl(184, 5%, 65%);
+    text-align: center;
+    // background: linear-gradient( 
+    //     35deg, 
+    //     white 0%, 
+    //     white 84.7%, 
+    //     MediumOrchid 85%, 
+    //     MediumOrchid 91%, 
+    //     white 91.3%
+    //     );
+    background: linear-gradient( 450deg, white 0%, white 11.5%, MediumOrchid 12%, MediumOrchid 15%, white 16%, white 91%, white 91.3%);
+    &::before {
+        position: absolute;
+        backdrop-filter: blur(5px);
+        bottom: -20px;
+        right: -20px;
+        width: 35px;
+        height: 35px;
+        content: "";
+        border-radius: 200px;
+        background: #ffffff66;
+        border: 0.1px solid transparent;
+    }
+    // &::after {
+    //     backdrop-filter: blur(5px);
+    //     position: absolute;
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: flex-end;
+    //     justify-content: flex-end;
+    //     padding-left: 20px;
+    //     padding-bottom: 28px;
+    //     top: -35px;
+    //     left: -23px;
+    //     width: 50%;
+    //     height: 50%;
+    //     background: #ffffff55;
+    //     content: "Claymorphism + Glassmorphism";
+    //     text-align: center;
+    //     color: #3e0d4a;
+    //     line-height: 16pt;
+    //     font-weight: 700;
+    //     border-radius: 15px;
+    //     box-shadow: 0 5px 30px 0 #404040, inset 0px -10px 20px 0px #ddd;
+    //     border: 0.1px solid transparent;
+    // }
+}
