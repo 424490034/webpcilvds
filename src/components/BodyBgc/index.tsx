@@ -2,7 +2,7 @@
  * @file 核心区域包裹组件
  */
 import React, { useMemo } from 'react';
-import { FloatCard } from 'components';
+import FloatCard from '../FloatCard';
 import styles from './index.module.scss';
 import classNames from 'classnames';
 

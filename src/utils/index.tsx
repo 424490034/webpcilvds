@@ -22,7 +22,6 @@ export function delTerminalTransFer() {
  */
 export function getTypeProjectNum() {
   let data: any = getProjectData();
-  console.log(data);
   let nums = {
     pc: 0,
     mobile: 0,
@@ -72,12 +71,22 @@ export function updateProject(id: string, data: any) {
   let newData = oldData.map((item: any) => {
     if (item.id === id) {
       return {
+        ...item,
         ...data,
         updateTime: +new Date(),
       };
     }
     return item;
   });
+  setProjectData(newData);
+}
+/**
+ * @function 项目管理数据移除函数
+ * @param data
+ */
+export function removeProjectData(id: string) {
+  let oldData: any = getProjectData();
+  let newData = oldData.filter((item: any) => item.id != id);
   setProjectData(newData);
 }
 /**

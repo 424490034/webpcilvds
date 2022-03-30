@@ -1,10 +1,11 @@
 import _ from 'lodash';
+import { getProjectData } from 'utils';
 import {Model} from 'xl-study-com'
 import pageConfig from './config/pageConfig';
 const {namespace,listenRouter,} = pageConfig
 const initState = {
+projetData: {},
 }
-
 export default Model.extend({
   namespace: namespace,
   state: _.cloneDeep(initState),
@@ -16,21 +17,19 @@ export default Model.extend({
           type: 'updateState',
           payload: {
             ..._.cloneDeep(initState),
-            isProject:undefined
           }
         })
-        // dispatch({type:''})
+        dispatch({type:'fetchProjectDetail'})
       });
     }
   },
   effects: {
-    * fetchSpuDetail({ payload }: any, { update, call, put, select }: any): any {
-        const { id } = yield select((_: any) => _[namespace]);
-        // const data = yield call(services.fetchSpuDetail, { spuId:id });
-        const data = {}
+    * fetchProjectDetail({ payload }: any, { update, call, put, select }: any): any {
+      const data:any = getProjectData() || [];
+      
         if (data) {
             yield update({
-            userData: data,
+            projetData: data.filter((item:any) =>(item.projectData&&item.projectData.type === '2')),
             })
         }
         },

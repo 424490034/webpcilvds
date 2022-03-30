@@ -1,0 +1,152 @@
+.basics_project_div {
+    width: 32%;
+    max-width: 350px;
+    height: 170px;
+    display: inline-block;
+    position: relative;
+    margin-right: 1%;
+    aspect-ratio: 1 / 1;
+    background: var(--project-gradient);
+    border-radius: 1.5em;
+    box-shadow: -5px -5px 10px hsl(0, 0%, 100%), 5px 5px 10px hsl(184, 5%, 65%);
+    text-align: center;
+    // background: linear-gradient( 
+    //     35deg, 
+    //     white 0%, 
+    //     white 84.7%, 
+    //     MediumOrchid 85%, 
+    //     MediumOrchid 91%, 
+    //     white 91.3%
+    //     );
+    background: linear-gradient( 450deg, white 0%, white 11.5%, rgb(132, 232, 255) 12%, rgb(132, 232, 255) 15%, white 16%, white 91%, white 91.3%);
+    // &::before {
+    //     position: absolute;
+    //     backdrop-filter: blur(5px);
+    //     bottom: -20px;
+    //     right: -20px;
+    //     width: 35px;
+    //     height: 35px;
+    //     content: "";
+    //     border-radius: 200px;
+    //     background: #ffffff66;
+    //     border: 0.1px solid transparent;
+    // }
+    // &::after {
+    //     backdrop-filter: blur(5px);
+    //     position: absolute;
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: flex-end;
+    //     justify-content: flex-end;
+    //     padding-left: 20px;
+    //     padding-bottom: 28px;
+    //     top: -35px;
+    //     left: -23px;
+    //     width: 50%;
+    //     height: 50%;
+    //     background: #ffffff55;
+    //     content: "Claymorphism + Glassmorphism";
+    //     text-align: center;
+    //     color: #3e0d4a;
+    //     line-height: 16pt;
+    //     font-weight: 700;
+    //     border-radius: 15px;
+    //     box-shadow: 0 5px 30px 0 #404040, inset 0px -10px 20px 0px #ddd;
+    //     border: 0.1px solid transparent;
+    // }
+    display: flex;
+    .left_text_div {
+        width: 13%;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 24px;
+        color: var(--text-theme);
+        .left_icon_div {
+            padding-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            font-size: 26px;
+            border-radius: 1px solid #ccc;
+            border-radius: 50%;
+            -webkit-border-radius: 1px solid #ccc;
+            -moz-border-radius: 1px solid #ccc;
+            -ms-border-radius: 1px solid #ccc;
+            -o-border-radius: 1px solid #ccc;
+            transition: all 1s;
+            cursor: pointer;
+            &:hover {
+                color: var(--ant-primary-color-hover);
+            }
+        }
+        .remove_icon_div {
+            &:hover {
+                color: var(--ant-error-color);
+            }
+        }
+    }
+    .right_text_div {
+        padding: 12px 0 0 12px;
+        width: 87%;
+        font-size: 12px;
+        color: var(--text-theme);
+        .right_header_div {
+            width: 100%;
+            height: 24px;
+            line-height: 24px;
+            display: flex;
+            font-size: 14px;
+            .right_title_div {
+                width: 100px;
+                text-align: right;
+                &::after {
+                    content: ":";
+                    position: relative;
+                    top: -0.5px;
+                    margin: 0 8px 0 2px;
+                }
+            }
+            .right_body_div {
+                font-weight: bold;
+                font-size: 14px;
+                flex: 1;
+                text-align: left;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
+    }
+    .fix_btn_div {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+        transition: all 1s;
+        cursor: pointer;
+        &:hover {
+            color: var(--ant-primary-color-hover);
+        }
+    }
+}
+
+.drawer_div {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .subtitle_div {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        color: var(--text-theme);
+        font-size: 14px;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 24px;
+    }
+}

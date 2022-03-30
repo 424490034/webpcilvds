@@ -1,3 +1,21 @@
+export const typeEnum = [
+  {
+    label: 'PC端',
+    value: '1',
+  },
+  {
+    label: '移动端',
+    value: '2',
+  },
+  {
+    label: '服务端',
+    value: '3',
+  },
+  {
+    label: '其他',
+    value: '4',
+  },
+];
 export const ColConfig = {
   span: 12,
 };
@@ -115,24 +133,7 @@ export const formConditions = [
     },
     componentsConfig: {
       defaultValue: '1',
-      options: [
-        {
-          label: 'PC端',
-          value: '1',
-        },
-        {
-          label: '移动端',
-          value: '2',
-        },
-        {
-          label: '服务端',
-          value: '3',
-        },
-        {
-          label: '其他',
-          value: '4',
-        },
-      ],
+      options: typeEnum,
     },
     formItemLayout,
     ColConfig,
