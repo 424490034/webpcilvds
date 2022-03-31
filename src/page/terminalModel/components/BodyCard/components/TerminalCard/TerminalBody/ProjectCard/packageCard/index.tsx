@@ -23,7 +23,8 @@ interface IProps {
   clearDiv: any;
 }
 function index(props: IProps, ref: any) {
-  const { clearDiv, terData, runPackageOrder, stopOrder } = props;
+  const { clearDiv, terData = {}, runPackageOrder, stopOrder } = props;
+  const { projectData = {} } = terData;
   const [packageData, setPackageData] = useState<any>({}); // script对应数据
   const [packageList, setPaceageList] = useState<any>([]); // 解析后的key集合
   const [isError, setError] = useState(false);
@@ -42,8 +43,11 @@ function index(props: IProps, ref: any) {
       } else if (terData.initOrderKey === 'orderOpenPowerShell') {
         codePowerShell();
       } else if (!runKey) {
-        stopOrder();
         run(terData.initOrderKey);
+      } else {
+        if (runKey && terData.initOrderKey !== runKey) {
+          run(terData.initOrderKey);
+        }
       }
     }
   }, [terData]);
@@ -52,14 +56,14 @@ function index(props: IProps, ref: any) {
   }
   // 打开文件路径
   async function openPath() {
-    if (terData.webFilePath) {
-      openFileInFolder(terData.webFilePath);
+    if (projectData.path) {
+      openFileInFolder(projectData.path);
     } else {
       message.error('文件路径丢失');
     }
   }
   useEffect(() => {
-    parsePackage(terData.webFilePath).then((results) => {
+    parsePackage(projectData.path).then((results) => {
       if (results && !results.isError && results.data) {
         // 不存在错误
         setError(false);
@@ -77,21 +81,13 @@ function index(props: IProps, ref: any) {
       return;
     }
     if (runKey) {
-      confirm({
-        title: `是否停止历史指令的运行?`,
-        content: '停止后会立即运行选择指令',
-        okType: 'danger',
-        centered: true,
-        onOk() {
-          stopOrder();
-          setRunKey(key);
-          runPackageOrder(packageData[key]);
-        },
-      });
-    } else {
+      stopOrder();
       setRunKey(key);
-      runPackageOrder(`npm run ${key}`);
+      runPackageOrder(`npm run ${key}`, false, key);
+      return;
     }
+    setRunKey(key);
+    runPackageOrder(`npm run ${key}`, false, key);
   }
   function codeRun() {
     runPackageOrder(`code .`, true);
@@ -127,6 +123,26 @@ function index(props: IProps, ref: any) {
         </div>
       ) : (
         <>
+          <Tooltip title={'快捷打开powerShell窗口'}>
+            <Tag
+              icon={<YoutubeOutlined />}
+              className={styles.icon_cus}
+              color={'#f50'}
+              onClick={codePowerShell}
+            >
+              powerShell
+            </Tag>
+          </Tooltip>
+          <Tooltip title={'快捷打开cmd窗口'}>
+            <Tag
+              icon={<YoutubeOutlined />}
+              className={styles.icon_cus}
+              color={'#f50'}
+              onClick={codeCmd}
+            >
+              cmd窗口
+            </Tag>
+          </Tooltip>
           <Tooltip title={'请确保已安装vscode并配置环境'}>
             <Tag
               onClick={codeRun}

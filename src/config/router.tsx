@@ -21,6 +21,8 @@ import WebTools from 'page/web/Tools';
 import AddNewProject from 'page/project/addNew';
 // 添加已有项目
 import AddHaveProject from 'page/project/haveOld';
+// 指令执行窗口页
+import TerminalPage from 'page/terminalModel';
 export const btnMenus = [
   // 右侧顶部快捷菜单栏配置
   {
@@ -97,6 +99,13 @@ const routes = [
       },
     ],
   },
+  {
+    name: '指令执行页',
+    route: '/terminal_Model',
+    component: TerminalPage,
+    display: true,
+    layout: false,
+  },
   //   {
   //     redirect: '/',
   //     to: '/menu/home',
@@ -121,3 +130,13 @@ function formatPaths(ary: any[]) {
   return results;
 }
 export const routePaths = formatPaths(routes);
+function getNoRoute(routes: any) {
+  let results: any[] = [];
+  routes.map((item: any) => {
+    if (!item.layout) {
+      results.push(item.route);
+    }
+  });
+  return results;
+}
+export const noLayoutRoute = getNoRoute(routes);

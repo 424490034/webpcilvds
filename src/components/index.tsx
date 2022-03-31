@@ -5,7 +5,9 @@ import HeaderCard from './HeaderCard';
 import SeletePath from './SeletePath';
 import BodyBgc from './BodyBgc';
 import ProjectCard from './ProjectCard/BasicsCard';
+import ProjectCustomCard from './ProjectCard/CustomCard';
 import OrderCard from './ProjectCard/orderCard';
+import ProjectCustomOrderCard from './ProjectCard/customOrderCard';
 export {
   BodyBgc,
   FloatCard,
@@ -15,4 +17,6 @@ export {
   SeletePath,
   ProjectCard,
   OrderCard,
+  ProjectCustomCard,
+  ProjectCustomOrderCard,
 };

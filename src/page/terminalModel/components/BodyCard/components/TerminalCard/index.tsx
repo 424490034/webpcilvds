@@ -2,7 +2,7 @@
  * @file 终端执行卡片
  */
 import React, { useState, useRef, useEffect } from 'react';
-import { Col } from 'antd';
+import { Col, message } from 'antd';
 import styles from './index.module.scss';
 import TerminalHeader from './TerminalHeader';
 import { xlorderRun, executeOrder } from 'utils/xlOrder';
@@ -12,6 +12,7 @@ import { isEmpty } from 'lodash';
 import { globalMessage } from 'utils';
 import { showTerminalWindow } from 'electron/window/index';
 import iconImg from 'assets/kl.ico';
+import runOrderCustom from 'utils/customOrder';
 const kill = require('tree-kill');
 interface IProps {
   actions: any;
@@ -26,8 +27,10 @@ interface IProps {
   };
 }
 let strData: any = [];
+let projectRunKey: any = undefined;
 export default function index(props: IProps) {
-  const { ColConfig = {}, height, terData, actions, childOptions } = props;
+  const { ColConfig = {}, height, terData = {}, actions, childOptions } = props;
+  const { projectData = {}, customData = {} } = terData;
   const [cmdData, setCmdData] = useState<any>({});
   const outRef: any = useRef();
   const projectRef: any = useRef();
@@ -36,7 +39,7 @@ export default function index(props: IProps) {
     if (childOptions.registerChildWin) {
       childOptions.registerChildWin(terData.id, asynStopOrder);
     }
-    if (terData.type === '1' && terData.initOrderKey === 'start') {
+    if (projectData.type === '5' && terData.initOrderKey === 'start') {
       if (!cmdData.pid) {
         runOrder();
       }
@@ -53,17 +56,67 @@ export default function index(props: IProps) {
    * @function 运行配置指令
    */
   function runOrder() {
-    executeOrder(terData.name, terData.queue, outputStr, terData.orderPath);
+    executeOrder(
+      terData.name,
+      terData.orderQueue,
+      outputStr,
+      terData.orderPath
+    );
   }
   /**
    * @function 运行指定指令
+   *  @param order  需要执行的指令
+   * @param isNoPrint 是否需要打印结果
+   * @param key 当前项目内部package执行key 根据定制化参数进行对应指令执行
    */
-  function runPackageOrder(order: string, isNoPrint: boolean = false) {
+  function runPackageOrder(
+    order: string,
+    isNoPrint: boolean = false,
+    key: string
+  ) {
+    // 判断key是否存在
+    if (key) {
+      if (customData[key]) {
+        runOrderCustom(key, terData, true, runCustomOrder, addStr)
+          .then((data: any) => {
+            projectRunKey = key;
+            runInitOrder(order, isNoPrint);
+          })
+          .catch((error: any) => {
+            addStr(`自定义指令执行异常`);
+            message.error(`自定义指令,执行异常:error`);
+            projectRunKey = undefined;
+            runInitOrder(order, isNoPrint);
+          });
+      }
+    } else {
+      executeOrder(
+        projectData.name,
+        order,
+        isNoPrint ? () => {} : initOutPutStr,
+        projectData.path
+      );
+    }
+  }
+  function runCustomOrder(
+    name: string,
+    order: string,
+    isNoPrint: boolean = false,
+    pathStr: string
+  ) {
     executeOrder(
-      terData.webName,
+      name,
+      order,
+      isNoPrint ? () => {} : outputStrNoMessage,
+      pathStr
+    );
+  }
+  function runInitOrder(order: string, isNoPrint: boolean = false) {
+    executeOrder(
+      projectData.name,
       order,
       isNoPrint ? () => {} : outputStr,
-      terData.webFilePath
+      projectData.path
     );
   }
   /**
@@ -71,7 +124,7 @@ export default function index(props: IProps) {
    */
   function stopOrder() {
     if (cmdData.pid) {
-      if (terData.type === '2') {
+      if (terData.type !== '5') {
         projectRef?.current?.clearKey();
       }
       kill(cmdData.pid, 'SIGKILL');
@@ -99,10 +152,29 @@ export default function index(props: IProps) {
    * @param dataStr
    */
   function addStr(dataStr: string) {
+    if (dataStr.indexOf('copy-filename:') !== -1) {
+      outRef?.current?.updateOut({
+        isWarning: false,
+        isError: false,
+        isFileTo: true,
+        str: dataStr,
+      });
+      setStrData([
+        ...strData,
+        {
+          isWarning: false,
+          isError: false,
+          isFileTo: true,
+          str: dataStr,
+        },
+      ]);
+      return;
+    }
     if (dataStr.toLocaleUpperCase().indexOf('WARNING') !== -1) {
-      outRef.current.updateOut({
+      outRef?.current?.updateOut({
         isWarning: true,
         isError: false,
+        isFileTo: false,
         str: dataStr,
       });
       setStrData([
@@ -110,13 +182,15 @@ export default function index(props: IProps) {
         {
           isWarning: true,
           isError: false,
+          isFileTo: false,
           str: dataStr,
         },
       ]);
     } else if (dataStr.toLocaleUpperCase().indexOf('ERROR') !== -1) {
-      outRef.current.updateOut({
+      outRef?.current?.updateOut({
         isWarning: false,
         isError: true,
+        isFileTo: false,
         str: dataStr,
       });
       setStrData([
@@ -124,14 +198,16 @@ export default function index(props: IProps) {
         {
           isWarning: false,
           isError: true,
+          isFileTo: false,
           str: dataStr,
         },
       ]);
     } else {
-      outRef.current.updateOut({
+      outRef?.current?.updateOut({
         isWarning: false,
         isError: false,
         str: dataStr,
+        isFileTo: false,
       });
       setStrData([
         ...strData,
@@ -139,6 +215,7 @@ export default function index(props: IProps) {
           isWarning: false,
           isError: false,
           str: dataStr,
+          isFileTo: false,
         },
       ]);
     }
@@ -150,19 +227,42 @@ export default function index(props: IProps) {
   function clearBodyOut() {
     outRef.current.clearOut();
   }
+  function toError(code: string) {
+    if (code) {
+      if (code.indexOf('子进程退出') !== -1) {
+        if (code.indexOf('运行成功') !== -1) {
+        } else {
+          message.error('自定义操作指令执行异常');
+        }
+      }
+    }
+  }
   function toMessage(code: string) {
     if (code) {
       if (code.indexOf('子进程退出') !== -1) {
         if (code.indexOf('运行成功') !== -1) {
           globalMessage(
-            terData.name || terData.webName + '执行成功',
+            terData.name || projectData.name + '执行成功',
             code,
             iconImg,
             showTerminalWindow
           );
+          if (terData.type !== '5') {
+            projectRef?.current?.clearKey();
+          }
+          if (projectRunKey && customData[projectRunKey]) {
+            runOrderCustom(
+              projectRunKey,
+              terData,
+              false,
+              runCustomOrder,
+              addStr
+            );
+            projectRunKey = undefined;
+          }
         } else {
           globalMessage(
-            terData.name || terData.webName + '执行失败',
+            terData.name || projectData.name + '执行失败',
             code,
             iconImg,
             showTerminalWindow
@@ -176,12 +276,68 @@ export default function index(props: IProps) {
    * @param data 指令执行时每次的回调数据
    * @param child
    */
+  function outputStrNoMessage(data: any, child: any, isClose: boolean = false) {
+    if (isClose) {
+      toError(data);
+      // 清空状态
+      setCmdData({});
+      addStr(data);
+    } else {
+      if (isEmpty(cmdData)) {
+        // 为空时直接覆盖
+        setCmdData(child);
+        addStr(data);
+      } else if (cmdData.pid !== child.pid) {
+        // 旧pid与新pid不同 说明执行到其他指令了
+        let str = `\n`;
+        setCmdData(child);
+        addStr(str + data);
+      } else {
+        // 默认更新
+        addStr('\n' + data);
+      }
+    }
+  }
+  /**
+   * @function 指令执行回调
+   * @param data 指令执行时每次的回调数据
+   * @param child
+   */
   function outputStr(data: any, child: any, isClose: boolean = false) {
     if (isClose) {
       toMessage(data);
-      if (terData.type === '2') {
-        projectRef?.current?.clearKey();
+      // if (terData.type !== '5') {
+      //   projectRef?.current?.clearKey();
+      // }
+      // 清空状态
+      setCmdData({});
+      addStr(data);
+    } else {
+      if (isEmpty(cmdData)) {
+        // 为空时直接覆盖
+        setCmdData(child);
+        addStr(data);
+      } else if (cmdData.pid !== child.pid) {
+        // 旧pid与新pid不同 说明执行到其他指令了
+        let str = `\n`;
+        setCmdData(child);
+        addStr(str + data);
+      } else {
+        // 默认更新
+        addStr('\n' + data);
       }
+    }
+  }
+  /**
+   * @function 指令执行回调-为非项目指令调用时的方法不会全局消息提示
+   * @param data 指令执行时每次的回调数据
+   * @param child
+   */
+  function initOutPutStr(data: any, child: any, isClose: boolean = false) {
+    if (isClose) {
+      // if (terData.type !== '5') {
+      //   projectRef?.current?.clearKey();
+      // }
       // 清空状态
       setCmdData({});
       addStr(data);
@@ -220,8 +376,8 @@ export default function index(props: IProps) {
   return (
     <>
       <TerminalHeader {...props} {...headerCardProps} ref={outHeaderRef} />
-      <div className={styles.col_body_div}>
-        {terData.type === '1' ? (
+      <div className={styles.col_body_div} id={terData.id}>
+        {terData.type === '5' ? (
           <OutputCard
             ref={outRef}
             models={props.models}

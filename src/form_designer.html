@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>休闲平台</title>
+    <script>
+        (() => {
+            if (process && process.env && process.env.NODE_ENV !== 'development') {
+                const link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = './dist/style.css';
+                // HACK: Writing the script path should be done with webpack
+                document.getElementsByTagName('head')[0].appendChild(link);
+            }
+        })();
+    </script>
+    <style>
+        body {
+            background-color: #18191d;
+        }
+        
+        #pageloading svg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%) scale(0.5);
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+        
+        #pageloading .stroke-still {
+            stroke: #232323;
+        }
+        
+        #pageloading .stroke-animation {
+            -webkit-animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+            animation: stroke-spacing 1.2s ease-in, stroke-color 4.8s linear;
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+            -webkit-animation-delay: 0;
+            animation-delay: 0;
+            -webkit-animation-direction: normal;
+            animation-direction: normal;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+            -webkit-animation-play-state: running;
+            animation-play-state: running;
+            -webkit-transform-origin: center center;
+            transform-origin: center center;
+        }
+        
+        @-webkit-keyframes stroke-spacing {
+            0% {
+                stroke-dasharray: 0 200;
+            }
+            45% {
+                stroke-dashoffset: 0;
+                stroke-dasharray: 200 200;
+            }
+            90% {
+                stroke-dashoffset: -200;
+                stroke-dasharray: 200 200;
+            }
+            100% {
+                stroke-dashoffset: -200;
+                stroke-dasharray: 200 200;
+            }
+        }
+        
+        @keyframes stroke-spacing {
+            0% {
+                stroke-dasharray: 0 200;
+            }
+            45% {
+                stroke-dashoffset: 0;
+                stroke-dasharray: 200 200;
+            }
+            90% {
+                stroke-dashoffset: -200;
+                stroke-dasharray: 200 200;
+            }
+            100% {
+                stroke-dashoffset: -200;
+                stroke-dasharray: 200 200;
+            }
+        }
+        
+        @-webkit-keyframes stroke-color {
+            0% {
+                stroke: #643232;
+            }
+            24% {
+                stroke: #643232;
+            }
+            25% {
+                stroke: #327864;
+            }
+            49% {
+                stroke: #327864;
+            }
+            50% {
+                stroke: #32326e;
+            }
+            74% {
+                stroke: #32326e;
+            }
+            75% {
+                stroke: #78325a;
+            }
+            99% {
+                stroke: #78325a;
+            }
+        }
+        
+        @keyframes stroke-color {
+            0% {
+                stroke: #643232;
+            }
+            24% {
+                stroke: #643232;
+            }
+            25% {
+                stroke: #327864;
+            }
+            49% {
+                stroke: #327864;
+            }
+            50% {
+                stroke: #32326e;
+            }
+            74% {
+                stroke: #32326e;
+            }
+            75% {
+                stroke: #78325a;
+            }
+            99% {
+                stroke: #78325a;
+            }
+        }
+        
+        html,
+        body {
+            border-radius: 0px !important;
+            -webkit-border-radius: 0px !important;
+            -moz-border-radius: 0px !important;
+            -ms-border-radius: 0px !important;
+            -o-border-radius: 0px !important;
+        }
+        
+        #root {
+            padding: 0 !important;
+            border-radius: 0px !important;
+            -webkit-border-radius: 0px !important;
+            -moz-border-radius: 0px !important;
+            -ms-border-radius: 0px !important;
+            -o-border-radius: 0px !important;
+            border: 0px solid #e5e5ed !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='pageloading'>
+        <svg width="900" height="900" viewBox="0 0 100 100">
+            <polyline class="line-cornered stroke-still" points="0,0 100,0 100,100" stroke-width="10" fill="none">
+            </polyline>
+            <polyline class="line-cornered stroke-still" points="0,0 0,100 100,100" stroke-width="10" fill="none">
+            </polyline>
+            <polyline class="line-cornered stroke-animation" points="0,0 100,0 100,100" stroke-width="10" fill="none">
+            </polyline>
+            <polyline class="line-cornered stroke-animation" points="0,0 0,100 100,100" stroke-width="10" fill="none">
+            </polyline>
+        </svg>
+    </div>
+    <div id="root"></div>
+    <script>
+        const scripts = [];
+
+        if (process.env.NODE_ENV === 'development') {
+            // Dynamically insert the DLL script in development env in the
+            // renderer process
+            scripts.push('../.erb/dll/renderer.dev.dll.js');
+
+            // Dynamically insert the bundled app script in the renderer process
+            const port = process.env.PORT || 1212;
+            scripts.push(`http://localhost:${port}/dist/renderer.dev.js`);
+        } else {
+            scripts.push('./dist/renderer.prod.js');
+        }
+
+        if (scripts.length) {
+            document.write(
+                scripts
+                .map((script) => `<script defer src="${script}"><\/script>`)
+                .join('')
+            );
+        }
+    </script>
+
+</body>
+
+</html>

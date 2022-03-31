@@ -26,7 +26,7 @@ interface IProps {
 }
 function index(props: IProps, ref: any) {
   const {
-    terData,
+    terData = {},
     actions,
     cmdData,
     index,
@@ -35,6 +35,7 @@ function index(props: IProps, ref: any) {
     resetOrder,
     clearBodyOut,
   } = props;
+  const { projectData = {} } = terData;
   useImperativeHandle(ref, () => ({
     removeWin,
     openPath,
@@ -55,7 +56,7 @@ function index(props: IProps, ref: any) {
   // 删除当前终端
   function removeCmd() {
     confirm({
-      title: `移除${terData.name || terData.webName}指令执行框?`,
+      title: `移除${terData.name || projectData.name}指令执行框?`,
       content: '移除后可通过执行库重新打开',
       okType: 'danger',
       centered: true,
@@ -74,8 +75,8 @@ function index(props: IProps, ref: any) {
   }
   // 打开文件路径
   function openPath() {
-    if (terData.webFilePath) {
-      openFileInFolder(terData.webFilePath);
+    if (projectData.path) {
+      openFileInFolder(projectData.path);
     } else {
       message.error('文件路径丢失');
     }
@@ -99,13 +100,16 @@ function index(props: IProps, ref: any) {
       }}
       className={styles.col_header_div}
     >
-      <Tooltip title={terData.queue || terData.webFilePath} placement="topLeft">
+      <Tooltip
+        title={terData.orderPath || projectData.path}
+        placement="topLeft"
+      >
         <Col span={15} className={styles.col_header_title_div}>
-          {terData.name || terData.webName}
+          {terData.name || projectData.name}
         </Col>
       </Tooltip>
       <Col span={9} className={styles.col_btn_div}>
-        {terData.type === '1' && (
+        {terData.type === '5' && (
           <Tooltip title="执行指令">
             <Button
               type="link"
@@ -118,7 +122,7 @@ function index(props: IProps, ref: any) {
           </Tooltip>
         )}
 
-        {terData.type === '1' && (
+        {terData.type === '5' && (
           <Tooltip title="重新执行指令" placement="top">
             <Button
               type="link"
@@ -129,7 +133,7 @@ function index(props: IProps, ref: any) {
             </Button>
           </Tooltip>
         )}
-        {terData.type === '2' && (
+        {terData.type !== '5' && (
           <Tooltip title="在资源管理器中打开项目">
             <Button type="link" className={styles.icon_btn} onClick={openPath}>
               <FolderOpenOutlined />

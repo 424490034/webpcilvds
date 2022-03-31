@@ -3,25 +3,19 @@
  */
 import React, { useRef } from 'react';
 import styles from './index.module.scss';
-import UpdateDrawer from './components/updateDrawer';
-import UpdateCustomDrawer from './components/updateCustomDrawer';
-import { createTerminal } from 'utils';
 import {
   WindowsOutlined,
-  MobileOutlined,
-  DesktopOutlined,
-  DatabaseOutlined,
   DeploymentUnitOutlined,
   ExclamationCircleOutlined,
   PlayCircleOutlined,
   EditOutlined,
   CloseCircleOutlined,
-  ForkOutlined,
 } from '@ant-design/icons';
 import { isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { removeProjectData } from 'utils';
 import { Modal } from 'antd';
+import UpdateDrawer from './components/updateDrawer';
 const { confirm } = Modal;
 interface IProps {
   type: '1' | '2' | '3' | '4' | '5'; // 类型
@@ -40,11 +34,18 @@ export default function index(props: IProps) {
     optionsData,
     actions,
   } = props;
-  const { projectData = {} } = item;
   const updateRef: any = useRef();
-  const updateCustomRef: any = useRef();
-  let typeDesc = undefined;
-  let iconDesc = undefined;
+  let typeDesc = '其他';
+  let iconDesc = (
+    <DeploymentUnitOutlined
+      style={{
+        color:
+          optionsData.id === item.id
+            ? 'var(--ant-primary-color-active)'
+            : undefined,
+      }}
+    />
+  );
   function openSetting() {
     if (showOptions) {
       // 为true表示正在展示其他工具栏
@@ -64,56 +65,7 @@ export default function index(props: IProps) {
     }
   }
   switch (type) {
-    case '2':
-      typeDesc = '移动端';
-      iconDesc = (
-        <MobileOutlined
-          style={{
-            color:
-              optionsData.id === item.id
-                ? 'var(--ant-primary-color-active)'
-                : undefined,
-          }}
-        />
-      );
-      break;
-    case '3':
-      typeDesc = '服务端';
-      iconDesc = (
-        <DatabaseOutlined
-          style={{
-            color:
-              optionsData.id === item.id
-                ? 'var(--ant-primary-color-active)'
-                : undefined,
-          }}
-        />
-      );
-    case '4':
-      typeDesc = '其他';
-      iconDesc = (
-        <DesktopOutlined
-          style={{
-            color:
-              optionsData.id === item.id
-                ? 'var(--ant-primary-color-active)'
-                : undefined,
-          }}
-        />
-      );
-      break;
     case '5':
-      typeDesc = '其他';
-      iconDesc = (
-        <DeploymentUnitOutlined
-          style={{
-            color:
-              optionsData.id === item.id
-                ? 'var(--ant-primary-color-active)'
-                : undefined,
-          }}
-        />
-      );
       break;
     default:
       typeDesc = '浏览器';
@@ -128,12 +80,6 @@ export default function index(props: IProps) {
         />
       );
       break;
-  }
-  function updateDrawer() {
-    updateRef?.current?.showDrawer();
-  }
-  function updateCustomDrawer() {
-    updateCustomRef?.current?.showDrawer();
   }
   function del() {
     confirm({
@@ -152,12 +98,10 @@ export default function index(props: IProps) {
       },
     });
   }
-  function addTerminal(cmdOrder: string) {
-    createTerminal({
-      id: item.id,
-      cmdOrder,
-    });
+  function updateDrawer() {
+    updateRef?.current?.showDrawer();
   }
+
   return (
     <div className={styles.basics_project_div}>
       <div className={styles.left_text_div}>
@@ -166,17 +110,10 @@ export default function index(props: IProps) {
         </div>
         <div
           className={styles.left_icon_div}
-          title="修改基础项目"
+          title="修改自定义项目"
           onClick={updateDrawer}
         >
           <EditOutlined />
-        </div>
-        <div
-          className={styles.left_icon_div}
-          title="定制指令执行操作"
-          onClick={updateCustomDrawer}
-        >
-          <ForkOutlined />
         </div>
         <div
           className={classNames(styles.left_icon_div, styles.remove_icon_div)}
@@ -188,9 +125,9 @@ export default function index(props: IProps) {
       </div>
       <div className={styles.right_text_div}>
         <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>项目名称</div>
-          <div className={styles.right_body_div} title={projectData.name}>
-            {projectData.name || '-'}
+          <div className={styles.right_title_div}>指令名称</div>
+          <div className={styles.right_body_div} title={item.name}>
+            {item.name || '-'}
           </div>
         </div>
         <div className={styles.right_header_div}>
@@ -198,21 +135,15 @@ export default function index(props: IProps) {
           <div className={styles.right_body_div}>{typeDesc}</div>
         </div>
         <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>git仓库</div>
-          <div className={styles.right_body_div} title={projectData.gitName}>
-            {projectData.gitName || '-'}
+          <div className={styles.right_title_div}>指令队列</div>
+          <div className={styles.right_body_div} title={item.orderQueue}>
+            {item.orderQueue || '-'}
           </div>
         </div>
         <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>默认启动指令</div>
-          <div className={styles.right_body_div} title={projectData.startCode}>
-            {projectData.startCode || '-'}
-          </div>
-        </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>默认打包指令</div>
-          <div className={styles.right_body_div} title={projectData.buildCode}>
-            {projectData.buildCode || '-'}
+          <div className={styles.right_title_div}>项目执行路径</div>
+          <div className={styles.right_body_div} title={item.orderPath}>
+            {item.orderPath || '-'}
           </div>
         </div>
         <div className={styles.fix_btn_div} onClick={openSetting}>
@@ -228,7 +159,6 @@ export default function index(props: IProps) {
         </div>
       </div>
       <UpdateDrawer item={item} ref={updateRef} actions={actions} />
-      <UpdateCustomDrawer item={item} ref={updateCustomRef} actions={actions} />
     </div>
   );
 }

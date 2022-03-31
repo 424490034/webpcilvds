@@ -59,7 +59,7 @@ function index(props: any) {
         break;
       case 'createOrder': // 新建新终端执行
         actions.fetchAddTerminal({
-          orderId: arg.src,
+          orderId: arg.id,
           status: 'createOrder',
           initOrderKey: arg.orderName,
         });

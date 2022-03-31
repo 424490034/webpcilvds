@@ -1,8 +1,10 @@
 import { message } from 'antd';
 import { remote } from 'electron';
 import Store from 'electron-store';
+import { ipcRenderer } from 'electron';
 import fs from 'fs';
 import path from 'path';
+import { openTerminal } from '../config/ipc';
 const _store = new Store();
 export const store = _store;
 /**
@@ -118,7 +120,7 @@ export function delProjectData() {
  * @returns 返回本地保存的指令集合
  */
 export function GetOrderList() {
-  let downModels = store.get('orderList');
+  let downModels = store.get('projectData');
   if (Array.isArray(downModels)) {
     return downModels;
   } else {
@@ -131,7 +133,7 @@ export function GetOrderList() {
  */
 export function SetOrderList(list: Array<any>) {
   if (Array.isArray(list)) {
-    store.set('orderList', list);
+    store.set('projectData', list);
     return true;
   } else {
     return false;
@@ -403,4 +405,25 @@ export function genID(length: number) {
   return Number(
     Math.random().toString().substr(3, length) + Date.now()
   ).toString(36);
+}
+
+/**
+ * @function 根据相关参数也可不传创建终端窗口
+ */
+export async function createTerminal(options: any = {}, callback?: Function) {
+  function show() {
+    if (callback) {
+      callback();
+    }
+    ipcRenderer?.removeListener('terminal-ok', show);
+  }
+  ipcRenderer?.on('terminal-ok', show);
+  if (options) {
+    let config = {
+      ...options,
+    };
+    openTerminal(options, config);
+  } else {
+    openTerminal(options);
+  }
 }

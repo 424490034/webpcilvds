@@ -27,8 +27,6 @@ function index(props: any, ref: any) {
   useImperativeHandle(ref, () => ({
     showDrawer,
   }));
-  console.log(cusList);
-
   async function showDrawer() {
     let list = await getPackage(item.projectData.path);
     list = Object.keys(list).map((item: any) => {
@@ -52,16 +50,39 @@ function index(props: any, ref: any) {
   }
 
   function onEdit() {
+    let customOrder: any = {};
+    cusList.map((item: any) => {
+      // 数据存在且不是数组
+      if (
+        customOrder[item.seleteOrder] &&
+        !Array.isArray(customOrder[item.seleteOrder])
+      ) {
+        customOrder[item.seleteOrder] = [customOrder[item.seleteOrder], item];
+      } else if (
+        customOrder[item.seleteOrder] &&
+        Array.isArray(customOrder[item.seleteOrder])
+      ) {
+        // 数据存在且是数组
+        customOrder[item.seleteOrder] = [
+          ...customOrder[item.seleteOrder],
+          item,
+        ];
+      }
+      {
+        // 数据不存在
+        customOrder[item.seleteOrder] = item;
+      }
+    });
     let data = {
       ...item,
-      customData: cusList,
+      customData: customOrder,
     };
     updateProject(item.id, data);
     onClose();
     actions.fetchProjectDetail();
   }
   function removeData(id: string) {
-    let data = cusList.filter((item: any) => item != id);
+    let data = cusList.filter((item: any) => item.id != id);
     setCusList(data);
   }
   const extraColumns: any = [

@@ -41,7 +41,7 @@ export default Model.extend({
       { update, call, put, select }: any
     ): any {
       const orderList = GetOrderList();
-      const { terminalList } = yield select((_: any) => _[namespace]);
+     const { terminalList } = yield select((_: any) => _[namespace]);
       const { orderId, status, initOrderKey } = payload;
       if (Array.isArray(terminalList) && terminalList.length > 0) {
         let isHave = terminalList.filter((item) => item.id === orderId);
@@ -65,7 +65,7 @@ export default Model.extend({
           }
           // 不做处理
         } else {
-          // 不存在id需要进行添加
+      // 不存在id需要进行添加
           let data = orderList.filter((item) => item.id === orderId);
           let newList = [];
           if (initOrderKey) {
@@ -99,7 +99,7 @@ export default Model.extend({
       } else {
         // 不存在已有终端需要进行添加
         let data = orderList.filter((item) => item.id === orderId);
-        let newList = [];
+      let newList = [];
         if (initOrderKey) {
           newList = [
             {

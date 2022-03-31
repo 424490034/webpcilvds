@@ -67,7 +67,7 @@ export const customFormConditions = [
   },
   {
     inputType: 'custom3',
-    label: '项目复制路径',
+    label: '项目执行路径',
     title: customFormNames.orderPath,
     formItemLayout,
     // isCom: true,
@@ -76,7 +76,7 @@ export const customFormConditions = [
       rules: [
         {
           required: false,
-          message: '请选择项目复制路径',
+          message: '请选择项目执行路径',
         },
       ],
     },

@@ -1,0 +1,86 @@
+.order_div {
+    width: 100%;
+    height: 200px;
+    padding: 12px;
+    .order_body_div {
+        height: 110px;
+        color: #fff;
+        font-size: 14px;
+        display: flex;
+        align-items: flex-start;
+        .title_text_div {
+            width: 100px;
+            font-weight: bold;
+            text-align: right;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+        .body_order_div {
+            height: 110px;
+            flex: 1;
+            text-align: left;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+    .order_custom_div {
+        width: 100%;
+        color: #fff;
+        height: 50px;
+        font-size: 14px;
+        display: flex;
+        line-height: 50px;
+        .title_text_div {
+            width: 100px;
+            font-weight: bold;
+            text-align: right;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+        .body_order_div {
+            flex: 1;
+            height: 50px;
+            text-align: left;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+    .order_name_div {
+        width: 100%;
+        color: #fff;
+        height: 20px;
+        font-size: 14px;
+        display: flex;
+        line-height: 20px;
+        .title_text_div {
+            width: 100px;
+            font-weight: bold;
+            text-align: right;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+        .body_order_div {
+            flex: 1;
+            text-align: left;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+}
+
+.tag_span {
+    cursor: pointer;
+    margin-bottom: 8px;
+}

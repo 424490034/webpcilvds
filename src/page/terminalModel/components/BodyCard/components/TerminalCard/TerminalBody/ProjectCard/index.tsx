@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import PackageCard from './packageCard';
 import { Modal } from 'antd';
 import moment from 'moment';
+import PackageDrawer from './packageDrawer';
 const { confirm } = Modal;
 interface IProps {
   actions: any;
@@ -18,7 +19,8 @@ interface IProps {
   projectRef: any;
 }
 function index(props: IProps, ref: any) {
-  const { terData, height, stopOrder, projectRef } = props;
+  const { terData = {}, height, stopOrder, projectRef } = props;
+  const { projectData = {} } = terData;
   useImperativeHandle(ref, () => ({
     updateOut,
     clearOut,
@@ -29,25 +31,29 @@ function index(props: IProps, ref: any) {
   }
   function updateOut(data: any) {
     let divDom: any = document.querySelector(`.cus_${terData.id}`);
-    const { isWarning, isError, str } = data;
+    const { isWarning, isError, str, isFileTo } = data;
     let bodyClass = 'terminal_right_body';
     if (isWarning) {
       bodyClass = 'terminal_right_body_warring';
     } else if (isError) {
       bodyClass = 'terminal_right_body_error';
+    } else if (isFileTo) {
+      bodyClass = 'terminal_right_body_file';
     }
     let spanDom = `
       <div class="terminal_row">
       <span class="terminal_left_title">${
-        terData.webFilePath
-          ? terData.webFilePath
-          : terData.name || terData.webName
+        projectData.path ? projectData.path : projectData.name || terData.name
       }><span class="terminal_time_span">${moment().format(
       'YYYY年MM月DD日 HH时mm分ss秒'
     )}</span></span>
       <div class="${bodyClass}"><pre>${str}</pre></div>
       </div>
     `;
+    if (isFileTo) {
+      spanDom = `<div class="${bodyClass}"><pre>${str}</pre></div>
+      `;
+    }
     // 基础div拼装
     var div = document.createElement('div');
     div.innerHTML = spanDom;
