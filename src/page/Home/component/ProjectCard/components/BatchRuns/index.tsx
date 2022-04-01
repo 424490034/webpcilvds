@@ -40,9 +40,11 @@ function index(props: any, ref: any) {
     } else {
       setIsAdd(true);
       // 默认只能选择一个操作 所以其他全部设置为false
-      setIsDel(false);
-      setIsEdit(false);
+      setIsDel(undefined);
+      setIsEdit(undefined);
       setRunData({});
+      setEditData({});
+      setSelectList([]);
     }
   }
   function delProjectOrder() {
@@ -50,9 +52,9 @@ function index(props: any, ref: any) {
       setIsDel(false);
     } else {
       // 默认只能选择一个操作 所以其他全部设置为false
-      setIsAdd(false);
+      setIsAdd(undefined);
       setIsDel(true);
-      setIsEdit(false);
+      setIsEdit(undefined);
       setRunData({});
     }
   }
@@ -64,14 +66,21 @@ function index(props: any, ref: any) {
       message.info('请选择你需要修改的指令');
       // 默认只能选择一个操作 所以其他全部设置为false
       setIsEdit(true);
-      setIsAdd(false);
-      setIsDel(false);
+      setIsAdd(undefined);
+      setIsDel(undefined);
+      setSelectList([]);
       setRunData({});
     }
   }
   function editBatchOrder(editOldData: any) {
     setEditData(editOldData);
-    editProjectOrder();
+    console.assert(editOldData.batchData, '对应快捷指令不存在数据,请排查');
+    setSelectList(editOldData.batchData);
+    // 默认只能选择一个操作 所以其他全部设置为false
+    setIsEdit(true);
+    setIsAdd(undefined);
+    setIsDel(undefined);
+    setRunData({});
   }
   useImperativeHandle(ref, () => ({
     showDrawer,
@@ -83,12 +92,16 @@ function index(props: any, ref: any) {
     setIsAdd(undefined);
     setIsDel(undefined);
     setIsEdit(undefined);
+    setEditData({});
+    setRunData({});
+    setSelectList([]);
     setVisible(false);
   }
   function onRuns() {}
   function openModal() {
     modalRef.current.showModel(selectList, editData);
   }
+
   return (
     <Drawer
       title="批量执行窗口"
@@ -125,22 +138,26 @@ function index(props: any, ref: any) {
                 )}
                 onClick={addProjectOrder}
               />
-              <HighlightOutlined
-                title="修改快捷指令"
-                className={classNames(
-                  styles.icon_span,
-                  isEdit ? styles.icon_span_selete : ''
-                )}
-                onClick={editProjectOrder}
-              />
-              <DeleteOutlined
-                title="移除快捷指令"
-                className={classNames(
-                  styles.icon_span_del,
-                  isDel ? styles.icon_span_del_selete : ''
-                )}
-                onClick={delProjectOrder}
-              />
+              {historyProjectOrders && historyProjectOrders.length > 0 && (
+                <>
+                  <HighlightOutlined
+                    title="修改快捷指令"
+                    className={classNames(
+                      styles.icon_span,
+                      isEdit ? styles.icon_span_selete : ''
+                    )}
+                    onClick={editProjectOrder}
+                  />
+                  <DeleteOutlined
+                    title="移除快捷指令"
+                    className={classNames(
+                      styles.icon_span_del,
+                      isDel ? styles.icon_span_del_selete : ''
+                    )}
+                    onClick={delProjectOrder}
+                  />
+                </>
+              )}
             </Space>
           </div>
         </div>
@@ -152,50 +169,38 @@ function index(props: any, ref: any) {
           runData={runData}
           setRunData={setRunData}
           editBatchOrder={editBatchOrder}
+          actions={actions}
         />
-        {isAdd !== undefined && (
+        {(isAdd !== undefined ||
+          (isEdit !== undefined && !isEmpty(editData))) && (
           <div
             className={classNames(
               'animate__animated',
-              isAdd ? 'animate__backInLeft' : 'animate__backOutRight'
+              isAdd || isEdit ? 'animate__backInLeft' : 'animate__backOutRight'
             )}
           >
             <div className={classNames(styles.subtitle_div)}>
-              <div className={styles.text_div}>指令配置</div>
-              <div className={styles.btn_div}>
-                <Button
-                  type="primary"
-                  onClick={openModal}
-                  disabled={selectList.length === 0}
-                >
-                  生成快捷指令
-                </Button>
+              <div className={styles.text_div}>
+                {isEdit ? (
+                  <span
+                    style={{
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    {editData.name}-
+                  </span>
+                ) : (
+                  ''
+                )}
+                指令配置
               </div>
-            </div>
-            <AddBatchOrder
-              selectList={selectList}
-              setSelectList={setSelectList}
-              actions={actions}
-              models={props.models}
-            />
-          </div>
-        )}
-        {isEdit !== undefined && (
-          <div
-            className={classNames(
-              'animate__animated',
-              isEdit ? 'animate__backInLeft' : 'animate__backOutRight'
-            )}
-          >
-            <div className={classNames(styles.subtitle_div)}>
-              <div className={styles.text_div}>{editData.name}指令配置</div>
               <div className={styles.btn_div}>
                 <Button
                   type="primary"
                   onClick={openModal}
-                  disabled={selectList.length === 0}
+                  disabled={selectList?.length === 0}
                 >
-                  修改快捷指令
+                  {isEdit ? '修改' : '生成'}快捷指令
                 </Button>
               </div>
             </div>

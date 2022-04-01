@@ -1,7 +1,7 @@
 /**
  * @file 历史快捷指令
  */
-import { Empty, Space, Tag } from 'antd';
+import { Modal, Space, Tag } from 'antd';
 import { EmptyCard } from 'components';
 import React from 'react';
 import styles from '../../index.module.scss';
@@ -9,7 +9,9 @@ import {
   PlusCircleOutlined,
   DeleteOutlined,
   HighlightOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
+import { delBatchRunsOrders } from 'utils';
 interface IProps {
   list: any[];
   isDel: boolean;
@@ -18,7 +20,9 @@ interface IProps {
   runData: any; // 选中数据
   setRunData: any; // 为默认状态下选中运行的状态
   editBatchOrder: any; // 编辑时调用
+  actions: any;
 }
+const { confirm } = Modal;
 export default function index(props: IProps) {
   const {
     editBatchOrder,
@@ -28,6 +32,7 @@ export default function index(props: IProps) {
     isEdit,
     runData,
     setRunData,
+    actions,
   } = props;
   let color = '#096dd9';
   let icon = <></>;
@@ -50,10 +55,23 @@ export default function index(props: IProps) {
   function tagClick(id: string, item: any) {
     if (isDel) {
       // 执行删除操作
+      confirm({
+        title: '确定删除该快捷指令吗?',
+        icon: <ExclamationCircleOutlined />,
+        content: '删除后无法恢复',
+        okText: '确定',
+        okType: 'danger',
+        cancelText: '取消',
+        onOk() {
+          delBatchRunsOrders(id);
+          actions.fetchProjectReload();
+        },
+      });
     } else if (isAdd) {
       // 执行新增操作-这里不做处理
     } else if (isEdit) {
       // 执行编辑操作
+      console.log('>>>>>', item);
       editBatchOrder(item);
     } else {
       // 执行默认运行操作
@@ -64,7 +82,6 @@ export default function index(props: IProps) {
     <div className={styles.history_order_div}>
       <Space>
         {list.map((item: any, index: number) => {
-          console.log(item);
           return (
             <Tag
               key={index}

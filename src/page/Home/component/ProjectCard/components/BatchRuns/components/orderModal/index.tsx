@@ -51,8 +51,8 @@ function index(props: IProps, ref: any) {
         batchData: selectData,
       });
     }
-    actions.fetchProjectReload();
     cancelModel();
+    actions.fetchProjectReload();
   }
   const modalProps = {
     form,

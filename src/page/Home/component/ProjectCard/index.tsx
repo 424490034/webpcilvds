@@ -13,7 +13,7 @@ import BatchRuns from './components/BatchRuns';
 import Basics from './Basics';
 
 export default function index(props: any) {
-  const { acions, models } = props;
+  const { actions, models } = props;
   const batchRunsRef: any = useRef();
   const list = [
     {
@@ -47,7 +47,7 @@ export default function index(props: any) {
             return <Basics key={index} item={item} />;
           })}
       </div>
-      <BatchRuns actions={acions} models={models} ref={batchRunsRef} />
+      <BatchRuns actions={actions} models={models} ref={batchRunsRef} />
     </div>
   );
 }
