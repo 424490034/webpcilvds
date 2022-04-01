@@ -1,13 +1,17 @@
 import _ from 'lodash';
 import moment from 'moment'
-import { getTypeProjectNum } from 'utils'
+import { getProjectData,getTypeProjectNum,getBatchRunsOrders } from 'utils'
 import getSysInfo from 'utils/System';
 import pageConfig from '../config/pageConfig';
+import { batchFormConditions } from '../config/batchFormFields'
 import {Model} from 'xl-study-com'
 const {namespace,listenRouter,} = pageConfig
 const initState = {
   sysInfo: {},
-  projectNums:{}
+  projectNums: {},
+  historyProjectOrders: [], // 历史
+  projectData: [], // 所有已配置的项目数据
+  batchFormConditions, // 批量执行表单数据
 }
 export default Model.extend({
   namespace: namespace,
@@ -30,9 +34,16 @@ export default Model.extend({
       *init({ payload }: any, { update, call, put, select }: any): any { 
         yield update({
           sysInfo:getSysInfo(),
-          projectNums: getTypeProjectNum()
+          projectNums: getTypeProjectNum(),
+          historyProjectOrders: getBatchRunsOrders(),
+          projectData: getProjectData(),
         })
-      },
+    },
+    *reloadProject({ payload }: any, { update, call, put, select }: any): any { 
+      yield update({
+        historyProjectOrders: getBatchRunsOrders(),
+      })
+  },
       *reloadSystem({ payload }: any, { update, call, put, select }: any): any { 
         yield update({
           sysInfo:getSysInfo()

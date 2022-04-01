@@ -3,7 +3,7 @@
  */
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import { initOrders } from './config/initOrder';
+import { initOrders } from 'config/initOrder';
 import { Tag, Space, Tooltip } from 'antd';
 import { getPackage } from 'utils/GitUtils';
 import { createTerminal } from 'utils';

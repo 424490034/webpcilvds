@@ -7,6 +7,7 @@ import BodyBgc from './BodyBgc';
 import ProjectCard from './ProjectCard/BasicsCard';
 import ProjectCustomCard from './ProjectCard/CustomCard';
 import OrderCard from './ProjectCard/orderCard';
+import EmptyCard from './EmptyCard';
 import ProjectCustomOrderCard from './ProjectCard/customOrderCard';
 export {
   BodyBgc,
@@ -19,4 +20,5 @@ export {
   OrderCard,
   ProjectCustomCard,
   ProjectCustomOrderCard,
+  EmptyCard,
 };

@@ -1,0 +1,97 @@
+.history_order_div {
+    margin: 8px 0 12px 0;
+    padding-left: 12px;
+    .history_sub_title_div {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        color: var(--text-theme);
+        font-size: 12px;
+        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 12px;
+        display: flex;
+    }
+    .project_select_div {
+        width: 100%;
+        .project_config_div {
+            width: 100%;
+            max-height: 300px;
+            .text_subtitle_div {
+                width: 100%;
+                height: 20px;
+                line-height: 20px;
+                color: var(--text-theme);
+                font-size: 12px;
+                // border-bottom: 1px solid #f0f0f0;
+                margin-bottom: 10px;
+                display: flex;
+            }
+            .init_order_div {
+                width: 100%;
+                max-height: 60px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .project_order_div {
+                width: 100%;
+                max-height: 180px;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+            .tag_span {
+                cursor: pointer;
+                margin-bottom: 8px;
+            }
+        }
+    }
+     :global {
+        .ant-collapse-content {
+            border: 0px solid #ddd;
+        }
+        .ant-collapse>.ant-collapse-item {
+            border: 0px solid #ddd;
+        }
+        .ant-collapse {
+            border: 0px solid #ddd;
+            background-color: rgba(13, 42, 67, 0);
+            color: #a1aeb3;
+        }
+        .ant-collapse>.ant-collapse-item>.ant-collapse-header {
+            color: #333333;
+        }
+    }
+}
+
+.selete_project_div {
+    width: 100%;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .select_project_body_div {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        position: relative;
+        color: var(--text-theme);
+        .title_span {
+            font-size: 12px;
+            font-weight: bold;
+            color: var(--text-theme);
+            margin-right: 8px;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+        .del_icon_span {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--ant-error-color);
+        }
+    }
+}

@@ -31,7 +31,6 @@ function index(props: any, ref: any) {
     ])
     .values();
   async function showDrawer() {
-    console.log(item);
     let list = await getPackage(item.projectData.path);
     list = Object.keys(list).map((item: any) => {
       return {

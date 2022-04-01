@@ -10,6 +10,8 @@ export default function Basics(props: any) {
   function toRouter() {
     if (item.route) {
       router.push(item.route);
+    } else if (item.onClick) {
+      item.onClick();
     }
   }
   return (

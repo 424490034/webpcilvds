@@ -1,5 +1,6 @@
 @import '~antd/dist/antd.css';
 @import './assets/css/animate.css';
+@import '../node_modules/xl-study-com/dist/cjs/style/index.css';
 
 /*
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
@@ -232,4 +233,12 @@ pre {
     /*Opera7*/
     word-wrap: break-word;
     /*InternetExplorer5.5+*/
+}
+
+.empty_div {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

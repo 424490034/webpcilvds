@@ -42,6 +42,8 @@ function index(props: IProps, ref: any) {
         codeCmd();
       } else if (terData.initOrderKey === 'orderOpenPowerShell') {
         codePowerShell();
+      } else if (terData.initOrderKey === 'orderOpenSmartGit') {
+        codeSmartGit();
       } else if (!runKey) {
         run(terData.initOrderKey);
       } else {
@@ -98,6 +100,9 @@ function index(props: IProps, ref: any) {
   function codePowerShell() {
     runPackageOrder(`start PowerShell`, true);
   }
+  function codeSmartGit() {
+    runPackageOrder(`smartgit .`, true);
+  }
   return (
     <div
       className={styles.terminal_project_div}
@@ -141,6 +146,16 @@ function index(props: IProps, ref: any) {
               onClick={codeCmd}
             >
               cmd窗口
+            </Tag>
+          </Tooltip>
+          <Tooltip title={'请确保已安装SmartGit并配置环境'}>
+            <Tag
+              onClick={codeSmartGit}
+              icon={<YoutubeOutlined />}
+              className={styles.icon_cus}
+              color={'#f50'}
+            >
+              打开SmartGit
             </Tag>
           </Tooltip>
           <Tooltip title={'请确保已安装vscode并配置环境'}>

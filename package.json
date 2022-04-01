@@ -58,7 +58,8 @@
             "gatekeeperAssess": false
         },
         "dmg": {
-            "contents": [{
+            "contents": [
+                {
                     "x": 130,
                     "y": 220
                 },
@@ -257,7 +258,7 @@
         "webpack-cli": "^4.2.0",
         "webpack-dev-server": "^3.11.0",
         "webpack-merge": "^5.4.0",
-        "xl-study-com": "^0.2.1-4",
+        "xl-study-com": "^0.2.1-7",
         "yarn-deduplicate": "^3.1.0"
     },
     "dependencies": {
@@ -278,16 +279,18 @@
     },
     "browserslist": [],
     "prettier": {
-        "overrides": [{
-            "files": [
-                ".prettierrc",
-                ".babelrc",
-                ".eslintrc"
-            ],
-            "options": {
-                "parser": "json"
+        "overrides": [
+            {
+                "files": [
+                    ".prettierrc",
+                    ".babelrc",
+                    ".eslintrc"
+                ],
+                "options": {
+                    "parser": "json"
+                }
             }
-        }],
+        ],
         "singleQuote": true
     },
     "renovate": {

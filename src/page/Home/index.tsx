@@ -79,7 +79,7 @@ const Overview = function (props: any) {
       <div className={styles.right_stat_div}>
         <PrejectBoard models={props[namespace]} />
         <FloatCard {...floatProps}>
-          <ProjectCard />
+          <ProjectCard models={props[namespace]} actions={actions} />
         </FloatCard>
       </div>
     </div>
@@ -96,6 +96,12 @@ const mapDispatchToProps = (dispatch: any) => {
       fetchSystem(payload: any) {
         dispatch({
           type: `${namespace}/reloadSystem`,
+          payload,
+        });
+      },
+      fetchProjectReload(payload: any) {
+        dispatch({
+          type: `${namespace}/reloadProject`,
           payload,
         });
       },

@@ -8,6 +8,41 @@ import { openTerminal } from '../config/ipc';
 const _store = new Store();
 export const store = _store;
 /**
+ * @file 快捷指令执行历史数据
+ * @param data 保存的数据
+ */
+export function addBatchRunsOrders(data: any) {
+  let ary: any = getBatchRunsOrders();
+  store.set('batchRunsOrders', [...ary, data]);
+}
+export function getBatchRunsOrders() {
+  return store.get('batchRunsOrders') || [];
+}
+export function delBatchRunsOrders(id: string) {
+  let ary: any = getBatchRunsOrders();
+  let newAry = ary.filter((item: any) => item.id !== id);
+  store.set('batchRunsOrders', newAry);
+}
+/**
+ * @function 修改指定id的批量执行
+ * @param id 指定id
+ * @param data 修改数据
+ */
+export function editBatchRunsOrders(id: string, data: any) {
+  let ary: any = getBatchRunsOrders();
+  let newAry = ary.map((item: any) => {
+    if (item.id == id) {
+      return {
+        ...item,
+        ...data,
+      };
+    } else {
+      return item;
+    }
+  });
+  store.set('batchRunsOrders', newAry);
+}
+/**
  * @funtion 指令执行默认中转函数 窗口创建初期存在数据为响应问题 这里提前做预存
  */
 export function setTerminalTransFer(data: any) {

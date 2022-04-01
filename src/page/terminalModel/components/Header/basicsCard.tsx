@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import styles from './index.module.scss';
-import Svg from 'Svg';
+import { Svg } from 'xl-study-com';
 import { Tooltip } from 'antd';
 import classNames from 'classnames';
 interface listConfig {
