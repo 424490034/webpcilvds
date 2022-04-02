@@ -23,7 +23,13 @@ export const setTray = (mainWindow: any) => {
     tray = new Tray(path.join(file, './assets/favicon.ico'));
   }
   tray.on('click', () => {
-    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    if (mainWindow.isVisible()) {
+      mainWindow.hide() 
+    } else {
+      mainWindow.setSize(1500, 800)
+      mainWindow.show();
+      
+    }
   });
   // tray = new Tray(path.join(__dirname, '../resources/tray.png'));
   const contextMenu = Menu.buildFromTemplate([

@@ -45,6 +45,10 @@ export default function index(props: IProps) {
           {Array.isArray(initOrders) &&
             initOrders.length > 0 &&
             initOrders.map((item: any, index: number) => {
+              const isPath = !!data.orderPath;
+              if (!isPath && item.needPath) {
+                return null;
+              }
               return (
                 <Tooltip key={index} title={item.desc}>
                   <Tag

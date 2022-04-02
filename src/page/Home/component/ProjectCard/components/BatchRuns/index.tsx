@@ -1,7 +1,7 @@
 /**
  * @file 批量运行抽屉
  */
-import { Drawer, Space, Button, Form, Tooltip, message } from 'antd';
+import { Modal, Drawer, Space, Button, Form, Tooltip, message } from 'antd';
 import React, {
   useImperativeHandle,
   forwardRef,
@@ -13,12 +13,15 @@ import classNames from 'classnames';
 import HistoryOrder from './components/historyOrder';
 import AddBatchOrder from './components/AddBatchOrder';
 import OrderModal from './components/orderModal';
+import { createTerminal } from 'utils';
 import {
   PlusCircleOutlined,
   DeleteOutlined,
   HighlightOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { isEmpty } from 'lodash';
+const { confirm } = Modal;
 function index(props: any, ref: any) {
   const {
     actions,
@@ -33,7 +36,7 @@ function index(props: any, ref: any) {
   // 为下面卡片选择数据
   const [selectList, setSelectList] = useState<any>([]);
   // 为最终运行调用
-  const [runData, setRunData] = useState({});
+  const [runData, setRunData] = useState<any>({});
   function addProjectOrder() {
     if (isAdd) {
       setIsAdd(false);
@@ -97,11 +100,41 @@ function index(props: any, ref: any) {
     setSelectList([]);
     setVisible(false);
   }
-  function onRuns() {}
+  function onModalClose() {
+    setIsAdd(undefined);
+    setIsDel(undefined);
+    setIsEdit(undefined);
+    setEditData({});
+    setRunData({});
+    setSelectList([]);
+  }
+  function onRuns() {
+    createTerminal({
+      selectList: runData.batchData,
+      status: 'batchRunOrders',
+    });
+    onClose();
+  }
   function openModal() {
     modalRef.current.showModel(selectList, editData);
   }
-
+  // 测试运行
+  function testRun() {
+    confirm({
+      title: '确定运行该快捷指令配置吗?',
+      icon: <ExclamationCircleOutlined />,
+      content: '运行并不会保存到历史快捷指令',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        createTerminal({
+          selectList,
+          status: 'batchRunOrders',
+        });
+      },
+    });
+  }
   return (
     <Drawer
       title="批量执行窗口"
@@ -195,13 +228,22 @@ function index(props: any, ref: any) {
                 指令配置
               </div>
               <div className={styles.btn_div}>
-                <Button
-                  type="primary"
-                  onClick={openModal}
-                  disabled={selectList?.length === 0}
-                >
-                  {isEdit ? '修改' : '生成'}快捷指令
-                </Button>
+                <Space>
+                  <Button
+                    type="primary"
+                    disabled={selectList?.length === 0}
+                    onClick={testRun}
+                  >
+                    立即运行
+                  </Button>
+                  <Button
+                    type="primary"
+                    onClick={openModal}
+                    disabled={selectList?.length === 0}
+                  >
+                    {isEdit ? '修改' : '生成'}快捷指令
+                  </Button>
+                </Space>
               </div>
             </div>
             <AddBatchOrder
@@ -213,7 +255,12 @@ function index(props: any, ref: any) {
           </div>
         )}
       </div>
-      <OrderModal actions={actions} models={props.models} ref={modalRef} />
+      <OrderModal
+        onClose={onModalClose}
+        actions={actions}
+        models={props.models}
+        ref={modalRef}
+      />
     </Drawer>
   );
 }

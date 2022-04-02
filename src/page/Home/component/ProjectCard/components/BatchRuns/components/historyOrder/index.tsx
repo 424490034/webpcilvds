@@ -1,15 +1,16 @@
 /**
  * @file 历史快捷指令
  */
-import { Modal, Space, Tag } from 'antd';
+import { Input, Modal, Space, Tag } from 'antd';
 import { EmptyCard } from 'components';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from '../../index.module.scss';
 import {
   PlusCircleOutlined,
   DeleteOutlined,
   HighlightOutlined,
   ExclamationCircleOutlined,
+  SearchOutlined,
 } from '@ant-design/icons';
 import { delBatchRunsOrders } from 'utils';
 interface IProps {
@@ -34,6 +35,16 @@ export default function index(props: IProps) {
     setRunData,
     actions,
   } = props;
+  if (list.length === 0) {
+    return <EmptyCard title="请新增快捷指令" />;
+  }
+  useEffect(() => {
+    setSearchValue(undefined);
+    setSearchList(list);
+  }, [list]);
+  const [searchValue, setSearchValue] = useState<string>();
+  const [searchList, setSearchList] = useState<any[]>(list);
+
   let color = '#096dd9';
   let icon = <></>;
   let cursor = 'pointer';
@@ -49,9 +60,6 @@ export default function index(props: IProps) {
     icon = <HighlightOutlined />;
   }
 
-  if (list.length === 0) {
-    return <EmptyCard title="请新增快捷指令" />;
-  }
   function tagClick(id: string, item: any) {
     if (isDel) {
       // 执行删除操作
@@ -78,27 +86,52 @@ export default function index(props: IProps) {
       setRunData(item);
     }
   }
+  function onInputChange(e: any) {
+    const text = e.target.value;
+    setSearchValue(text);
+    if (text) {
+      let ary = list.filter((item: any) => {
+        return item.name.indexOf(text) !== -1;
+      });
+      setSearchList(ary);
+    } else {
+      setSearchList(list);
+    }
+  }
   return (
     <div className={styles.history_order_div}>
-      <Space>
-        {list.map((item: any, index: number) => {
-          return (
-            <Tag
-              key={index}
-              color={runData && runData.id === item.id ? '#87d068' : color}
-              icon={icon}
-              onClick={() => {
-                tagClick(item.id, item);
-              }}
-              style={{
-                cursor: cursor,
-              }}
-            >
-              {item.name}
-            </Tag>
-          );
-        })}
-      </Space>
+      <div className={styles.search_input_div}>
+        <Input
+          onChange={onInputChange}
+          prefix={<SearchOutlined />}
+          className={styles.search_input}
+          placeholder="搜索"
+          value={searchValue}
+        />
+      </div>
+      {searchList.length > 0 ? (
+        <Space>
+          {searchList.map((item: any, index: number) => {
+            return (
+              <Tag
+                key={index}
+                color={runData && runData.id === item.id ? '#87d068' : color}
+                icon={icon}
+                onClick={() => {
+                  tagClick(item.id, item);
+                }}
+                style={{
+                  cursor: cursor,
+                }}
+              >
+                {item.name}
+              </Tag>
+            );
+          })}
+        </Space>
+      ) : (
+        <EmptyCard title="暂无匹配项" />
+      )}
     </div>
   );
 }

@@ -90,6 +90,9 @@ export default function index(props: IProps) {
       okType: 'danger',
       cancelText: '取消',
       onOk() {
+        if (optionsData.id === item.id) {
+          setOptionsData(undefined);
+        }
         removeProjectData(item.id);
         actions.fetchProjectDetail();
       },
@@ -104,58 +107,64 @@ export default function index(props: IProps) {
 
   return (
     <div className={styles.basics_project_div}>
-      <div className={styles.left_text_div}>
-        <div className={styles.left_icon_div} onClick={openSetting}>
-          {iconDesc}
-        </div>
-        <div
-          className={styles.left_icon_div}
-          title="修改自定义项目"
-          onClick={updateDrawer}
-        >
-          <EditOutlined />
-        </div>
-        <div
-          className={classNames(styles.left_icon_div, styles.remove_icon_div)}
-          title="删除该项目"
-          onClick={del}
-        >
-          <CloseCircleOutlined />
-        </div>
-      </div>
-      <div className={styles.right_text_div}>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>指令名称</div>
-          <div className={styles.right_body_div} title={item.name}>
-            {item.name || '-'}
+      <div className={styles.basics_body_div}>
+        <div className={styles.left_text_div}>
+          <div className={styles.left_icon_div} onClick={openSetting}>
+            {iconDesc}
+          </div>
+          <div
+            className={styles.left_icon_div}
+            title="修改自定义项目"
+            onClick={updateDrawer}
+          >
+            <EditOutlined />
+          </div>
+          <div
+            className={classNames(styles.left_icon_div, styles.remove_icon_div)}
+            title="删除该项目"
+            onClick={del}
+          >
+            <CloseCircleOutlined
+              style={{
+                color: 'var(--ant-error-color)',
+              }}
+            />
           </div>
         </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>项目类型</div>
-          <div className={styles.right_body_div}>{typeDesc}</div>
-        </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>指令队列</div>
-          <div className={styles.right_body_div} title={item.orderQueue}>
-            {item.orderQueue || '-'}
+        <div className={styles.right_text_div}>
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>指令名称</div>
+            <div className={styles.right_body_div} title={item.name}>
+              {item.name || '-'}
+            </div>
           </div>
-        </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>项目执行路径</div>
-          <div className={styles.right_body_div} title={item.orderPath}>
-            {item.orderPath || '-'}
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>项目类型</div>
+            <div className={styles.right_body_div}>{typeDesc}</div>
           </div>
-        </div>
-        <div className={styles.fix_btn_div} onClick={openSetting}>
-          {/* <SettingOutlined /> */}
-          <PlayCircleOutlined
-            style={{
-              color:
-                optionsData.id === item.id
-                  ? 'var(--ant-primary-color-active)'
-                  : undefined,
-            }}
-          />
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>指令队列</div>
+            <div className={styles.right_body_div} title={item.orderQueue}>
+              {item.orderQueue || '-'}
+            </div>
+          </div>
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>项目执行路径</div>
+            <div className={styles.right_body_div} title={item.orderPath}>
+              {item.orderPath || '-'}
+            </div>
+          </div>
+          <div className={styles.fix_btn_div} onClick={openSetting}>
+            {/* <SettingOutlined /> */}
+            <PlayCircleOutlined
+              style={{
+                color:
+                  optionsData.id === item.id
+                    ? 'var(--ant-primary-color-active)'
+                    : undefined,
+              }}
+            />
+          </div>
         </div>
       </div>
       <UpdateDrawer item={item} ref={updateRef} actions={actions} />

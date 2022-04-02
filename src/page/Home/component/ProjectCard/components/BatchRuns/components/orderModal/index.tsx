@@ -9,11 +9,13 @@ import { addBatchRunsOrders, editBatchRunsOrders, genID } from 'utils';
 interface IProps {
   models: any;
   actions: any;
+  onClose: any;
 }
 function index(props: IProps, ref: any) {
   const {
     models: { batchFormConditions },
     actions,
+    onClose,
   } = props;
   const [visible, setVisible] = useState(false);
   const [form] = Form.useForm();
@@ -52,6 +54,7 @@ function index(props: IProps, ref: any) {
       });
     }
     cancelModel();
+    onClose();
     actions.fetchProjectReload();
   }
   const modalProps = {

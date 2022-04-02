@@ -25,7 +25,6 @@ function index(props: IProps, ref: any) {
   function updateOut(data: any) {
     let divDom: any = document.querySelector(`.cus_${terData.id}`);
     const { isWarning, isError, str, isFileTo } = data;
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>', isFileTo, data);
     let bodyClass = 'terminal_right_body';
     if (isWarning) {
       bodyClass = 'terminal_right_body_warring';

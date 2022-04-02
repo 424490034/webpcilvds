@@ -67,6 +67,12 @@ function index(props: any) {
       case 'getIds': // 获取目前正在运行的终端id
         actions.sendToOrderWindow();
         break;
+      case 'batchRunOrders': // 批量执行
+        actions.batchRunOrders({
+          selectList: arg.selectList || [],
+          status: 'batchRunOrders',
+        });
+        break;
       default:
         actions.sendToOrderWindow();
         break;
@@ -161,6 +167,13 @@ const mapDispatchToProps = (dispatch: any) => {
       sendToMainClose(payload: any) {
         dispatch({
           type: `${namespace}/sendToMainClose`,
+          payload,
+        });
+      },
+      // 批量执行
+      batchRunOrders(payload: any) {
+        dispatch({
+          type: `${namespace}/batchRunOrders`,
           payload,
         });
       },

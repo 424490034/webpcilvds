@@ -27,10 +27,18 @@ export default function Basics(props: IProps) {
         terminalKey,
       };
     } else {
-      orderData = {
-        ...data,
-        terminalKey,
-      };
+      if (data.terminalKey === terminalKey) {
+        // 取消选中
+        orderData = {
+          ...data,
+          terminalKey: undefined,
+        };
+      } else {
+        orderData = {
+          ...data,
+          terminalKey,
+        };
+      }
     }
     setData(item.id, orderData);
   }
@@ -46,10 +54,18 @@ export default function Basics(props: IProps) {
         initOrderKey,
       };
     } else {
-      orderData = {
-        ...data,
-        initOrderKey,
-      };
+      if (data.initOrderKey === initOrderKey) {
+        // 取消选中
+        orderData = {
+          ...data,
+          initOrderKey: undefined,
+        };
+      } else {
+        orderData = {
+          ...data,
+          initOrderKey,
+        };
+      }
     }
     setData(item.id, orderData);
   }
@@ -65,21 +81,25 @@ export default function Basics(props: IProps) {
       <div className={styles.init_order_div}>
         {Array.isArray(initOrders) &&
           initOrders.length > 0 &&
-          initOrders.map((item: any, index: number) => {
+          initOrders.map((res: any, index: number) => {
+            const isPath = !!item.orderPath;
+            if (!isPath && res.needPath) {
+              return null;
+            }
             return (
-              <Tooltip key={index} title={item.desc}>
+              <Tooltip key={index} title={res.desc}>
                 <Tag
                   className={styles.tag_span}
                   onClick={() => {
-                    addBasicsOrder(item.terminalKey);
+                    addBasicsOrder(res.terminalKey);
                   }}
                   color={
-                    data && data.terminalKey === item.terminalKey
+                    data && data.terminalKey === res.terminalKey
                       ? '#87d068'
                       : '#f50'
                   }
                 >
-                  {item.label}
+                  {res.label}
                 </Tag>
               </Tooltip>
             );

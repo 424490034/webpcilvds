@@ -21,7 +21,7 @@ import {
 import { isEmpty } from 'lodash';
 import classNames from 'classnames';
 import { removeProjectData } from 'utils';
-import { Modal } from 'antd';
+import { Modal, Space } from 'antd';
 const { confirm } = Modal;
 interface IProps {
   type: '1' | '2' | '3' | '4' | '5'; // 类型
@@ -144,6 +144,9 @@ export default function index(props: IProps) {
       okType: 'danger',
       cancelText: '取消',
       onOk() {
+        if (optionsData.id === item.id) {
+          setOptionsData(undefined);
+        }
         removeProjectData(item.id);
         actions.fetchProjectDetail();
       },
@@ -160,71 +163,83 @@ export default function index(props: IProps) {
   }
   return (
     <div className={styles.basics_project_div}>
-      <div className={styles.left_text_div}>
-        <div className={styles.left_icon_div} onClick={openSetting}>
-          {iconDesc}
-        </div>
-        <div
-          className={styles.left_icon_div}
-          title="修改基础项目"
-          onClick={updateDrawer}
-        >
-          <EditOutlined />
-        </div>
-        <div
-          className={styles.left_icon_div}
-          title="定制指令执行操作"
-          onClick={updateCustomDrawer}
-        >
-          <ForkOutlined />
-        </div>
-        <div
-          className={classNames(styles.left_icon_div, styles.remove_icon_div)}
-          title="删除该项目"
-          onClick={del}
-        >
-          <CloseCircleOutlined />
-        </div>
-      </div>
-      <div className={styles.right_text_div}>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>项目名称</div>
-          <div className={styles.right_body_div} title={projectData.name}>
-            {projectData.name || '-'}
+      <div className={styles.basics_body_div}>
+        <div className={styles.left_text_div}>
+          <div className={styles.left_icon_div} onClick={openSetting}>
+            {iconDesc}
+          </div>
+          <div
+            className={styles.left_icon_div}
+            title="修改基础项目"
+            onClick={updateDrawer}
+          >
+            <EditOutlined />
+          </div>
+          <div
+            className={styles.left_icon_div}
+            title="定制指令执行操作"
+            onClick={updateCustomDrawer}
+          >
+            <ForkOutlined />
+          </div>
+          <div
+            className={classNames(styles.left_icon_div, styles.remove_icon_div)}
+            title="删除该项目"
+            onClick={del}
+          >
+            <CloseCircleOutlined
+              style={{
+                color: 'var(--ant-error-color)',
+              }}
+            />
           </div>
         </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>项目类型</div>
-          <div className={styles.right_body_div}>{typeDesc}</div>
-        </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>git仓库</div>
-          <div className={styles.right_body_div} title={projectData.gitName}>
-            {projectData.gitName || '-'}
+        <div className={styles.right_text_div}>
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>项目名称</div>
+            <div className={styles.right_body_div} title={projectData.name}>
+              {projectData.name || '-'}
+            </div>
           </div>
-        </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>默认启动指令</div>
-          <div className={styles.right_body_div} title={projectData.startCode}>
-            {projectData.startCode || '-'}
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>项目类型</div>
+            <div className={styles.right_body_div}>{typeDesc}</div>
           </div>
-        </div>
-        <div className={styles.right_header_div}>
-          <div className={styles.right_title_div}>默认打包指令</div>
-          <div className={styles.right_body_div} title={projectData.buildCode}>
-            {projectData.buildCode || '-'}
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>git仓库</div>
+            <div className={styles.right_body_div} title={projectData.gitName}>
+              {projectData.gitName || '-'}
+            </div>
           </div>
-        </div>
-        <div className={styles.fix_btn_div} onClick={openSetting}>
-          {/* <SettingOutlined /> */}
-          <PlayCircleOutlined
-            style={{
-              color:
-                optionsData.id === item.id
-                  ? 'var(--ant-primary-color-active)'
-                  : undefined,
-            }}
-          />
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>默认启动指令</div>
+            <div
+              className={styles.right_body_div}
+              title={projectData.startCode}
+            >
+              {projectData.startCode || '-'}
+            </div>
+          </div>
+          <div className={styles.right_header_div}>
+            <div className={styles.right_title_div}>默认打包指令</div>
+            <div
+              className={styles.right_body_div}
+              title={projectData.buildCode}
+            >
+              {projectData.buildCode || '-'}
+            </div>
+          </div>
+          <div className={styles.fix_btn_div} onClick={openSetting}>
+            {/* <SettingOutlined /> */}
+            <PlayCircleOutlined
+              style={{
+                color:
+                  optionsData.id === item.id
+                    ? 'var(--ant-primary-color-active)'
+                    : undefined,
+              }}
+            />
+          </div>
         </div>
       </div>
       <UpdateDrawer item={item} ref={updateRef} actions={actions} />

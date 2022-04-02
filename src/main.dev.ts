@@ -26,6 +26,7 @@
      app.on('second-instance', (event, commandLine, workingDirectory) => {
        let allWin = BrowserWindow.getAllWindows();
        allWin.map((win) => {
+         win.setSize(1500,800)
          win.show();
        });
      });
@@ -41,6 +42,7 @@
        createWindow();
      } else {
        allWin.map((win) => {
+         win.setSize(1500,800)
          win.show();
        });
      }

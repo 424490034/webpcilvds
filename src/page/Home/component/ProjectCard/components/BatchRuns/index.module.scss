@@ -3,7 +3,7 @@
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 24px;
+    padding: 12px 24px;
     .subtitle_div {
         width: 100%;
         height: 50px;
@@ -64,7 +64,39 @@
 
 .history_order_div {
     color: var(--text-theme);
-    max-height: 300px;
+    max-height: 500px;
     overflow-x: hidden;
     overflow-y: auto;
+    .search_input_div {
+        width: 100%;
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 10px;
+        .search_input {
+            width: 100%;
+            height: 30px;
+            background-color: #edeef3;
+            border-radius: 20px;
+            -webkit-border-radius: 20px;
+            -moz-border-radius: 20px;
+            -ms-border-radius: 20px;
+            -o-border-radius: 20px;
+            transition: all .5s;
+            input {
+                background-color: #edeef3;
+            }
+            &:hover {
+                background-color: #fff;
+                input {
+                    background-color: #fff;
+                }
+            }
+            &:focus {
+                background-color: #fff;
+                input {
+                    background-color: #fff;
+                }
+            }
+        }
+    }
 }

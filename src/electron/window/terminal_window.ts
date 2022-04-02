@@ -18,6 +18,7 @@ export default function create_terminal_window(
   return new Promise((reject, resolve) => {
     if (terminal) {
       sendToTerminalWindow(src);
+      terminal.setSize(terminal_model.width,terminal_model.height)
       terminal.show();
       // 回应创建成功
       mainWindow.webContents.send('terminal-ok');

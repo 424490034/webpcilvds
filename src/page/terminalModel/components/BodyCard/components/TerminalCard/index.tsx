@@ -13,6 +13,7 @@ import { globalMessage } from 'utils';
 import { showTerminalWindow } from 'electron/window/index';
 import iconImg from 'assets/kl.ico';
 import runOrderCustom from 'utils/customOrder';
+import { openFileInFolder } from 'electron/download/util';
 const kill = require('tree-kill');
 interface IProps {
   actions: any;
@@ -39,15 +40,57 @@ export default function index(props: IProps) {
     if (childOptions.registerChildWin) {
       childOptions.registerChildWin(terData.id, asynStopOrder);
     }
-    if (projectData.type === '5' && terData.initOrderKey === 'start') {
-      if (!cmdData.pid) {
-        runOrder();
+    if (
+      terData.type === '5' &&
+      (terData.initOrderKey === 'start' ||
+        terData.initOrderKey === 'initRunOrder')
+    ) {
+      if (
+        terData.terminalKey &&
+        (terData.initOrderKey === 'start' ||
+          terData.initOrderKey === 'initRunOrder')
+      ) {
+        runTypeFileProject(terData);
+      } else {
+        if (!cmdData.pid) {
+          runOrder();
+        }
       }
     }
     return () => {
       stopOrder();
     };
   }, []);
+  // 为非项目时指令调用
+  function runTypeFileProject(newData: any) {
+    const { terminalKey } = newData;
+    switch (terminalKey) {
+      case 'orderOpenVSCode':
+        codeRun();
+        runOrder();
+        break;
+      case 'orderOpenExplorer':
+        openPath();
+        runOrder();
+        break;
+      case 'orderOpenCmd':
+        codeCmd();
+        runOrder();
+        break;
+      case 'orderOpenPowerShell':
+        codePowerShell();
+        runOrder();
+        break;
+      case 'orderOpenSmartGit':
+        codeSmartGit();
+        runOrder();
+        break;
+      default:
+        console.error('项目指令未查询到匹配值!');
+        runOrder();
+        break;
+    }
+  }
   // const [strData, setStrData] = useState<any[]>([]);
   function setStrData(data: any) {
     strData = data;
@@ -63,6 +106,28 @@ export default function index(props: IProps) {
       terData.orderPath
     );
   }
+  // 打开文件路径
+  async function openPath() {
+    if (projectData && projectData.path) {
+      openFileInFolder(projectData.path);
+    } else if (terData.orderPath) {
+      openFileInFolder(terData.orderPath);
+    } else {
+      message.error('文件路径丢失');
+    }
+  }
+  function codeRun() {
+    runPackageOrder(`code .`, true);
+  }
+  function codeCmd() {
+    runPackageOrder(`start cmd`, true);
+  }
+  function codePowerShell() {
+    runPackageOrder(`start PowerShell`, true);
+  }
+  function codeSmartGit() {
+    runPackageOrder(`smartgit .`, true);
+  }
   /**
    * @function 运行指定指令
    *  @param order  需要执行的指令
@@ -72,7 +137,7 @@ export default function index(props: IProps) {
   function runPackageOrder(
     order: string,
     isNoPrint: boolean = false,
-    key: string
+    key?: string
   ) {
     // 判断key是否存在
     if (key) {

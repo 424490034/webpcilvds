@@ -33,26 +33,72 @@ function index(props: IProps, ref: any) {
     clearKey,
   }));
   useEffect(() => {
-    if (terData.initOrderKey) {
-      if (terData.initOrderKey === 'orderOpenVSCode') {
-        codeRun();
-      } else if (terData.initOrderKey === 'orderOpenExplorer') {
-        openPath();
-      } else if (terData.initOrderKey === 'orderOpenCmd') {
-        codeCmd();
-      } else if (terData.initOrderKey === 'orderOpenPowerShell') {
-        codePowerShell();
-      } else if (terData.initOrderKey === 'orderOpenSmartGit') {
-        codeSmartGit();
-      } else if (!runKey) {
-        run(terData.initOrderKey);
-      } else {
-        if (runKey && terData.initOrderKey !== runKey) {
-          run(terData.initOrderKey);
-        }
-      }
+    if (terData.terminalKey) {
+      runTerminalKey(terData);
+    } else if (terData.initOrderKey) {
+      initRunOrder(terData);
     }
   }, [terData]);
+  function runTerminalKey(newData: any) {
+    const { terminalKey } = newData;
+    switch (terminalKey) {
+      case 'orderOpenVSCode':
+        codeRun();
+        initRunOrder(newData);
+        break;
+      case 'orderOpenExplorer':
+        openPath();
+        initRunOrder(newData);
+        break;
+      case 'orderOpenCmd':
+        codeCmd();
+        initRunOrder(newData);
+        break;
+      case 'orderOpenPowerShell':
+        codePowerShell();
+        initRunOrder(newData);
+        break;
+      case 'orderOpenSmartGit':
+        codeSmartGit();
+        initRunOrder(newData);
+        break;
+      default:
+        console.error('项目指令未查询到匹配值!');
+        initRunOrder(newData);
+        break;
+    }
+  }
+  function initRunOrder(res: any) {
+    const { initOrderKey } = res;
+    switch (initOrderKey) {
+      case 'orderOpenVSCode':
+        codeRun();
+        break;
+      case 'orderOpenExplorer':
+        openPath();
+        break;
+      case 'orderOpenCmd':
+        codeCmd();
+        break;
+      case 'orderOpenPowerShell':
+        codePowerShell();
+        break;
+      case 'orderOpenSmartGit':
+        codeSmartGit();
+        break;
+      default:
+        if (initOrderKey) {
+          if (!runKey) {
+            run(terData.initOrderKey);
+          } else {
+            if (runKey && terData.initOrderKey !== runKey) {
+              run(terData.initOrderKey);
+            }
+          }
+        }
+        break;
+    }
+  }
   function clearKey() {
     setRunKey('');
   }

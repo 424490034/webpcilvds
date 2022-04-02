@@ -46,10 +46,18 @@ export default function Basics(props: IProps) {
         terminalKey,
       };
     } else {
-      orderData = {
-        ...data,
-        terminalKey,
-      };
+      if (data.terminalKey === terminalKey) {
+        // 取消选中
+        orderData = {
+          ...data,
+          terminalKey: undefined,
+        };
+      } else {
+        orderData = {
+          ...data,
+          terminalKey,
+        };
+      }
     }
     setData(item.id, orderData);
   }
@@ -65,10 +73,18 @@ export default function Basics(props: IProps) {
         initOrderKey,
       };
     } else {
-      orderData = {
-        ...data,
-        initOrderKey,
-      };
+      if (data.initOrderKey === initOrderKey) {
+        // 取消选中
+        orderData = {
+          ...data,
+          initOrderKey: undefined,
+        };
+      } else {
+        orderData = {
+          ...data,
+          initOrderKey,
+        };
+      }
     }
     setData(item.id, orderData);
   }

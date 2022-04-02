@@ -134,7 +134,6 @@ export default Model.extend({
       const { terminalList } = yield select((_: any) => _[namespace]);
       const { delId } = payload;
       const newData = terminalList.filter((item: any) => item.id !== delId);
-      console.log(newData);
       yield update({
         terminalList: newData,
       });
@@ -163,6 +162,40 @@ export default Model.extend({
         terminalList: [],
       });
       yield put('sendToOrderWindow');
+    },
+    // 批量执行指令方法
+    *batchRunOrders(
+      { payload }: any,
+      { update, call, put, select }: any
+    ): any { 
+      const { selectList,status } = payload;
+      const { terminalList } = yield select((_: any) => _[namespace]);
+      if (terminalList.length>0) {
+        let data = selectList.filter((item: any) => {
+          let ary = terminalList.filter((res: any) => (res.id === item.id))
+          if (ary.length > 0) {
+            // 表明存在-新数据不作处理
+            return false
+          } else {
+            return true
+          }
+        })
+        yield update({
+          terminalList: [...terminalList,...data],
+          electronConfig: {
+            status, // 当前状态值
+          },
+        });
+        yield put('sendToOrderWindow');
+      } else {
+        yield update({
+          terminalList: selectList,
+          electronConfig: {
+            status, // 当前状态值
+          },
+        });
+        yield put('sendToOrderWindow');
+      }
     },
   },
 

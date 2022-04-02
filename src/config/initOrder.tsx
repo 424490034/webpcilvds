@@ -7,12 +7,14 @@ export const initOrders = [
     value: 'code .',
     terminalKey: 'orderOpenVSCode', // 在终端执行平台的识别key
     desc: '运行该命令请确保vsCode正确安装',
+    needPath: true, // 是否需要路径
   },
   {
     label: 'smartGit 打开',
     value: 'smartgit .',
     terminalKey: 'orderOpenSmartGit', // 在终端执行平台的识别key
     desc: '运行该命令请确保smartGit正确安装',
+    needPath: true, // 是否需要路径
   },
   {
     label: 'powerShell打开',
@@ -31,6 +33,7 @@ export const initOrders = [
     value: 'custom1',
     terminalKey: 'orderOpenExplorer', // 在终端执行平台的识别key
     desc: '打开对应路径窗口',
+    needPath: true, // 是否需要路径
   },
 ];
 // 通过terminalKey 获取label

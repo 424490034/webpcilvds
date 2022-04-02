@@ -5,6 +5,7 @@ import { ipcRenderer } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import { openTerminal } from '../config/ipc';
+import { isEmpty } from 'lodash';
 const _store = new Store();
 export const store = _store;
 /**
@@ -16,7 +17,34 @@ export function addBatchRunsOrders(data: any) {
   store.set('batchRunsOrders', [...ary, data]);
 }
 export function getBatchRunsOrders() {
-  return store.get('batchRunsOrders') || [];
+  let data: any = store.get('batchRunsOrders') || [];
+  const projectData: any = getProjectData();
+  // 进行项目数据比对
+  console.log(data, projectData);
+  let newList = data.map((item: any) => {
+    if (Array.isArray(item.batchData) && item.batchData.length > 0) {
+      item.batchData = item.batchData.map((batchs: any) => {
+        let [newProjectData] = projectData.filter(
+          (res: any) => res.id === batchs.id
+        );
+        if (!isEmpty(newProjectData)) {
+          return {
+            ...batchs,
+            ...newProjectData,
+            initOrderKey: batchs.initOrderKey,
+            terminalKey: batchs.terminalKey,
+            updateTime: +new Date(),
+          };
+        } else {
+          console.error('数据比对异常');
+          return batchs;
+        }
+      });
+    }
+    return item;
+  });
+  store.set('batchRunsOrders', newList);
+  return newList || [];
 }
 export function delBatchRunsOrders(id: string) {
   let ary: any = getBatchRunsOrders();
