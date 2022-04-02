@@ -79,7 +79,6 @@ export default function index(props: IProps) {
       // 执行新增操作-这里不做处理
     } else if (isEdit) {
       // 执行编辑操作
-      console.log('>>>>>', item);
       editBatchOrder(item);
     } else {
       // 执行默认运行操作

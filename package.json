@@ -58,8 +58,7 @@
             "gatekeeperAssess": false
         },
         "dmg": {
-            "contents": [
-                {
+            "contents": [{
                     "x": 130,
                     "y": 220
                 },
@@ -73,7 +72,8 @@
         },
         "win": {
             "target": [
-                "nsis"
+                "nsis",
+                "zip"
             ]
         },
         "linux": {
@@ -94,6 +94,11 @@
             "provider": "github",
             "owner": "web-pci-lvds",
             "repo": "web-pci-lvds"
+        },
+        "nsis": {
+            "oneClick": false,
+            "allowToChangeInstallationDirectory": true,
+            "perMachine": true
         }
     },
     "license": "MIT",
@@ -279,18 +284,16 @@
     },
     "browserslist": [],
     "prettier": {
-        "overrides": [
-            {
-                "files": [
-                    ".prettierrc",
-                    ".babelrc",
-                    ".eslintrc"
-                ],
-                "options": {
-                    "parser": "json"
-                }
+        "overrides": [{
+            "files": [
+                ".prettierrc",
+                ".babelrc",
+                ".eslintrc"
+            ],
+            "options": {
+                "parser": "json"
             }
-        ],
+        }],
         "singleQuote": true
     },
     "renovate": {
