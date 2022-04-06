@@ -10,6 +10,7 @@ import {
   BodyBgc,
   ProjectCard,
   OrderCard,
+  EmptyCard,
 } from 'components';
 import styles from './index.module.scss';
 import { isEmpty } from 'lodash';
@@ -52,7 +53,7 @@ function index(props: any) {
               height: showOptions ? 400 : '100%',
             }}
           >
-            {Array.isArray(projetData) &&
+            {Array.isArray(projetData) && projetData.length > 0 ? (
               projetData.map((item: any, index: number) => {
                 return (
                   <ProjectCard
@@ -66,7 +67,10 @@ function index(props: any) {
                     actions={actions}
                   />
                 );
-              })}
+              })
+            ) : (
+              <EmptyCard title="请先添加项目" />
+            )}
           </div>
           {showOptions && (
             <BodyBgc width={'90%'}>

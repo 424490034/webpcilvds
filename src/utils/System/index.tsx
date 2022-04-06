@@ -1,6 +1,7 @@
 /**
  * @file 系统信息和cpu等信息获取
  */
+const dns = require('dns');
 import os from 'os';
 import child_process from 'child_process';
 function dealTime(seconds: any) {
@@ -108,7 +109,13 @@ export default function GetSystemConfig(text?: string) {
             times.idle /
               (times.idle + times.user + times.nice + times.sys + times.irq)) *
           100
-        ).toFixed(2)}%`;
+        ).toFixed(1)}%`;
+        item['rateNum'] = (
+          (1 -
+            times.idle /
+              (times.idle + times.user + times.nice + times.sys + times.irq)) *
+          100
+        ).toFixed(1);
         return item;
       });
       return {
@@ -132,4 +139,31 @@ export default function GetSystemConfig(text?: string) {
         load: os.loadavg(), // 系统负载
       };
   }
+}
+/*
+ * dns 是域名服务器
+ * dns模块包括两类函数：
+ * 第一类： 使用底层操作系统工具进行域名解析，且无需进行网络通信，这类函数只有一个：dns.lookup();
+ * 第二类： 连接到一个真实的dns服务器进行域名解析，而且始终使用网络进行dns进行查询，这类函数包括了除dns.lookup()之外的所有函数
+ **/
+/**
+ * @function 获取指定域名id地址
+ * @param id
+ */
+export function getDomainId(id: string) {
+  return new Promise((resolve, reject) => {
+    dns.lookup(id, (err: any, address: any, family: any) => {
+      if (err) {
+        resolve({
+          ip: '查询异常',
+          agreement: '查询异常',
+        });
+      } else {
+        resolve({
+          ip: address,
+          agreement: `IPv${family}`,
+        });
+      }
+    });
+  });
 }

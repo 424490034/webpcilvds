@@ -20,7 +20,6 @@ export function getBatchRunsOrders() {
   let data: any = store.get('batchRunsOrders') || [];
   const projectData: any = getProjectData();
   // 进行项目数据比对
-  console.log(data, projectData);
   let newList = data.map((item: any) => {
     if (Array.isArray(item.batchData) && item.batchData.length > 0) {
       item.batchData = item.batchData.map((batchs: any) => {

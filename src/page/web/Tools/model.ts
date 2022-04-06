@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import {Model} from 'xl-study-com'
 import pageConfig from './config/pageConfig';
+import ToolFormFields from './config/ToolsFormFields';
 const {namespace,listenRouter,} = pageConfig
 const initState = {
+  ToolFormFields
 }
 
 export default Model.extend({

@@ -8,6 +8,7 @@ import ProjectCard from './ProjectCard/BasicsCard';
 import ProjectCustomCard from './ProjectCard/CustomCard';
 import OrderCard from './ProjectCard/orderCard';
 import EmptyCard from './EmptyCard';
+import CustomColors from './CustomColors';
 import ProjectCustomOrderCard from './ProjectCard/customOrderCard';
 export {
   BodyBgc,
@@ -21,4 +22,5 @@ export {
   ProjectCustomCard,
   ProjectCustomOrderCard,
   EmptyCard,
+  CustomColors,
 };

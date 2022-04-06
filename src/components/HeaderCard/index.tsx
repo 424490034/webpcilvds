@@ -7,12 +7,13 @@ import { LogoutOutlined } from '@ant-design/icons';
 import router from 'utils/History';
 interface IProps {
   title: string; // 标头
+  id?: string; // id跳转
   [name: string]: any;
 }
 export default function index(props: IProps) {
-  const { children, title } = props;
+  const { children, title, id } = props;
   return (
-    <div className={styles.header_card_div}>
+    <div className={styles.header_card_div} id={id}>
       <div className={styles.header_title_div}>
         <div className={styles.header_text_div}>
           <div className={styles.content_div}>{title}</div>

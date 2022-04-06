@@ -1,28 +1,83 @@
 /**
  * @file web-pc页面
  */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { connect } from 'dva';
 import pageConfig from './config/pageConfig';
 import { FloatCard, HeaderCard } from 'components';
 import styles from './index.module.scss';
+import { debounce } from 'lodash';
+import DomainCom from './components/DomainCom';
+import MimesisCom from './components/mimesisCom/index';
 const { namespace, pageName } = pageConfig;
 function index(props: any) {
-  let floatProps = useMemo(() => {
-    return {
-      isVisualShow: false,
-      aniOutCss: 'animate__fadeInUpBig',
-      style: {
-        width: '100%',
-        height: '100%',
-        margin: 0,
-      },
+  const {
+    location: { search },
+    actions,
+  } = props;
+
+  const bodyRef: any = useRef();
+  // 进行数据同步
+  const [scrollTop, setScrollTop] = useState(0);
+  const [parentClient, setParentClient] = useState(721);
+  useEffect(() => {
+    registerScroll();
+    return () => {
+      registerScroll(true);
     };
   }, []);
+  let func = debounce(handerScroll, 200);
+  function registerScroll(isDestory: boolean = false) {
+    if (isDestory) {
+      if (bodyRef.current) {
+        const { current } = bodyRef;
+        current.removeEventListener('scroll', func);
+      }
+    }
+    if (bodyRef.current) {
+      const { current } = bodyRef;
+      const { clientHeight } = current;
+      setParentClient(clientHeight);
+      current.removeEventListener('scroll', func);
+      current.addEventListener('scroll', func);
+    }
+  }
+  function handerScroll() {
+    const { current } = bodyRef;
+    const { scrollTop } = current;
+    setScrollTop(scrollTop);
+  }
+  let floatProps = useMemo(() => {
+    return {
+      scrollTop,
+      parentClient,
+      isVisualShow: true,
+      style: {
+        marginBottom: 12,
+      },
+    };
+  }, [scrollTop, parentClient]);
+  let dataComProps = useMemo(() => {
+    return {
+      models: props[namespace],
+      actions,
+    };
+  }, [props[namespace]]);
+  console.log(MimesisCom);
   return (
-    <div className={styles.show_card}>
+    <div className={styles.show_card} ref={bodyRef}>
       <FloatCard {...floatProps}>
-        <HeaderCard title={pageName}></HeaderCard>
+        <HeaderCard title="颜色转换"></HeaderCard>
+      </FloatCard>
+      <FloatCard {...floatProps}>
+        <HeaderCard title="拟态按钮设计">
+          <MimesisCom {...dataComProps} />
+        </HeaderCard>
+      </FloatCard>
+      <FloatCard {...floatProps}>
+        <HeaderCard title="域名IP获取">
+          <DomainCom {...dataComProps} />
+        </HeaderCard>
       </FloatCard>
     </div>
   );
