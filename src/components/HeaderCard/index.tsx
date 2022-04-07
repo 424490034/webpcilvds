@@ -22,8 +22,15 @@ export default function index(props: IProps) {
           <LogoutOutlined onClick={router.goBack} />
         </div>
       </div>
-      <div className={styles.bgc_div}>
-        <div className={styles.header_body_div}>{children}</div>
+      <div
+        className={styles.bgc_div}
+        style={{
+          maxHeight: 'calc(100% - 45px)',
+        }}
+      >
+        <div className={styles.header_body_div}>
+          {children && React.cloneElement(children, { show: `${props.show}` })}
+        </div>
       </div>
     </div>
   );

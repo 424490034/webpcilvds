@@ -50,53 +50,55 @@ function index(props: any) {
     <div className={styles.show_card}>
       <FloatCard {...floatProps}>
         <HeaderCard title={pageName}>
-          <div
-            className={styles.body_div}
-            style={{
-              height: showOptions ? 400 : '100%',
-            }}
-          >
-            {Array.isArray(projetData) && projetData.length > 0 ? (
-              projetData.map((item: any, index: number) => {
-                if (item.type === '5') {
+          <>
+            <div
+              className={styles.body_div}
+              style={{
+                height: showOptions ? 400 : '100%',
+              }}
+            >
+              {Array.isArray(projetData) && projetData.length > 0 ? (
+                projetData.map((item: any, index: number) => {
+                  if (item.type === '5') {
+                    return (
+                      <ProjectCustomCard
+                        key={index}
+                        item={item}
+                        type={item.type}
+                        actions={actions}
+                        showOptions={showOptions}
+                        setOptionsData={asyncData}
+                        optionsData={optionsData}
+                      />
+                    );
+                  }
                   return (
-                    <ProjectCustomCard
+                    <ProjectCard
                       key={index}
                       item={item}
-                      type={item.type}
-                      actions={actions}
+                      type="1"
+                      asyncData={asyncData}
                       showOptions={showOptions}
-                      setOptionsData={asyncData}
                       optionsData={optionsData}
+                      setOptionsData={asyncData}
+                      actions={actions}
                     />
                   );
-                }
-                return (
-                  <ProjectCard
-                    key={index}
-                    item={item}
-                    type="1"
-                    asyncData={asyncData}
-                    showOptions={showOptions}
-                    optionsData={optionsData}
-                    setOptionsData={asyncData}
-                    actions={actions}
-                  />
-                );
-              })
-            ) : (
-              <EmptyCard title="请先添加项目" />
-            )}
-          </div>
-          {showOptions && (
-            <BodyBgc width={'90%'}>
-              {optionsData.type === '5' ? (
-                <ProjectCustomOrderCard data={optionsData} />
+                })
               ) : (
-                <OrderCard data={optionsData} />
+                <EmptyCard title="请先添加项目" />
               )}
-            </BodyBgc>
-          )}
+            </div>
+            {showOptions && (
+              <BodyBgc width={'90%'}>
+                {optionsData.type === '5' ? (
+                  <ProjectCustomOrderCard data={optionsData} />
+                ) : (
+                  <OrderCard data={optionsData} />
+                )}
+              </BodyBgc>
+            )}
+          </>
         </HeaderCard>
       </FloatCard>
     </div>

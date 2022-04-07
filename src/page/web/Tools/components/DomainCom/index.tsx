@@ -10,13 +10,18 @@ import styles from '../index.module.scss';
 interface IProps {
   models: any;
   actions: any;
+  show?: any;
 }
 export default function index(props: IProps) {
   const {
     models: { ToolFormFields },
+    show,
   } = props;
+  if (show !== 'true') {
+    return <></>;
+  }
+  console.log(props);
   const [result, setResult] = useState<any>({});
-  console.log(result);
   // 筛选组件参数
   const filterProps = {
     queryCondition: ToolFormFields['domainForm'],

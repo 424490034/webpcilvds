@@ -47,36 +47,38 @@ function index(props: any) {
     <div className={styles.show_card}>
       <FloatCard {...floatProps}>
         <HeaderCard title={pageName}>
-          <div
-            className={styles.body_div}
-            style={{
-              height: showOptions ? 400 : '100%',
-            }}
-          >
-            {Array.isArray(projetData) && projetData.length > 0 ? (
-              projetData.map((item: any, index: number) => {
-                return (
-                  <ProjectCard
-                    key={index}
-                    item={item}
-                    type="1"
-                    asyncData={asyncData}
-                    showOptions={showOptions}
-                    optionsData={optionsData}
-                    setOptionsData={asyncData}
-                    actions={actions}
-                  />
-                );
-              })
-            ) : (
-              <EmptyCard title="请先添加项目" />
+          <>
+            <div
+              className={styles.body_div}
+              style={{
+                height: showOptions ? 400 : '100%',
+              }}
+            >
+              {Array.isArray(projetData) && projetData.length > 0 ? (
+                projetData.map((item: any, index: number) => {
+                  return (
+                    <ProjectCard
+                      key={index}
+                      item={item}
+                      type="1"
+                      asyncData={asyncData}
+                      showOptions={showOptions}
+                      optionsData={optionsData}
+                      setOptionsData={asyncData}
+                      actions={actions}
+                    />
+                  );
+                })
+              ) : (
+                <EmptyCard title="请先添加项目" />
+              )}
+            </div>
+            {showOptions && (
+              <BodyBgc width={'90%'}>
+                <OrderCard data={optionsData} />
+              </BodyBgc>
             )}
-          </div>
-          {showOptions && (
-            <BodyBgc width={'90%'}>
-              <OrderCard data={optionsData} />
-            </BodyBgc>
-          )}
+          </>
         </HeaderCard>
       </FloatCard>
     </div>

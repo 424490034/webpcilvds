@@ -2,9 +2,11 @@ import _ from 'lodash';
 import {Model} from 'xl-study-com'
 import pageConfig from './config/pageConfig';
 import ToolFormFields from './config/ToolsFormFields';
+import { cursorList } from './config/cursorConfig';
 const {namespace,listenRouter,} = pageConfig
 const initState = {
-  ToolFormFields
+  ToolFormFields,
+  cursorList,
 }
 
 export default Model.extend({

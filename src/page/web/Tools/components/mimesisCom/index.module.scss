@@ -113,7 +113,7 @@
 
 .mimesis_div {
     width: 100%;
-    height: 400px;
+    height: 550px;
     padding: 24px;
 }
 
@@ -128,7 +128,6 @@
         border-radius: 30px;
         width: 100%;
         height: 100%;
-        background: #ffffff;
         box-shadow: 20px 20px 60px #d0d0d0, -20px -20px 60px #ffffff;
         .input_div {
             height: 40px;
@@ -139,6 +138,7 @@
                 user-select: none;
                 font-weight: 700;
                 color: #001f3f;
+                min-width: 50px;
                 &::after {
                     content: ":";
                     position: relative;
@@ -154,6 +154,19 @@
                 position: relative;
                 display: flex;
                 align-items: center;
+                .copy_icon_div {
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    width: 20px;
+                    height: 20px;
+                    font-size: 20px;
+                    z-index: 1000;
+                    cursor: pointer;
+                }
+                pre {
+                    max-width: 363px;
+                }
                 .color_span {
                     margin: 0 12px;
                 }
@@ -188,6 +201,10 @@
                     }
                     .selete_card {
                         opacity: 1;
+                        svg {
+                            stroke: #ffffff;
+                            width: 45px;
+                        }
                     }
                 }
             }

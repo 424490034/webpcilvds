@@ -7,9 +7,10 @@ import classNames from 'classnames';
 interface IProps {
   select: string;
   setSelect: any;
+  codeObj: any;
 }
 export default function LeftCard(props: IProps) {
-  const { select, setSelect } = props;
+  const { select, setSelect, codeObj } = props;
   return (
     <div className={styles.left_preview_div}>
       <div
@@ -48,7 +49,7 @@ export default function LeftCard(props: IProps) {
           setSelect('rightBottom');
         }}
       ></div>
-      <div className={styles.prereview_div}></div>
+      <div className={styles.prereview_div} style={codeObj}></div>
     </div>
   );
 }

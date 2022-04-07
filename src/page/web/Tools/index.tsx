@@ -1,5 +1,5 @@
 /**
- * @file web-pc页面
+ * @file web-工具库
  */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { connect } from 'dva';
@@ -8,6 +8,7 @@ import { FloatCard, HeaderCard } from 'components';
 import styles from './index.module.scss';
 import { debounce } from 'lodash';
 import DomainCom from './components/DomainCom';
+import CursorCom from './components/CursorCom';
 import MimesisCom from './components/mimesisCom/index';
 const { namespace, pageName } = pageConfig;
 function index(props: any) {
@@ -43,7 +44,7 @@ function index(props: any) {
     }
   }
   function handerScroll() {
-    const { current } = bodyRef;
+    const { current = {} } = bodyRef;
     const { scrollTop } = current;
     setScrollTop(scrollTop);
   }
@@ -52,9 +53,6 @@ function index(props: any) {
       scrollTop,
       parentClient,
       isVisualShow: true,
-      style: {
-        marginBottom: 12,
-      },
     };
   }, [scrollTop, parentClient]);
   let dataComProps = useMemo(() => {
@@ -63,18 +61,46 @@ function index(props: any) {
       actions,
     };
   }, [props[namespace]]);
-  console.log(MimesisCom);
   return (
     <div className={styles.show_card} ref={bodyRef}>
-      <FloatCard {...floatProps}>
+      <FloatCard
+        {...floatProps}
+        style={{
+          height: 300,
+          marginBottom: 12,
+        }}
+      >
         <HeaderCard title="颜色转换"></HeaderCard>
       </FloatCard>
-      <FloatCard {...floatProps}>
+      <FloatCard
+        {...floatProps}
+        style={{
+          height: 300,
+          marginBottom: 12,
+        }}
+      >
+        <HeaderCard title="鼠标指针样式">
+          <CursorCom {...dataComProps} />
+        </HeaderCard>
+      </FloatCard>
+      <FloatCard
+        {...floatProps}
+        style={{
+          height: 620,
+          marginBottom: 12,
+        }}
+      >
         <HeaderCard title="拟态按钮设计">
           <MimesisCom {...dataComProps} />
         </HeaderCard>
       </FloatCard>
-      <FloatCard {...floatProps}>
+      <FloatCard
+        {...floatProps}
+        style={{
+          height: 169,
+          marginBottom: 12,
+        }}
+      >
         <HeaderCard title="域名IP获取">
           <DomainCom {...dataComProps} />
         </HeaderCard>
