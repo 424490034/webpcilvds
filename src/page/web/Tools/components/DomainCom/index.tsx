@@ -20,7 +20,6 @@ export default function index(props: IProps) {
   if (show !== 'true') {
     return <></>;
   }
-  console.log(props);
   const [result, setResult] = useState<any>({});
   // 筛选组件参数
   const filterProps = {

@@ -19,7 +19,6 @@ export default function index(props: IProps) {
   if (show !== 'true') {
     return <></>;
   }
-  console.log(cursorList);
   return (
     <div className={styles.cursor_div}>
       {Array.isArray(cursorList) && cursorList.length > 0 ? (

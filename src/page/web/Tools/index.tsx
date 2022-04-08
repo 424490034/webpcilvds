@@ -9,6 +9,8 @@ import styles from './index.module.scss';
 import { debounce } from 'lodash';
 import DomainCom from './components/DomainCom';
 import CursorCom from './components/CursorCom';
+import KeyBoardCom from './components/keyBoardCom';
+import ColorCom from './components/ColorCom';
 import MimesisCom from './components/mimesisCom/index';
 const { namespace, pageName } = pageConfig;
 function index(props: any) {
@@ -70,8 +72,11 @@ function index(props: any) {
           marginBottom: 12,
         }}
       >
-        <HeaderCard title="颜色转换"></HeaderCard>
+        <HeaderCard title="颜色转换">
+          <ColorCom {...dataComProps} />
+        </HeaderCard>
       </FloatCard>
+
       <FloatCard
         {...floatProps}
         style={{
@@ -81,6 +86,17 @@ function index(props: any) {
       >
         <HeaderCard title="鼠标指针样式">
           <CursorCom {...dataComProps} />
+        </HeaderCard>
+      </FloatCard>
+      <FloatCard
+        {...floatProps}
+        style={{
+          height: 350,
+          marginBottom: 12,
+        }}
+      >
+        <HeaderCard title="键盘code获取">
+          <KeyBoardCom {...dataComProps} />
         </HeaderCard>
       </FloatCard>
       <FloatCard

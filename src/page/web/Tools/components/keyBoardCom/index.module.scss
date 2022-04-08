@@ -1,0 +1,68 @@
+.key_board_div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    .left_key_div {
+        width: 50%;
+        height: 100%;
+        border-right: 1px dashed #cccccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 128px;
+        color: var(--text-theme);
+        font-weight: bold;
+    }
+    .right_key_div {
+        width: 50%;
+        padding-left: 12px;
+        .title_right_div {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            color: var(--text-theme);
+            font-weight: bold;
+            &::after {
+                content: ":";
+                position: relative;
+                top: -0.5px;
+                margin: 0 8px 0 2px;
+            }
+        }
+    }
+    .card_body_div {
+        width: 100%;
+        // display: flex;
+        overflow: auto;
+        // flex-wrap: wrap;
+        .card_key_div {
+            display: inline-block;
+            padding-top: 5px;
+            width: 120px;
+            height: 70px;
+            text-align: center;
+            cursor: pointer;
+            color: #cccccc;
+            border: 2px solid #cccccc;
+            transition: all .5s;
+            margin: 0 5px 5px 0;
+            .card_key_title_div {
+                width: 100%;
+                height: 30px;
+                line-height: 30px;
+                font-size: 30px;
+                font-weight: bold;
+            }
+            .card_key_name_div {
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            &:hover {
+                border: 2px solid #2e2e2e;
+                color: var(--text-theme);
+            }
+        }
+    }
+}

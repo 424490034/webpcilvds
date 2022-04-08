@@ -71,7 +71,20 @@
             height: 100%;
             padding: 12px;
             // background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=") #28282d;
-            background: url("../../assets/bg.svg") no-repeat 100% 100%;
+            position: relative;
+            z-index: 10;
+            .bgc_img_div {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                z-index: -3;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
         }
     }
 }

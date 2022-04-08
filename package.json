@@ -18,7 +18,8 @@
         "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
         "start:renderer": "cross-env NODE_ENV=development webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
         "test": "jest",
-        "ver": "cd src && npm version prerelease"
+        "ver": "cd src && npm version prerelease",
+        "add": "yarn add xl-study-com -D"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
@@ -268,7 +269,7 @@
         "webpack-cli": "^4.2.0",
         "webpack-dev-server": "^3.11.0",
         "webpack-merge": "^5.4.0",
-        "xl-study-com": "^0.2.1-7",
+        "xl-study-com": "^0.2.1-8",
         "yarn-deduplicate": "^3.1.0"
     },
     "dependencies": {

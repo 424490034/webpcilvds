@@ -5,6 +5,7 @@ import React from 'react';
 import styles from './index.module.scss';
 import { LogoutOutlined } from '@ant-design/icons';
 import router from 'utils/History';
+import bgcSvg from 'assets/bg.svg';
 interface IProps {
   title: string; // 标头
   id?: string; // id跳转
@@ -30,6 +31,9 @@ export default function index(props: IProps) {
       >
         <div className={styles.header_body_div}>
           {children && React.cloneElement(children, { show: `${props.show}` })}
+          <div className={styles.bgc_img_div}>
+            <img src={bgcSvg} />
+          </div>
         </div>
       </div>
     </div>
