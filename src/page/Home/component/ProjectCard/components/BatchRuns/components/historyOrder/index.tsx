@@ -108,29 +108,32 @@ export default function index(props: IProps) {
           value={searchValue}
         />
       </div>
-      {searchList.length > 0 ? (
-        <Space>
-          {searchList.map((item: any, index: number) => {
-            return (
-              <Tag
-                key={index}
-                color={runData && runData.id === item.id ? '#87d068' : color}
-                icon={icon}
-                onClick={() => {
-                  tagClick(item.id, item);
-                }}
-                style={{
-                  cursor: cursor,
-                }}
-              >
-                {item.name}
-              </Tag>
-            );
-          })}
-        </Space>
-      ) : (
-        <EmptyCard title="暂无匹配项" />
-      )}
+      <div className={styles.history_over_div}>
+        {searchList.length > 0 ? (
+          <>
+            {searchList.map((item: any, index: number) => {
+              return (
+                <Tag
+                  key={index}
+                  color={runData && runData.id === item.id ? '#87d068' : color}
+                  icon={icon}
+                  onClick={() => {
+                    tagClick(item.id, item);
+                  }}
+                  style={{
+                    cursor: cursor,
+                    margin: '0 8px 8px 0',
+                  }}
+                >
+                  {item.name}
+                </Tag>
+              );
+            })}
+          </>
+        ) : (
+          <EmptyCard title="暂无匹配项" />
+        )}
+      </div>
     </div>
   );
 }
