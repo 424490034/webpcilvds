@@ -28,7 +28,6 @@ interface IProps {
   };
 }
 let strData: any = [];
-let projectRunKey: any = undefined;
 export default function index(props: IProps) {
   const { ColConfig = {}, height, terData = {}, actions, childOptions } = props;
   const { projectData = {}, customData = {} } = terData;
@@ -36,6 +35,7 @@ export default function index(props: IProps) {
   const outRef: any = useRef();
   const projectRef: any = useRef();
   const outHeaderRef: any = useRef();
+  const [projectRunKey, setProjectRunKey] = useState<any>();
   useEffect(() => {
     if (childOptions.registerChildWin) {
       childOptions.registerChildWin(terData.id, asynStopOrder);
@@ -144,13 +144,14 @@ export default function index(props: IProps) {
       if (customData[key]) {
         runOrderCustom(key, terData, true, runCustomOrder, addStr)
           .then((data: any) => {
-            projectRunKey = key;
+            window[terData.id] = key;
             runInitOrder(order, isNoPrint);
           })
           .catch((error: any) => {
+            console.log('错误执行');
             addStr(`自定义指令执行异常`);
             message.error(`自定义指令,执行异常:error`);
-            projectRunKey = undefined;
+            window[terData.id] = undefined;
             runInitOrder(order, isNoPrint);
           });
       }
@@ -315,15 +316,15 @@ export default function index(props: IProps) {
           if (terData.type !== '5') {
             projectRef?.current?.clearKey();
           }
-          if (projectRunKey && customData[projectRunKey]) {
+          if (window[terData.id] && customData[window[terData.id]]) {
             runOrderCustom(
-              projectRunKey,
+              window[terData.id],
               terData,
               false,
               runCustomOrder,
               addStr
             );
-            projectRunKey = undefined;
+            window[terData.id] = undefined;
           }
         } else {
           globalMessage(
