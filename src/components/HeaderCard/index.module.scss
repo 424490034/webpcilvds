@@ -42,11 +42,12 @@
             }
         }
         .back_div {
-            width: 50px;
+            padding-right: 10px;
+            width: 200px;
             height: 45px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
             // background-color: #83c1ff;

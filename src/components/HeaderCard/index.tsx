@@ -9,10 +9,11 @@ import bgcSvg from 'assets/bg.svg';
 interface IProps {
   title: string; // 标头
   id?: string; // id跳转
+  customCom?: any; // 右侧自定义组件
   [name: string]: any;
 }
 export default function index(props: IProps) {
-  const { children, title, id } = props;
+  const { children, title, id, customCom } = props;
   return (
     <div className={styles.header_card_div} id={id}>
       <div className={styles.header_title_div}>
@@ -20,6 +21,15 @@ export default function index(props: IProps) {
           <div className={styles.content_div}>{title}</div>
         </div>
         <div className={styles.back_div} title="返回上一页">
+          {customCom && (
+            <div
+              style={{
+                marginRight: 8,
+              }}
+            >
+              {customCom}
+            </div>
+          )}
           <LogoutOutlined onClick={router.goBack} />
         </div>
       </div>

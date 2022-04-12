@@ -17,6 +17,7 @@ import {
 import styles from './index.module.scss';
 import { isEmpty } from 'lodash';
 import classNames from 'classnames';
+import { Input } from 'antd';
 const { namespace, pageName } = pageConfig;
 function index(props: any) {
   const {
@@ -25,6 +26,8 @@ function index(props: any) {
   } = props;
   const [showOptions, setShowOptions] = useState<boolean>(false);
   const [optionsData, setOptionsData] = useState<any>({});
+  const [searchValue, setSearchValue] = useState();
+  const [searchList, setSearchList] = useState(projetData);
   function asyncData(data: any) {
     if (!isEmpty(data)) {
       setOptionsData(data);
@@ -45,11 +48,34 @@ function index(props: any) {
       },
     };
   }, []);
-  console.log(projetData);
+  function searchChange(e: any) {
+    const value = e.target.value;
+    if (!value) {
+      setSearchValue(value);
+      setSearchList(projetData);
+    }
+    let list = projetData.filter((item: any) => {
+      if (item.name) {
+        return item.name.indexOf(value) !== -1;
+      } else {
+        return item?.projectData?.name?.indexOf(value) !== -1;
+      }
+    });
+    setSearchValue(value);
+    setSearchList(list);
+  }
+  const customCom = (
+    <Input
+      // 参数
+      onChange={searchChange}
+      value={searchValue}
+      placeholder="输入进行筛选"
+    />
+  );
   return (
     <div className={styles.show_card}>
       <FloatCard {...floatProps}>
-        <HeaderCard title={pageName}>
+        <HeaderCard title={pageName} customCom={customCom}>
           <>
             <div
               className={styles.body_div}
@@ -57,8 +83,8 @@ function index(props: any) {
                 height: showOptions ? 400 : '100%',
               }}
             >
-              {Array.isArray(projetData) && projetData.length > 0 ? (
-                projetData.map((item: any, index: number) => {
+              {Array.isArray(searchList) && searchList.length > 0 ? (
+                searchList.map((item: any, index: number) => {
                   if (item.type === '5') {
                     return (
                       <ProjectCustomCard
