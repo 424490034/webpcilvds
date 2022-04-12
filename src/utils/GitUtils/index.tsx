@@ -39,6 +39,9 @@ export async function getPackage(projectPath: string) {
  * @returns 当前项目全部分支数据
  */
 export function getGitBranch(projectPath: string, callback: any) {
+  if (!projectPath) {
+    return;
+  }
   executeOrder(
     `git分支获取`,
     'git branch -a',

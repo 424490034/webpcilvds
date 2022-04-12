@@ -76,8 +76,8 @@ export const openFileDialog = (path: string): Promise<string> =>
  * @param path
  * @returns
  */
-export const openSeleteFile = (path: string): Promise<string> =>
-  ipcRendererInvoke<string>('openSeleteFile', path);
+export const openSeleteFile = (path: string,options:any): Promise<string> =>
+  ipcRendererInvoke<string>('openSeleteFile', path, options);
 
 /**
  * 暂停或恢复下载

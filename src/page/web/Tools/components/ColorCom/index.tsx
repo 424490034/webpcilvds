@@ -43,9 +43,7 @@ export default function index(props: IProps) {
     form2
       .validateFields()
       .then((values: any) => {
-        console.log(values);
         let data = hexToRgb(values.r);
-        console.log(data);
         setResult(`rgb(${data.r},${data.g},${data.b})`);
       })
       .catch(() => {});

@@ -3,6 +3,7 @@ import ScrollView from './ScrollView';
 import ScrollViewCss from './ScrollViewCss';
 import HeaderCard from './HeaderCard';
 import SeletePath from './SeletePath';
+import FilePath from './FilePath';
 import BodyBgc from './BodyBgc';
 import ProjectCard from './ProjectCard/BasicsCard';
 import ProjectCustomCard from './ProjectCard/CustomCard';
@@ -23,4 +24,5 @@ export {
   ProjectCustomOrderCard,
   EmptyCard,
   CustomColors,
+  FilePath,
 };

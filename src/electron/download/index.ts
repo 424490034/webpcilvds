@@ -196,10 +196,10 @@ const openFileDialog = async (oldPath: string = app.getPath('downloads')) => {
  * @param oldPath  - 上一次打开的路径
  * @returns
  */
-const openSeleteFile = async (oldPath: string = app.getPath('downloads')) => {
+const openSeleteFile = async (oldPath: string = app.getPath('downloads'),options:any={}) => {
   if (!win) return oldPath;
-
   const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+    ...options,
     title: '选择保存位置',
     properties: ['openFile'],
     defaultPath: oldPath,
@@ -340,8 +340,8 @@ const listenerEvent = (mainWindow) => {
     openFileDialog(oldPath)
   );
   // 选择操作文件对话框
-  ipcMainHandle('openSeleteFile', (event, oldPath?: string) =>
-    openSeleteFile(oldPath)
+  ipcMainHandle('openSeleteFile', (event, oldPath?: string,options?:any) =>
+    openSeleteFile(oldPath,options)
   );
   // 打开文件
   ipcMainHandle('openFile', (event, path: string) => openFile(path));

@@ -12,6 +12,7 @@ import CursorCom from './components/CursorCom';
 import KeyBoardCom from './components/keyBoardCom';
 import ColorCom from './components/ColorCom';
 import MimesisCom from './components/mimesisCom/index';
+// import ImgCompress from './components/ImgCompress';
 const { namespace, pageName } = pageConfig;
 function index(props: any) {
   const {
@@ -65,6 +66,18 @@ function index(props: any) {
   }, [props[namespace]]);
   return (
     <div className={styles.show_card} ref={bodyRef}>
+      {/* <FloatCard
+        {...floatProps}
+        style={{
+          height: 350,
+          marginBottom: 12,
+        }}
+      >
+        <HeaderCard title="图片压缩">
+          <ImgCompress {...dataComProps} />
+        </HeaderCard>
+      </FloatCard> */}
+      {/* 颜色转换 */}
       <FloatCard
         {...floatProps}
         style={{
@@ -76,7 +89,7 @@ function index(props: any) {
           <ColorCom {...dataComProps} />
         </HeaderCard>
       </FloatCard>
-
+      {/* 鼠标指针样式 */}
       <FloatCard
         {...floatProps}
         style={{
@@ -88,6 +101,7 @@ function index(props: any) {
           <CursorCom {...dataComProps} />
         </HeaderCard>
       </FloatCard>
+      {/* 键盘code获取 */}
       <FloatCard
         {...floatProps}
         style={{
@@ -99,6 +113,7 @@ function index(props: any) {
           <KeyBoardCom {...dataComProps} />
         </HeaderCard>
       </FloatCard>
+      {/* 拟态按钮设计 */}
       <FloatCard
         {...floatProps}
         style={{
@@ -110,6 +125,7 @@ function index(props: any) {
           <MimesisCom {...dataComProps} />
         </HeaderCard>
       </FloatCard>
+      {/* 域名IP获取 */}
       <FloatCard
         {...floatProps}
         style={{
