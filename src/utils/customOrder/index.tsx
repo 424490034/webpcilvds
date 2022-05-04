@@ -42,6 +42,8 @@ export default async function runCustomOrder(
         reject('未找到对应操作函数');
       }
     } else {
+      console.log('/??');
+
       resolve({});
     }
   });
