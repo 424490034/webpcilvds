@@ -1,7 +1,7 @@
 /**
  * @file web-其他页面
  */
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { connect } from 'dva';
 import pageConfig from './config/pageConfig';
 import {
@@ -28,6 +28,10 @@ function index(props: any) {
   const [optionsData, setOptionsData] = useState<any>({});
   const [searchValue, setSearchValue] = useState();
   const [searchList, setSearchList] = useState(projetData);
+  useEffect(() => {
+    setSearchValue(undefined);
+    setSearchList(projetData);
+  }, [projetData]);
   function asyncData(data: any) {
     if (!isEmpty(data)) {
       setOptionsData(data);

@@ -154,6 +154,9 @@ export default function index(props: IProps) {
             window[terData.id] = undefined;
             runInitOrder(order, isNoPrint);
           });
+      } else {
+        // 不存在额外逻辑 直接进行调用
+        runInitOrder(order, isNoPrint);
       }
     } else {
       executeOrder(

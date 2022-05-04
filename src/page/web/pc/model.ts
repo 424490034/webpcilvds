@@ -26,7 +26,6 @@ export default Model.extend({
   effects: {
     * fetchProjectDetail({ payload }: any, { update, call, put, select }: any): any {
       const data:any = getProjectData() || [];
-      
         if (data) {
             yield update({
             projetData: data.filter((item:any) =>(item.projectData&&item.projectData.type === '1')),
