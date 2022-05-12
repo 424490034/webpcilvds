@@ -1,7 +1,15 @@
-基于
+# 前端可视化管理软件
 
-[web-pci-lvds]: https://github.com/fantasticit/web-pci-lvds
+## 主要功能
 
-在封装
+​	可视化管理前端项目和鼠标点击即可进行项目启动和部分软件启动
 
-内部完成窗口通信和多窗口创建
+​	软件详情文档请查看[文档网页](https://visual.996day.com/ )
+
+## 浏览器插件
+
+​	插件[源码地址](https://github.com/424490034/pci-chrome)
+
+## 下载地址
+
+​	开发中~
