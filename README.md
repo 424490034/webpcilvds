@@ -12,4 +12,4 @@
 
 ## 下载地址
 
-​	开发中~
+​	[下载地址](https://basics.996day.com/webPciDownload)
